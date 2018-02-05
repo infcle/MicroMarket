@@ -15,5 +15,7 @@
 	if (!($categorias = $con->query("SELECT * FROM categoria"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
-	
+	//var_dump($usuarios->fetch_assoc());
+	$pie_class="si";//Variable donde se poneun pie de pagina estatico	
+	require_once ('../../../public/views/plantilla.php');
 ?>

@@ -23,5 +23,9 @@
 <!--dynamic table initialization -->
 <!-- <script src="<?php echo ROOT; ?>resources/assets/js/dynamic_table_init.js"></script> -->
 
+<script src="<?php echo ROOT; ?>resources/assets/js/jquery.blockUI.js"></script>
+<script src="<?php echo ROOT; ?>resources/assets/js/toastr.min.js"></script>
+
 <!--common scripts for all pages-->
 <script src="<?php echo ROOT; ?>resources/assets/js/scripts.js"></script>
+<script src="<?php echo ROOT; ?>resources/assets/js/funciones.js"></script>

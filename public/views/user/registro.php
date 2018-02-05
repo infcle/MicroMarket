@@ -34,7 +34,6 @@
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button class="btn btn-primary" type="submit">Registrar</button>
-                                <button class="btn btn-default" type="button">Cancelar</button>
                             </div>
                         </div>
                     </form>
@@ -89,12 +88,15 @@
                     type: 'post',
                     data: $("#frmUsuario").serialize(),
                     beforeSend: function() {
+                        transicion("Procesando Espere....");
                     },
                     success: function(response) {
                         if(response==1){
+                            transicionSalir();
+                            mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
                             window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
                         }else{
-                            alert("Error al registrar");
+                            $.unblockUI();
                         }
                     }
                 });

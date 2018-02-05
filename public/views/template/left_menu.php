@@ -37,10 +37,10 @@
             </li>
             <li class=""><a href="<?php echo ROOT_CONTROLLER; ?>ventas/"><i class="fa fa-shopping-cart"></i> <span>Ventas</span></a>
             </li>
-            <li class="menu-list"><a href="#"><i class="fa fa-bookmark"></i> <span>Categoria</span></a>
+            <li class="menu-list"><a href="#"><i class="fa fa-bookmark"></i> <span>Seccion</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>categoria/"> Lista de categorias</a></li>
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>categoria/registro.php"> Registro de categoria</a></li>
+                    <li><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Lista de categorias</a></li>
+                    <li><a href="<?php echo ROOT_CONTROLLER; ?>seccion/registro.php"> Registro de seccion</a></li>
                 </ul>
             </li>
             <li class="menu-list"><a href="#"><i class="fa fa-book"></i> <span>Productos</span></a>

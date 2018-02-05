@@ -10,13 +10,13 @@
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">Nombre completo (obligatorio)</label>
                             <div class="col-lg-8">
-                                <input class=" form-control" id="name" name="name" minlength="2" type="text" required />
+                                <input class=" form-control" id="name" name="name" minlength="7 " type="text" required />
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="user" class="control-label col-lg-2">nombre de usuario (Obligatorio)</label>
                             <div class="col-lg-8">
-                                <input class="form-control " id="user" type="text" name="user" required />
+                                <input class="form-control " id="user" type="text" name="user" required  minlength="3" />
                             </div>
                         </div>
                         <div class="form-group ">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="password_repeat" class="control-label col-lg-2">Repetir contraseña</label>
+                            <label for="password_repeat" class="control-label col-lg-2">Repita contraseña</label>
                             <div class="col-lg-8">
                                 <input class="form-control" type="password" id="password_repeat" name="password_repeat" required/>
                             </div>
@@ -47,6 +47,42 @@
     $(document).ready(function() {
         $("#frmUsuario").validate({
             debug:true,
+            rules:{
+                name:{
+                    required:true,
+                    minlength: 7,
+                },
+                user:{
+                    required:true,
+                    minlength: 3,
+                    remote: {
+                        url: "../../models/user/verifica.php",
+                        type: 'post',
+                        data: {
+                            user: function() {
+                                return $("#user").val();
+                            }
+                        }
+                    }
+                },
+                password:{
+                    required:true,
+                    minlength:6,
+                },
+                password_repeat:{
+                    required:true,
+                    minlength: 6,
+                    equalTo: "#password",
+                },
+            },
+            messages:{
+                user:{
+                    remote:"el nombre de usuario ya existe, seleccione otro."
+                },
+                password_repeat:{
+                    equalTo :"Las contraseñas no coinciden."
+                }
+            },
             submitHandler: function (form) {
                 $.ajax({
                     url: '../../models/user/registro_model.php',

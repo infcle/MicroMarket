@@ -94,9 +94,10 @@
                         if(response==1){
                             transicionSalir();
                             mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
-                            window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            setTimeout(function(){window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';}, 3000);
                         }else{
-                            $.unblockUI();
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR AL USUARIO verifique los datos!! '+response,'error','GUARDAR DATOS');
                         }
                     }
                 });

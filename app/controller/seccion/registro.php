@@ -10,6 +10,6 @@
 	$contenido="seccion/registro.php";
 	$sub_directory="";
 	$menu_a= array();
-	$pie_class="si";	
+	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

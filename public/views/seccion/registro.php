@@ -11,18 +11,12 @@
                             <label for="cname" class="control-label col-lg-2">Nombre de la Seccion (obligatorio)</label>
                             <div class="col-lg-6">
                                 <input class=" form-control" id="nombre" name="nombre" type="text"  />
-
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="user" class="control-label col-lg-2">Limite de Credito(Obligatorio)</label>
                             <div class="col-lg-6">
-<<<<<<< HEAD:public/views/categoria/registro.php
-                                <input class="form-control " id="limite" type="number" name="limite" /> 
-                               
-=======
-                                <input class="form-control " id="limite" type="text" name="limite" /> <br><br>
->>>>>>> 6253cdc2da4eef5bb6500f6d45dc305f81191686:public/views/seccion/registro.php
+                                <input class="form-control " id="limite" type="number" name="limite" />
                             </div>
                         </div>
                         <div class="form-group">

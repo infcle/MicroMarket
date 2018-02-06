@@ -2,21 +2,23 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Nueva categoria
+                Nueva seccion
             </header>
             <div class="panel-body">
                 <div class=" form">
                     <form class="cmxform form-horizontal adminex-form" id="frmCategoria" name="frmCategoria" method="post">
                         <div class="form-group ">
-                            <label for="cname" class="control-label col-lg-2">Nombre de categoria (obligatorio)</label>
-                            <div class="col-lg-8">
-                                <input class=" form-control" id="nombre" name="nombre" minlength="4" type="text" required />
+                            <label for="cname" class="control-label col-lg-2">Nombre de la Seccion (obligatorio)</label>
+                            <div class="col-lg-6">
+                                <input class=" form-control" id="nombre" name="nombre" type="text"  />
+
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="user" class="control-label col-lg-2">Limite (Obligatorio)</label>
-                            <div class="col-lg-8">
-                                <input class="form-control " id="limite" type="text" name="limite" required />
+                            <label for="user" class="control-label col-lg-2" data-mask="$ 999,999,999.99">Limite de Credito(Obligatorio)</label>
+                            <div class="col-lg-6">
+                                <input class="form-control " id="limite" type="number" name="limite" /> <br><br>
+                               
                             </div>
                         </div>
                         <div class="form-group">
@@ -34,22 +36,37 @@
     $(document).ready(function() {
         $("#frmCategoria").validate({
             debug:true,
-            submitHandler: function (form) {
-                $.ajax({
-                    url: '../../models/categoria/registro_model.php',
-                    type: 'post',
-                    data: $("#frmCategoria").serialize(),
-                    beforeSend: function() {
-                    },
-                    success: function(response) {
-                        if(response==1){
-                            window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
-                        }else{
-                            alert("Error al registrar");
-                        }
-                    }
-                });
-            }
+            rules:{
+                
+                nombre:{
+                    required:true,
+                    minlength: 3,
+                    maxlength:30,
+                },
+                
+                limite:{
+                    required:true,
+                    minlength: 1,
+                    maxlength:4,
+                },
+                
+            },
+             messages:{
+                nombre:{
+                    required:"Este es Campo Obligatorio.",
+
+
+                    
+                },
+                limite:{
+                    required:"Este es Campo Obligatorio."
+
+                    
+                },
+                
+            },
+           
+            
         });
     });
 </script>

@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Registro de usuario
+                Registro de usuariooo
             </header>
             <div class="panel-body">
                 <div class=" form">

@@ -37,36 +37,25 @@
         $("#frmCategoria").validate({
             debug:true,
             rules:{
-                
                 nombre:{
                     required:true,
                     minlength: 3,
                     maxlength:30,
                 },
-                
                 limite:{
                     required:true,
                     minlength: 1,
                     maxlength:4,
                 },
-                
             },
              messages:{
                 nombre:{
                     required:"Este es Campo Obligatorio.",
-
-
-                    
                 },
                 limite:{
                     required:"Este es Campo Obligatorio."
-
-                    
                 },
-                
             },
-           
-            
         });
     });
 </script>

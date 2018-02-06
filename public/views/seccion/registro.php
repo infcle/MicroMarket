@@ -15,10 +15,9 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="user" class="control-label col-lg-2" data-mask="$ 999,999,999.99">Limite de Credito(Obligatorio)</label>
+                            <label for="user" class="control-label col-lg-2">Limite de Credito(Obligatorio)</label>
                             <div class="col-lg-6">
-                                <input class="form-control " id="limite" type="number" name="limite" /> <br><br>
-                               
+                                <input class="form-control " id="limite" type="text" name="limite" /> <br><br>
                             </div>
                         </div>
                         <div class="form-group">

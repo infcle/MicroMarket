@@ -21,15 +21,15 @@ USE `marketbd`;
 DROP TABLE IF EXISTS `categoria`;
 
 CREATE TABLE `categoria` (
-  `id_cat` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `limite` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_cat`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `estado` tinyint(4) DEFAULT '1',
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
-
-insert  into `categoria`(`id_cat`,`nombre`,`limite`) values (1,'CARNES',0),(2,'FRUTAS',0),(3,'VERDURAS',0),(4,'TUBERCULOS',0);
 
 /*Table structure for table `cliente` */
 
@@ -40,6 +40,8 @@ CREATE TABLE `cliente` (
   `ci` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   `nombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -56,6 +58,8 @@ CREATE TABLE `compra_r` (
   `fecha` datetime NOT NULL,
   `id_cliente` bigint(20) NOT NULL,
   `id_usuario` bigint(20) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_compra`),
   KEY `FK_CLI_DET` (`id_cliente`),
   KEY `FK_USER_DET` (`id_usuario`),
@@ -64,6 +68,36 @@ CREATE TABLE `compra_r` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `compra_r` */
+
+/*Table structure for table `limite` */
+
+DROP TABLE IF EXISTS `limite`;
+
+CREATE TABLE `limite` (
+  `idlimite` int(11) NOT NULL,
+  `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`idlimite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `limite` */
+
+/*Table structure for table `pertenece` */
+
+DROP TABLE IF EXISTS `pertenece`;
+
+CREATE TABLE `pertenece` (
+  `cliente_id` bigint(20) NOT NULL,
+  `categoria_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`cliente_id`,`categoria_id`),
+  KEY `fk_categoria_idx` (`categoria_id`),
+  CONSTRAINT `fk_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`idcategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `pertenece` */
 
 /*Table structure for table `producto` */
 
@@ -77,14 +111,17 @@ CREATE TABLE `producto` (
   `precio` float DEFAULT NULL,
   `cod_barras` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
   `id_cat` bigint(11) NOT NULL,
+  `id_limite` bigint(11) NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_prod`),
   KEY `id_cat` (`id_cat`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categoria` (`id_cat`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `seccion` (`id_cat`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`id_prod`,`nroplu`,`descripcion`,`tipo`,`precio`,`cod_barras`,`id_cat`) values (1,1,'filete',2,60,'2001',1),(2,2,'pulpa',2,48,'2002',1),(3,3,'cabeza de lomo',2,48,'2003',1),(4,4,'peseto',2,48,'2004',1),(5,5,'churrasco',2,38,'2005',1),(6,6,'aujilla',2,30,'2006',1),(7,7,'costilla',2,28,'2007',1),(8,8,'cadera',2,32,'2008',1),(9,9,'pecho',2,28,'2009',1),(10,10,'lapin',2,32,'2010',1),(11,11,'molida',2,38,'2011',1),(12,12,'ozobuco',2,28,'2012',1),(13,13,'pollo',2,16,'2013',1),(14,14,'pescado_pacu',2,40,'2014',1),(15,15,'pescado_trucha',2,45,'2015',1),(16,16,'pesacado_pejerrey',2,50,'2016',1),(17,17,'huevo_setenta',1,0,'1017',1),(18,18,'huevo_ochenta',1,0,'1018',1),(19,19,'papaya',1,8,'1019',2),(20,20,'platano',1,0,'1020',2),(21,21,'naranja',1,0,'1021',2),(22,22,'durazno',2,8,'2022',2),(23,23,'tuna',1,1,'1023',2),(24,24,'piña',1,10,'1024',2),(25,25,'mandarina',1,0,'1025',2),(26,26,'uva',2,10,'2026',2),(27,27,'apio',2,3,'2027',3),(28,28,'zanahoria',2,6,'2028',3),(29,29,'vainitas',2,6,'2029',3),(30,30,'espinaca',2,8,'2030',3),(31,31,'arberja',2,10,'2031',3),(32,32,'postre',1,1,'1032',3),(33,33,'locoto',2,10,'2033',3),(34,34,'perejil',2,3,'2034',3),(35,35,'cebolla',2,8,'2035',3),(36,36,'papa',2,6,'2036',4),(37,37,'camote',2,6,'2037',4),(38,38,'yuca',2,8,'2038',4);
+insert  into `producto`(`id_prod`,`nroplu`,`descripcion`,`tipo`,`precio`,`cod_barras`,`id_cat`,`id_limite`,`fecha_actualizacion`,`fecha_modificacion`) values (1,1,'filete',2,60,'2001',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(2,2,'pulpa',2,48,'2002',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(3,3,'cabeza de lomo',2,48,'2003',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(4,4,'peseto',2,48,'2004',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(5,5,'churrasco',2,38,'2005',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(6,6,'aujilla',2,30,'2006',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(7,7,'costilla',2,28,'2007',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(8,8,'cadera',2,32,'2008',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(9,9,'pecho',2,28,'2009',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(10,10,'lapin',2,32,'2010',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(11,11,'molida',2,38,'2011',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(12,12,'ozobuco',2,28,'2012',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(13,13,'pollo',2,16,'2013',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(14,14,'pescado_pacu',2,40,'2014',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(15,15,'pescado_trucha',2,45,'2015',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(16,16,'pesacado_pejerrey',2,50,'2016',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(17,17,'huevo_setenta',1,0,'1017',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(18,18,'huevo_ochenta',1,0,'1018',1,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(19,19,'papaya',1,8,'1019',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(20,20,'platano',1,0,'1020',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(21,21,'naranja',1,0,'1021',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(22,22,'durazno',2,8,'2022',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(23,23,'tuna',1,1,'1023',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(24,24,'piña',1,10,'1024',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(25,25,'mandarina',1,0,'1025',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(26,26,'uva',2,10,'2026',2,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(27,27,'apio',2,3,'2027',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(28,28,'zanahoria',2,6,'2028',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(29,29,'vainitas',2,6,'2029',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(30,30,'espinaca',2,8,'2030',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(31,31,'arberja',2,10,'2031',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(32,32,'postre',1,1,'1032',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(33,33,'locoto',2,10,'2033',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(34,34,'perejil',2,3,'2034',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(35,35,'cebolla',2,8,'2035',3,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(36,36,'papa',2,6,'2036',4,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(37,37,'camote',2,6,'2037',4,0,'2018-02-05 19:48:20','0000-00-00 00:00:00'),(38,38,'yuca',2,8,'2038',4,0,'2018-02-05 19:48:20','0000-00-00 00:00:00');
 
 /*Table structure for table `producto_etiquetado` */
 
@@ -98,6 +135,8 @@ CREATE TABLE `producto_etiquetado` (
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'estado si se vendio o no',
   `id_prod` bigint(20) DEFAULT NULL,
   `id_compra` bigint(20) DEFAULT NULL COMMENT 'aqui esta el id de la compra si es que se vende este producto',
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_etiqueta`),
   KEY `FK_PROD_DET` (`id_prod`),
   KEY `FK_COMPRA_DET` (`id_compra`),
@@ -106,6 +145,23 @@ CREATE TABLE `producto_etiquetado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `producto_etiquetado` */
+
+/*Table structure for table `seccion` */
+
+DROP TABLE IF EXISTS `seccion`;
+
+CREATE TABLE `seccion` (
+  `id_cat` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `limite` int(11) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id_cat`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `seccion` */
+
+insert  into `seccion`(`id_cat`,`nombre`,`limite`,`fecha_actualizacion`,`fecha_modificacion`) values (1,'CARNES',0,'2018-02-05 19:48:26','0000-00-00 00:00:00'),(2,'FRUTAS',0,'2018-02-05 19:48:26','0000-00-00 00:00:00'),(3,'VERDURAS',0,'2018-02-05 19:48:26','0000-00-00 00:00:00'),(4,'TUBERCULOS',0,'2018-02-05 19:48:26','0000-00-00 00:00:00');
 
 /*Table structure for table `usuario_login` */
 
@@ -119,12 +175,15 @@ CREATE TABLE `usuario_login` (
   `contrasenia` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `tipo` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_modificacion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `usuario_login` */
 
-insert  into `usuario_login`(`id_usuario`,`nombre`,`fecha_registro`,`usuario`,`contrasenia`,`estado`,`tipo`) values (1,'Haki Ari','2018-02-01 02:26:10','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0);
+insert  into `usuario_login`(`id_usuario`,`nombre`,`fecha_registro`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_actualizacion`,`fecha_modificacion`) values (1,'Haki Ari','2018-02-01 02:26:10','admin','sss',1,0,'2018-02-05 20:54:52','0000-00-00 00:00:00'),(2,'Elmer Coronel Lima','2018-02-06 00:41:41','ecl','$2y$10$p3i4QEK5uD.OnxHku16Fc.ajk4lz6LMVsHA7eglVbMLAbUPhwU99a',1,2,'2018-02-05 19:48:29','0000-00-00 00:00:00'),(6,'Froilan Maidana','2018-02-06 01:38:54','froy','$2y$10$zKDvEzxFzeEqMEeNTHxzKeisj7MltVHsLj2MTGWS/RcnGej3B12cS',1,2,'2018-02-05 20:38:54','0000-00-00 00:00:00'),(7,'Sergio Quispe Flores','2018-02-06 01:41:48','sergui','$2y$10$Y1N/8mWxv817bxayZE2J1.xZjdflNNpvSiccP7CxlvW91tvOmQjyu',1,2,'2018-02-05 20:41:48','0000-00-00 00:00:00'),(8,'Luis miguel','2018-02-06 01:43:20','luis','$2y$10$27aC7EWNS4v.zQ9jBMuGh.QJgf2pceUbLxIlq9GVBSI16fnKqqw52',1,2,'2018-02-05 20:43:21','0000-00-00 00:00:00'),(9,'Jeanette Condori Mendoza','2018-02-06 01:49:51','jane','$2y$10$auRe.Hf.Pt5zuXvGJY8XtegTpv2Mn5ODGj925I0I1Nd..jXK2CyYu',1,2,'2018-02-05 20:49:51','0000-00-00 00:00:00');
 
 /* Procedure structure for procedure `eliminarCliente` */
 
@@ -258,6 +317,26 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_estado1`()
 BEGIN
 select * from usuario_login where estado=1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `Usu_pass` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `Usu_pass` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Usu_pass`(
+in id bigint(20),
+in usu varchar(100),
+in pass varchar(255)
+)
+BEGIN
+if  usu = "null"  then
+	update usuario_login set contrasenia=pass where id_usuario=id;
+else
+	update usuario_login set usuario=usu where id_usuario=id;
+end if;
 END */$$
 DELIMITER ;
 

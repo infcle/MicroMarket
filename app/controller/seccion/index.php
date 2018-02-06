@@ -11,8 +11,21 @@
 	//Variables para enviar a la plantilla
 	$titulo="Secciones";
 	$contenido="seccion/index.php";
-	$sub_directory="";
-	$menu_a= array();
+	$menu_a= array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'seccion'=>'nav-active',
+					'lista_s'=>'active',
+					'registro_s'=>'',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'cliente'=>'',
+				);
+	$subTitulo="Seccion";
 	if (!($secciones = $con->query("SELECT * FROM seccion"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

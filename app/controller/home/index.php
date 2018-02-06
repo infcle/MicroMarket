@@ -9,7 +9,20 @@
 	$titulo="Bienvenido";
 	$contenido="inicio.php";
 	$sub_directory="";
-	$menu_a= array();
-	
+	$menu_a= array(
+					'inicio'=>'active',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'seccion'=>'',
+					'lista_s'=>'',
+					'registro_s'=>'',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'cliente'=>'',
+				);
+	$subTitulo="Inicio";
 	require_once ('../../../public/views/plantilla.php');
 ?>

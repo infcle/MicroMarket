@@ -25,7 +25,14 @@
                                     <td><?php echo $user['nombre']; ?></td>
                                     <td><?php echo $user['usuario']; ?></td>
                                     <td><?php echo $user['estado']; ?></td>
-                                    <td ></td>
+                                    <td>
+                                        <a class="btn btn-success" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Editar">
+                                            <span class="fa fa-edit"></span>
+                                        </a>
+                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <span class="fa fa-trash-o"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -43,3 +50,6 @@
         </section>
     </div>
 </div>
+<script>
+    
+</script>

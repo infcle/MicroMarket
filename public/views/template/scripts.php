@@ -1,3 +1,4 @@
+<script src="<?php echo ROOT; ?>resources/assets/js/toastr.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.validate.min.js"></script>
@@ -24,7 +25,7 @@
 <!-- <script src="<?php echo ROOT; ?>resources/assets/js/dynamic_table_init.js"></script> -->
 
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.blockUI.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/toastr.min.js"></script>
+
 
 <!--common scripts for all pages-->
 <script src="<?php echo ROOT; ?>resources/assets/js/scripts.js"></script>

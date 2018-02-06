@@ -15,10 +15,14 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="user" class="control-label col-lg-2" data-mask="$ 999,999,999.99">Limite de Credito(Obligatorio)</label>
+                            <label for="user" class="control-label col-lg-2">Limite de Credito(Obligatorio)</label>
                             <div class="col-lg-6">
+<<<<<<< HEAD:public/views/categoria/registro.php
                                 <input class="form-control " id="limite" type="number" name="limite" /> 
                                
+=======
+                                <input class="form-control " id="limite" type="text" name="limite" /> <br><br>
+>>>>>>> 6253cdc2da4eef5bb6500f6d45dc305f81191686:public/views/seccion/registro.php
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,36 +41,25 @@
         $("#frmCategoria").validate({
             debug:true,
             rules:{
-                
                 nombre:{
                     required:true,
                     minlength: 3,
                     maxlength:30,
                 },
-                
                 limite:{
                     required:true,
                     minlength:1,
                     maxlength:4,
                 },
-                
             },
              messages:{
                 nombre:{
                     required:"Este es Campo Obligatorio.",
-
-
-                    
                 },
                 limite:{
                     required:"Este es Campo Obligatorio."
-
-                    
                 },
-                
             },
-           
-            
         });
     });
 </script>

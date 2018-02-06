@@ -7,7 +7,7 @@
 	}
 	//Variables para enviar a la plantilla
 	$titulo="Nueva categoria";
-	$contenido="categoria/registro.php";
+	$contenido="seccion/registro.php";
 	$sub_directory="";
 	$menu_a= array();
 	$pie_class="si";	

@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($seccion as $seccion): ?>
+                            <?php foreach ($secciones as $seccion): ?>
                                 <tr class="gradeX">
                                     <td><?php echo $seccion['id_cat']; ?></td>
                                     <td><?php echo $seccion['nombre']; ?></td>

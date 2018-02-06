@@ -10,7 +10,7 @@
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">Nombre completo (obligatorio)</label>
                             <div class="col-lg-8">
-                                <input class=" form-control" id="name" name="name" minlength="7 " type="text" required />
+                                <input class=" form-control" id="name" name="name" minlength="7 " type="text" required autofocus="true" />
                             </div>
                         </div>
                         <div class="form-group ">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-primary" type="submit">Registrar</button>
+                                <button class="btn btn-primary" type="submit" id="btnRegistrar" >Registrar</button>
                             </div>
                         </div>
                     </form>
@@ -92,11 +92,17 @@
                     },
                     success: function(response) {
                         if(response==1){
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
                             transicionSalir();
                             mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
-                            window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            }, 3000);
                         }else{
-                            $.unblockUI();
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR AL USUARIO verifique los datos!! '+response,'error','GUARDAR DATOS');
                         }
                     }
                 });

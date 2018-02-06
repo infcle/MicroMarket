@@ -2,7 +2,7 @@ function mensajes_alerta(mensaje,tipo,titulo){
 	toastr.options = {
 	  "closeButton": true,
 	  "debug": false,
-	  //"progressBar": true,
+	  "progressBar": true,
 	  "positionClass": "toast-top-full-width",
 	  "onclick": null,
 	  "showDuration": "1000",
@@ -31,6 +31,7 @@ function transicion(mensaje){
 	    message: "<h1>"+mensaje+"</h1>"
 	});
 }
+
 function transicionSalir(){
 	$.unblockUI();
 }

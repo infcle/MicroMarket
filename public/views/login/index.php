@@ -19,7 +19,7 @@
 
     <form class="form-signin" action="" name="frmlogin" id="frmlogin" method="post">        
         <div class="form-signin-heading text-center">
-            <img src="<?php echo ROOT; ?>resources/assets/images/login-logo.png" alt=""/>
+            <img src="<?php echo ROOT; ?>resources/assets/images/loguito.png" alt=""/>
         </div>
         <div class="login-wrap">
             <div class="form-group ">

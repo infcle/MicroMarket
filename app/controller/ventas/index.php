@@ -10,12 +10,26 @@
 	//Variables para enviar a la plantilla
 	$titulo="Ventas";
 	$contenido="ventas/index.php";
+	$subTitulo="Ventas";
 	$sub_directory="";
-	$menu_a= array();
+	$menu_a= array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'active',
+					'seccion'=>'',
+					'lista_s'=>'',
+					'registro_s'=>'',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'cliente'=>'',
+				);
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
 	//var_dump($usuarios->fetch_assoc());
-	$pie_class="si";//Variable donde se poneun pie de pagina estatico	
+	$pie_class="si";//Variable donde se poneun pie de pagina estatic
 	require_once ('../../../public/views/plantilla.php');
 ?>

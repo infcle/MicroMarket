@@ -10,8 +10,22 @@
 	//Variables para enviar a la plantilla
 	$titulo="Usuarios";
 	$contenido="producto/index.php";
-	$sub_directory="";
-	$menu_a= array();
+	$subTitulo="Producto o PLU";
+					'registro_c'=>'',
+	$menu_a= array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'seccion'=>'',
+					'lista_s'=>'',
+					'registro_s'=>'',
+					'producto'=>'nav-active',
+					'lista_p'=>'active',
+					'registro_p'=>'',
+					'cliente'=>'',
+				);
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

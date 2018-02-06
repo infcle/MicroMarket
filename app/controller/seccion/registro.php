@@ -8,8 +8,21 @@
 	//Variables para enviar a la plantilla
 	$titulo="Nueva categoria";
 	$contenido="seccion/registro.php";
-	$sub_directory="";
-	$menu_a= array();
+	$subTitulo="Seccion";
+	$menu_a= array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'seccion'=>'nav-active',
+					'lista_s'=>'',
+					'registro_s'=>'active',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'cliente'=>'',
+				);
 	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

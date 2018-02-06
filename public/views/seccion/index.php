@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                Lista de Categorias
+                Lista de SECCION
                 <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
@@ -14,17 +14,17 @@
                         <thead>
                             <tr>
                                 <th>codigo</th>
-                                <th>Nombre categoria</th>
+                                <th>Nombre de seccion</th>
                                 <th>Limite</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($categorias as $categoria): ?>
+                            <?php foreach ($seccion as $seccion): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $categoria['id_cat']; ?></td>
-                                    <td><?php echo $categoria['nombre']; ?></td>
-                                    <td><?php echo $categoria['limite']; ?></td>
+                                    <td><?php echo $seccion['id_cat']; ?></td>
+                                    <td><?php echo $seccion['nombre']; ?></td>
+                                    <td><?php echo $seccion['limite']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>
@@ -32,7 +32,7 @@
                         <tfoot>
                             <tr>
                                 <th>codigo</th>
-                                <th>Nombre categoria</th>
+                                <th>Nombre de seccion</th>
                                 <th>Limite</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>

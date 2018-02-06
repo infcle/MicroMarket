@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-primary" type="submit">Registrar</button>
+                                <button class="btn btn-primary" type="submit" id="btnRegistrar">Registrar</button>
                             </div>
                         </div>
                     </form>
@@ -54,6 +54,31 @@
                     required:"Este es Campo Obligatorio."
                 },
             },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/seccion/registro_model.php',
+                    type: 'post',
+                    data: $("#frmCategoria").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR ALA SECCION  verifique los datos!! '+response,'error','GUARDAR DATOS');
+                        }
+                    }
+                });
+            }
         });
     });
 </script>

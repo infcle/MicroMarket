@@ -37,12 +37,6 @@
             </li>
             <li class="<?php echo $menu_a['ventas']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>ventas/"><i class="fa fa-shopping-cart"></i> <span>Ventas</span></a>
             </li>
-            <li class="menu-list <?php echo $menu_a['seccion']; ?>"><a href="#"><i class="fa fa-bookmark"></i> <span>Seccion</span></a>
-                <ul class="sub-menu-list">
-                    <li class="<?php echo $menu_a['lista_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Lista de categorias</a></li>
-                    <li class="<?php echo $menu_a['registro_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/registro.php"> Registro de seccion</a></li>
-                </ul>
-            </li>
             <li class="menu-list <?php echo $menu_a['producto']; ?>"><a href="#"><i class="fa fa-book"></i> <span>Producto o PLU</span></a>
                 <ul class="sub-menu-list">
                     <li class="<?php echo $menu_a['lista_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/"> Listado</a></li>
@@ -58,6 +52,13 @@
             </li>
             <li class="<?php echo $menu_a['cliente']; ?>">
                 <a href="#"><i class="fa fa-tags"></i> <span>Clientes</span></a>
+            </li>
+            <li class="menu-list <?php echo $menu_a['configuracion']; ?>"><a href=""><i class="fa fa-cog"></i> <span>Configuraciónes</span></a>
+                <ul class="sub-menu-list">
+                    <li class="<?php echo $menu_a['configuracion_c']; ?>"><a href="#"> Categoria</a></li>
+                    <li class="<?php echo $menu_a['configuracion_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Seccion</a></li>
+                    <li class="<?php echo $menu_a['configuracion_l']; ?>"><a href="#"> Limites</a></li>
+                </ul>
             </li>
             <li><a href="<?php echo ROOT_CONTROLLER; ?>login/index.php?logout"><i class="fa fa-sign-in"></i> <span>Salir</span></a></li>
         </ul>

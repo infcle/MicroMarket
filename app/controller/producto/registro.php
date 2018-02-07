@@ -8,20 +8,7 @@
 	//Variables para enviar a la plantilla
 	$titulo="Nuevo usuario";
 	$contenido="producto/registro.php";
-	$menu_a= array(
-					'inicio'=>'',
-					'usuario'=>'',
-					'lista_u'=>'',
-					'registro_u'=>'',
-					'ventas'=>'',
-					'seccion'=>'',
-					'lista_s'=>'',
-					'registro_s'=>'',
-					'producto'=>'nav-active',
-					'lista_p'=>'',
-					'registro_p'=>'active',
-					'cliente'=>'',
-				);
+	$menu_a= $menus['P_REGISTRO'];
 	$subTitulo="Producto o PLU";
 	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');

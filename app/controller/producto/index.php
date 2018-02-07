@@ -11,20 +11,7 @@
 	$titulo="Usuarios";
 	$contenido="producto/index.php";
 	$subTitulo="Producto o PLU";
-	$menu_a= array(
-					'inicio'=>'',
-					'usuario'=>'',
-					'lista_u'=>'',
-					'registro_u'=>'',
-					'ventas'=>'',
-					'seccion'=>'',
-					'lista_s'=>'',
-					'registro_s'=>'',
-					'producto'=>'nav-active',
-					'lista_p'=>'active',
-					'registro_p'=>'',
-					'cliente'=>'',
-				);
+	$menu_a= $menus['P_LISTA'];
 	if (!($productos = $con->query("SELECT * FROM producto"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

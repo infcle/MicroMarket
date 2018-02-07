@@ -11,20 +11,7 @@
 	//Variables para enviar a la plantilla
 	$titulo="Secciones";
 	$contenido="seccion/index.php";
-	$menu_a= array(
-					'inicio'=>'',
-					'usuario'=>'',
-					'lista_u'=>'',
-					'registro_u'=>'',
-					'ventas'=>'',
-					'seccion'=>'nav-active',
-					'lista_s'=>'active',
-					'registro_s'=>'',
-					'producto'=>'',
-					'lista_p'=>'',
-					'registro_p'=>'',
-					'cliente'=>'',
-				);
+	$menu_a= $menus['C_SECCION'];
 	$subTitulo="Seccion";
 	if (!($secciones = $con->query("SELECT * FROM seccion"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;

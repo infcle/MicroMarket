@@ -5,7 +5,7 @@
                 Lista de productos
                 <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
+                    <a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php" class="fa fa-plus"></a>
                  </span>
             </header>
             <div class="panel-body">
@@ -15,6 +15,7 @@
                             <tr>
                                 <th>Nro PLU</th>
                                 <th>Nombre producto</th>
+                                <th>tipo venta</th>
                                 <th>Precio</th>
                                 <th>Codigo PLU</th>
                                 <th class="hidden-phone">Acciones</th>
@@ -23,8 +24,9 @@
                         <tbody>
                             <?php foreach ($productos as $producto): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $producto['nruplu']; ?></td>
+                                    <td><?php echo $producto['nroplu']; ?></td>
                                     <td><?php echo $producto['descripcion']; ?></td>
+                                    <td><?php echo $producto['tipo']; ?></td>
                                     <td><?php echo $producto['precio']; ?></td>
                                     <td><?php echo $producto['cod_barras']; ?></td>
                                     <td ></td>

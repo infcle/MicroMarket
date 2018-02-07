@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_spanish2_ci">marketbd</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="cliente" view="standard">
+<left>519</left>
+<top>414</top>
+<width>233</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `cliente` (
+  `id_cliente` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ci` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="compra_r" view="standard">
+<left>851</left>
+<top>331</top>
+<width>212</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `compra_r` (
+  `id_compra` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nro_recibo` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
+  `total` float NOT NULL,
+  `fecha` datetime NOT NULL,
+  `id_cliente` bigint(20) NOT NULL,
+  `id_usuario` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_compra`),
+  KEY `FK_CLI_DET` (`id_cliente`),
+  KEY `FK_USER_DET` (`id_usuario`),
+  CONSTRAINT `FK_CLI_DET` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_USER_DET` FOREIGN KEY (`id_usuario`) REFERENCES `usuario_login` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="producto" view="standard">
+<left>834</left>
+<top>13</top>
+<width>262</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `producto` (
+  `id_prod` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nro_plu` tinyint(1) NOT NULL COMMENT 'es el numero que esta registrado en la balanza',
+  `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `tipo` int(11) NOT NULL COMMENT 'si es pesable 2 y si es unidad 1',
+  `precio` float NOT NULL,
+  `cod_plu` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_limite` bigint(11) NOT NULL,
+  PRIMARY KEY (`id_prod`),
+  KEY `id_cat` (`id_limite`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="producto_etiquetado" view="standard">
+<left>1117</left>
+<top>263</top>
+<width>233</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `producto_etiquetado` (
+  `id_etiqueta` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cod_barras` varchar(300) COLLATE utf8_spanish2_ci NOT NULL COMMENT 'codigo de barras generado por productos etiquetados',
+  `preciototal` float NOT NULL COMMENT 'precio deacurdo al peso o cantidad del producto',
+  `peso_cantidad` float NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'estado si se vendio o no',
+  `id_prod` bigint(20) DEFAULT NULL,
+  `id_compra` bigint(20) DEFAULT NULL COMMENT 'aqui esta el id de la compra si es que se vende este producto',
+  PRIMARY KEY (`id_etiqueta`),
+  KEY `FK_PROD_DET` (`id_prod`),
+  KEY `FK_COMPRA_DET` (`id_compra`),
+  CONSTRAINT `FK_COMPRA_DET` FOREIGN KEY (`id_compra`) REFERENCES `compra_r` (`id_compra`),
+  CONSTRAINT `FK_PROD_DET` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="usuario_login" view="colnames">
+<left>1129</left>
+<top>483</top>
+<width>183</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `usuario_login` (
+  `id_usuario` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `usuario` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `contrasenia` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `tipo` int(11) NOT NULL DEFAULT '0',
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="seccion" view="standard">
+<left>292</left>
+<top>11</top>
+<width>255</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `seccion` (
+  `id_seccion` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` datetime NOT NULL,
+  `id_categoria` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_seccion`),
+  KEY `id_categoria` (`id_categoria`),
+  CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="categoria" view="standard">
+<left>5</left>
+<top>212</top>
+<width>255</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `categoria` (
+  `id_categoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="tiene" view="standard">
+<left>599</left>
+<top>29</top>
+<width>198</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `tiene` (
+  `id_seccion` bigint(20) NOT NULL,
+  `id_producto` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_seccion`,`id_producto`),
+  KEY `id_producto` (`id_producto`),
+  CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_seccion`) REFERENCES `seccion` (`id_seccion`),
+  CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="limite" view="standard">
+<left>417</left>
+<top>213</top>
+<width>255</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `limite` (
+  `id_limite` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_limite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+<table name="pertenece" view="standard">
+<left>283</left>
+<top>393</top>
+<width>201</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `pertenece` (
+  `id_categoria` bigint(20) NOT NULL,
+  `id_cliente` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_categoria`,`id_cliente`),
+  KEY `pertenece_ibfk_2` (`id_cliente`),
+  CONSTRAINT `pertenece_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
+  CONSTRAINT `pertenece_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

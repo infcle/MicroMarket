@@ -2,11 +2,18 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                Lista de SECCION
-                <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
-                 </span>
+                <div class="row panel-heading">
+                    Lista de secciones
+                    <span class="tools pull-right">
+                        <a href="#modalRegistro" data-placement="top" title="Nueva Seccion" data-toggle="modal" class="fa fa-plus"></a>
+                    </span>
+                </div>
+                
+                <select name="categorias" class="form-control">
+                    <option value="">Categorias</option>
+                    option
+                </select>
+                
             </header>
             <div class="panel-body">
                 <div class="adv-table">
@@ -22,7 +29,7 @@
                         <tbody>
                             <?php foreach ($secciones as $seccion): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $seccion['id_cat']; ?></td>
+                                    <td><?php echo $seccion['id_seccion']; ?></td>
                                     <td><?php echo $seccion['nombre']; ?></td>
                                     <td><?php echo $seccion['limite']; ?></td>
                                     <td ></td>

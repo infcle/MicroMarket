@@ -11,20 +11,7 @@
 	$titulo="Usuarios";
 	$contenido="user/index.php";
 	$subTitulo="Usuario";
-	$menu_a= array(
-					'inicio'=>'',
-					'usuario'=>'nav-active',
-					'lista_u'=>'active',
-					'registro_u'=>'',
-					'ventas'=>'',
-					'seccion'=>'',
-					'lista_s'=>'',
-					'registro_s'=>'',
-					'producto'=>'',
-					'lista_p'=>'',
-					'registro_p'=>'',
-					'cliente'=>'',
-				);
+	$menu_a= $menus['U_LISTA'];
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

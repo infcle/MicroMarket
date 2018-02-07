@@ -12,7 +12,7 @@
 	$titulo="Cliente";
 	$contenido="cliente/index.php";
 	$sub_directory="";
-	$menu_a= array();
+	$menu_a= $menus['CLIENTE'];
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

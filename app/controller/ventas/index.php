@@ -12,20 +12,7 @@
 	$contenido="ventas/index.php";
 	$subTitulo="Ventas";
 	$sub_directory="";
-	$menu_a= array(
-					'inicio'=>'',
-					'usuario'=>'',
-					'lista_u'=>'',
-					'registro_u'=>'',
-					'ventas'=>'active',
-					'seccion'=>'',
-					'lista_s'=>'',
-					'registro_s'=>'',
-					'producto'=>'',
-					'lista_p'=>'',
-					'registro_p'=>'',
-					'cliente'=>'',
-				);
+	$menu_a= $menus['VENTAS'];
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

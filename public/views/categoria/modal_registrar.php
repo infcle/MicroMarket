@@ -6,21 +6,21 @@
                 <h4 class="modal-title">Registrar Nueva Categoria de Subsidio</h4>
             </div>
             <div class="modal-body">
-                <form role="form" id="frmEditar" name="frmEditar">
+                <form role="form" id="frmRegistrar" name="frmRegistrar">
                     <div class="form-group">
                         <label for="Nombre">Nombre de la Categoria</label>
-                        <input class=" form-control" id="name" name="name" type="text"/>
+                        <input class=" form-control" id="nombre" name="nombre" type="text"/>
                     </div><br>
                     
                     <div class="form-group">
                         <label for="user" class="control-label">Limite de  Compra de la Categoria (en BS)</label>
-                        <input class="form-control" id="user" type="number" name="user" />
+                        <input class="form-control" id="limite" type="number" name="limite" />
                         
                     </div><br>
                    
                     <div class=" modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="btnEditar" id="btnEditar">CREAR</button>
+                        <button type="submit" class="btn btn-primary" id="btnRegistrar" >Crear</button>
                     </div>
                 </form>
             </div>

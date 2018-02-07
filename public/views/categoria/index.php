@@ -6,7 +6,7 @@
                 <span class="tools pull-right">
                     <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
                  </span>
-                 <?php require_once 'modal_registrar.php'; ?>
+                 
             </header>
             <div class="panel-body">
                 <div class="adv-table">
@@ -40,52 +40,50 @@
                     </table>
                 </div>
             </div>
+            <?php require_once 'modal_registrar.php'; ?>
         </section>
     </div>
 </div>
 <script>
+    
     $(document).ready(function() {
-         $('#frmEditar').validate({ 
+        
+         $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
-                name:{
+                nombre:{
                     required:true,
                     minlength: 5,
                     maxlength:60,
                 },
-                user:{
+                limite:{
                     required:true,
                     minlength: 2,
                     maxlength:4,
                     range:[1,9999],
                 },
 
-              name:{
-                    required:"Este es Campo Obligatorio.",
-                },
-
-                user:{
-                    required:"Este es Campo Obligatorio.",
-                },
+              
             },
+          
             submitHandler: function (form) {alert('exito');
                     $.ajax({
-                        url: '../../models/user/editar_model.php',
+                        url: '../../models/categoria/registro_model.php',
                         type: 'post',
-                        data: $("#frmEditar").serialize(),
+                        data: $("#frmRegistrar").serialize(),
                         beforeSend: function() {
                             transicion("Procesando Espere....");
                         },
                         success: function(response) {
                             if(response==1){
-                                $('#modalEditar').modal('hide');
-                                $('#btnEditar').attr({
+                                $('#modal_Registrar').modal('hide');
+                                $('#btnRegistrar).attr({
                                     disabled: 'true'
                                 });
                                 transicionSalir();
                                 mensajes_alerta('DATOS CREADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                                 setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                    window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
                                 }, 3000);
                             }else{
                                 transicionSalir();

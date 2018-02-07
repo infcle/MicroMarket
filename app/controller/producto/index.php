@@ -26,7 +26,7 @@
 					'registro_p'=>'',
 					'cliente'=>'',
 				);
-	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
+	if (!($productos = $con->query("SELECT * FROM producto"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
 	//var_dump($usuarios->fetch_assoc());

@@ -13,27 +13,30 @@
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
-                                <th>Nombre completo</th>
-                                <th>Usuario</th>
-                                <th>Estado</th>
+                                <th>Nro PLU</th>
+                                <th>Nombre producto</th>
+                                <th>Precio</th>
+                                <th>Codigo PLU</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($usuarios as $user): ?>
+                            <?php foreach ($productos as $producto): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $user['nombre']; ?></td>
-                                    <td><?php echo $user['usuario']; ?></td>
-                                    <td><?php echo $user['estado']; ?></td>
+                                    <td><?php echo $producto['nruplu']; ?></td>
+                                    <td><?php echo $producto['descripcion']; ?></td>
+                                    <td><?php echo $producto['precio']; ?></td>
+                                    <td><?php echo $producto['cod_barras']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Nombre completo</th>
-                                <th>Usuario</th>
-                                <th>Estado</th>
+                                <th>Nro PLU</th>
+                                <th>Nombre producto</th>
+                                <th>Precio</th>
+                                <th>Codigo PLU</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </tfoot>

@@ -66,7 +66,7 @@
               
             },
           
-            submitHandler: function (form) {alert('exito');
+           submitHandler: function (form) {
                     $.ajax({
                         url: '../../models/categoria/registro_model.php',
                         type: 'post',
@@ -77,21 +77,23 @@
                         success: function(response) {
                             if(response==1){
                                 $('#modal_Registrar').modal('hide');
-                                $('#btnRegistrar).attr({
+                                $('#btnRegistrar').attr({
                                     disabled: 'true'
                                 });
                                 transicionSalir();
-                                mensajes_alerta('DATOS CREADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                                 setTimeout(function(){
                                     window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
                                 }, 3000);
                             }else{
                                 transicionSalir();
-                                mensajes_alerta('ERROR AL CREAR LA CATEGORIA verifique los datos!! '+response,'error','EDITAR DATOS');
+                                mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
                             }
                         }
                     });
             }
+           
+            
         });
     });
 </script>

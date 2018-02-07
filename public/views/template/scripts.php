@@ -22,7 +22,7 @@
 <script type="text/javascript" language="javascript" src="<?php echo ROOT; ?>resources/assets/js/advanced-datatable/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>resources/assets/js/data-tables/DT_bootstrap.js"></script>
 <!--dynamic table initialization -->
-<!-- <script src="<?php echo ROOT; ?>resources/assets/js/dynamic_table_init.js"></script> -->
+<script src="<?php echo ROOT; ?>resources/assets/js/dynamic_table_init.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>resources/assets/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.blockUI.js"></script>

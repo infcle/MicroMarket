@@ -20,11 +20,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($secciones as $seccion): ?>
+                            <?php foreach ($categorias as $categoria): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $seccion['id_cat']; ?></td>
-                                    <td><?php echo $seccion['nombre']; ?></td>
-                                    <td><?php echo $seccion['limite']; ?></td>
+                                    <td><?php echo $categoria['id_categoria']; ?></td>
+                                    <td><?php echo $categoria['nombre']; ?></td>
+                                    <td><?php echo $categoria['limite']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>

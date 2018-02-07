@@ -13,7 +13,7 @@
 	$contenido="categoria/index.php";
 	$menu_a= $menus['C_CATEGORIA'];
 	$subTitulo="Categoria";
-	if (!($secciones = $con->query("SELECT * FROM categoria"))) {
+	if (!($categorias = $con->query("SELECT * FROM categoria"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 

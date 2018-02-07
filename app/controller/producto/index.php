@@ -5,13 +5,12 @@
         header("location: ".ROOT_CONTROLLER.'login/');
 		exit;
 	}
-	require_once ("../../config/conexion.php");
 	require_once ("../../config/db.php");
+	require_once ("../../config/conexion.php");
 	//Variables para enviar a la plantilla
 	$titulo="Usuarios";
 	$contenido="producto/index.php";
 	$subTitulo="Producto o PLU";
-					'registro_c'=>'',
 	$menu_a= array(
 					'inicio'=>'',
 					'usuario'=>'',
@@ -29,7 +28,7 @@
 	if (!($productos = $con->query("SELECT * FROM producto"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
-	//var_dump($usuarios->fetch_assoc());
-	$pie_class="si";//Variable donde se poneun pie de pagina estatico	
+
+	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

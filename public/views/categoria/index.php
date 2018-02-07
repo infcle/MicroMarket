@@ -2,11 +2,11 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                Lista de SECCION
+                categoria de subsidio
                 <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
+                    <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
                  </span>
+                 <?php require_once 'modal_registrar.php'; ?>
             </header>
             <div class="panel-body">
                 <div class="adv-table">
@@ -14,8 +14,8 @@
                         <thead>
                             <tr>
                                 <th>codigo</th>
-                                <th>Nombre de seccion</th>
-                                <th>Limite</th>
+                                <th>NOMBRE DE LA CATEGORIA</th>
+                                <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
@@ -32,8 +32,8 @@
                         <tfoot>
                             <tr>
                                 <th>codigo</th>
-                                <th>Nombre de seccion</th>
-                                <th>Limite</th>
+                                <th>NOMBRE DE LA CATEGORIA</th>
+                                <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </tfoot>
@@ -43,3 +43,57 @@
         </section>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+         $('#frmEditar').validate({ 
+            debug:true,
+            rules:{
+                name:{
+                    required:true,
+                    minlength: 5,
+                    maxlength:60,
+                },
+                user:{
+                    required:true,
+                    minlength: 2,
+                    maxlength:4,
+                    range:[1,9999],
+                },
+
+              name:{
+                    required:"Este es Campo Obligatorio.",
+                },
+
+                user:{
+                    required:"Este es Campo Obligatorio.",
+                },
+            },
+            submitHandler: function (form) {alert('exito');
+                    $.ajax({
+                        url: '../../models/user/editar_model.php',
+                        type: 'post',
+                        data: $("#frmEditar").serialize(),
+                        beforeSend: function() {
+                            transicion("Procesando Espere....");
+                        },
+                        success: function(response) {
+                            if(response==1){
+                                $('#modalEditar').modal('hide');
+                                $('#btnEditar').attr({
+                                    disabled: 'true'
+                                });
+                                transicionSalir();
+                                mensajes_alerta('DATOS CREADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                                setTimeout(function(){
+                                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                }, 3000);
+                            }else{
+                                transicionSalir();
+                                mensajes_alerta('ERROR AL CREAR LA CATEGORIA verifique los datos!! '+response,'error','EDITAR DATOS');
+                            }
+                        }
+                    });
+            }
+        });
+    });
+</script>

@@ -14,7 +14,7 @@
                     <label class="control-label col-md-2" for="categoria">SELECCIONE CATEGORIA</label>
                     <div class="col-md-4">
                         <select name="categoria" id="inputCategoria" class="form-control" required="required">
-                            <option value=""></option>
+                            <option value="">Seleccione categoria</option>
                         </select>
                     </div>
                 </div>
@@ -28,15 +28,8 @@
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach ($secciones as $seccion): ?>
-                                <tr class="gradeX">
-                                    <td><?php echo $seccion['id_seccion']; ?></td>
-                                    <td><?php echo $seccion['nombre']; ?></td>
-                                    <td><?php echo $seccion['limite']; ?></td>
-                                    <td ></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="lista">
+                            <?php require_once '../../models/seccion/lista_seccion.php'; ?>
                         </tbody>
                         <tfoot>
                             <tr>

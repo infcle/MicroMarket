@@ -8,14 +8,16 @@
                         <a href="#modalRegistro" data-placement="top" title="Nueva Seccion" data-toggle="modal" class="fa fa-plus"></a>
                     </span>
                 </div>
-                
-                <select name="categorias" class="form-control">
-                    <option value="">Categorias</option>
-                    option
-                </select>
-                
             </header>
             <div class="panel-body">
+                <div class="row">
+                    <label class="control-label col-md-2" for="categoria">SELECCIONE CATEGORIA</label>
+                    <div class="col-md-4">
+                        <select name="categoria" id="inputCategoria" class="form-control" required="required">
+                            <option value="">Seleccione categoria</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="adv-table">
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
@@ -26,15 +28,8 @@
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach ($secciones as $seccion): ?>
-                                <tr class="gradeX">
-                                    <td><?php echo $seccion['id_seccion']; ?></td>
-                                    <td><?php echo $seccion['nombre']; ?></td>
-                                    <td><?php echo $seccion['limite']; ?></td>
-                                    <td ></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="lista">
+                            <?php require_once '../../models/seccion/lista_seccion.php'; ?>
                         </tbody>
                         <tfoot>
                             <tr>

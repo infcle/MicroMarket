@@ -12,14 +12,14 @@
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                      
                             <div class="form-group ">
-                                <label for="cname" class="control-label col-lg-2">Nombre del producto </label>
+                                <label for="cname" class="control-label col-lg-4">Nombre del producto </label>
                                 <div class="col-lg-6">
                                     <input class=" form-control" id="nombre" name="nombre" type="text"/>
                                 </div>
                             </div>
 
                             <div class="form-group ">
-                                <label for="user" class="control-label col-lg-2">NRO de PLU de balanza </label>
+                                <label for="user" class="control-label col-lg-4">NRO de PLU de balanza </label>
                                 <div class="col-lg-8">
                                 <input class="form-control " id="nro" type="number" name="nro"/>
                                 </div>
@@ -28,7 +28,7 @@
                            
 
                             <div class="form-group ">
-                                <label for="user" class="control-label col-lg-2" id="mensaje"></label>
+                                <label for="user" class="control-label col-lg-4" id="mensaje"></label>
                                 <div class="col-lg-8">
                                 <input class="form-control " id="precio" type="number" name="precio" disabled="true" />
                                 </div>
@@ -44,12 +44,12 @@
                         </div>
 
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                             <br><br><br> <br> <br> <br>
+                             
                                <div class="form-group ">
                                 
                                 <div class="col-lg-6">
-                                        <select name="tipoVenta" id="tipoVenta" autofocus>
-                                        <option selected>peso o cantidad selecione una opcion</option>}
+                                        <select  name="tipoVenta" id="tipoVenta" class="form-control">
+                                        <option value="" selected="selected">peso o cantidad selecione una opcion</option>
                                     
                                         <option value="1" >1.CANTIDAD</option> 
                                         <option value="2" >2.PESO</option>
@@ -57,12 +57,12 @@
                                         </select>
                                 </div>
                             </div>
-                              <br> <br>
+                              
                              <div class="form-group ">
                                 
                                 <div class="col-lg-6">
-                                        <select name="seccion" id="seccion" >
-                                        <option selected>selecione una seccion</option> 
+                                        <select   name="seccion" id="seccion" class="form-control"  >
+                                        <option value="" selected="selected">selecione una seccion</option> 
                                         <option value="1" >1. CARNES</option> 
                                         <option value="2" >2. VERDURAS</option>
                                         <option value="3">3. FRUTAS</option> 
@@ -125,6 +125,14 @@
                     required:true,
                     range:[0.1,999.99],
                 },
+                tipoVenta: {
+                        required: true,
+                        
+                    },
+                seccion: {
+                        required: true,
+                       
+                    },
 
 
 
@@ -157,7 +165,7 @@
                             transicionSalir();
                             mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>producto/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();

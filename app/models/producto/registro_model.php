@@ -10,7 +10,7 @@
 
 	$codPlu=($tipo*1000)+$nroPlu;
 
-	$sql="INSERT INTO producto(nroplu, descripcion, tipo, precio, cod_barras, id_cat)";
+	$sql="INSERT INTO producto(nroplu, descripcion, tipo, precio, cod_barras, id_cat) values({$nroPlu},'{$nombre}',{$tipo},{$precio},'{$codPlu}', {$seccion})";
 	if (!$con->query($sql)) {
 		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
 	}

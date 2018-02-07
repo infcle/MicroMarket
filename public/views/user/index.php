@@ -4,7 +4,6 @@
             <header class="panel-heading">
                 Lista de usuarios
                 <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
                  </span>
             </header>

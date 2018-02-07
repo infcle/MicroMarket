@@ -2,10 +2,9 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                Lista de SECCION
+                Lista de seccion
                 <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
+                    <a href="#modalRegistro" data-placement="top" title="Editar" data-toggle="modal" class="fa fa-plus"></a>
                  </span>
             </header>
             <div class="panel-body">

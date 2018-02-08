@@ -54,7 +54,7 @@
                     maxlength:25,
                 },
                 limite:{
-      vv               required:true,
+                   required:true,
                     minlength: 2,
                     maxlength:4,
                     range:[1,9999],
@@ -75,13 +75,13 @@
                                 disabled: 'true'
                             });
                             transicionSalir();
-                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                             setTimeout(function(){
                                 window.location.href='<?php echo ROOT_CONTROLLER ?>limite/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();
-                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                            mensajes_alerta('ERROR AL REGISTRAR LIMITE DE PRODUCTO verifique los datos!! '+response,'error','REGISTRAR DATOS');
                         }
                     }
                 });

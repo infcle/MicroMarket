@@ -1,4 +1,3 @@
-@@ -1,194 +0,0 @@
 <?php 
 	//Ruta principal
 	define('ROOT', 'http://localhost/microMarket/');

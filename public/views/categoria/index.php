@@ -4,9 +4,8 @@
             <header class="panel-heading">
                 categoria de subsidio
                 <span class="tools pull-right">
-                    <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
+                    <a href="#modal_Registrar" class="btn bg-success" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
                  </span>
-                 
             </header>
             <div class="panel-body">
                 <div class="adv-table">

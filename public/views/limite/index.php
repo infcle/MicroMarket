@@ -2,9 +2,15 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
+<<<<<<< HEAD
                 Lista de limites derivados
                 <span class="tools pull-right">
                     <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
+=======
+                LIMITE DE PRODUCTO
+                 <span class="tools pull-right">
+                    <a href="#modal_limite" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nuevo limite"></a>
+>>>>>>> origin/validacion_seccion
                  </span>
             </header>
             <div class="panel-body">
@@ -12,10 +18,17 @@
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
+<<<<<<< HEAD
                                 <th>codigo</th>
                                 <th>NOMBRE DEL LIMITE</th>
                                 <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
+=======
+                                <th>CODIGO</th>
+                                <th>NOMBRE DEL PRODUCTO</th>
+                                <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
+                                <th class="hidden-phone">ACCIONES</th>
+>>>>>>> origin/validacion_seccion
                             </tr>
                         </thead>
                         <tbody>
@@ -30,15 +43,26 @@
                         </tbody>
                         <tfoot>
                             <tr>
+<<<<<<< HEAD
                                 <th>codigo</th>
                                 <th>NOMBRE DEL LIMITE</th>
                                 <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
+=======
+                                <th>CODIGO</th>
+                                <th>NOMBRE DEL PRODUCTO</th>
+                                <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
+                                <th class="hidden-phone">ACCIONES</th>
+>>>>>>> origin/validacion_seccion
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            <?php require_once 'modal_limite.php'; ?>
+>>>>>>> origin/validacion_seccion
         </section>
     </div>
 </div>
@@ -51,8 +75,8 @@
             rules:{
                 nombre:{
                     required:true,
-                    minlength: 5,
-                    maxlength:60,
+                    minlength: 3,
+                    maxlength:25,
                 },
                 limite:{
                     required:true,

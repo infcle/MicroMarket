@@ -4,9 +4,9 @@
             <header class="panel-heading">
                 <div class="row panel-heading">
                     Lista de secciones
-                    <span class="tools pull-right">
-                        <a href="#modalRegistro" data-placement="top" title="Nueva Seccion" data-toggle="modal" class="fa fa-plus"></a>
-                    </span>
+                  <span class="tools pull-right">
+                    <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva seccion"></a>
+                 </span>
                 </div>
             </header>
             <div class="panel-body">
@@ -42,6 +42,64 @@
                     </table>
                 </div>
             </div>
+            <?php require_once 'modal_registrar.php'; ?>
         </section>
     </div>
 </div>
+<script>
+    
+    $(document).ready(function() {
+        
+         $('#frmRegistrar').validate({ 
+            debug:true,
+            rules:{
+                nombre:{
+                    required:true,
+                    minlength: 3,
+                    maxlength:15,
+                },
+                limite:{
+                    required:true,
+                    minlength: 2,
+                    maxlength:4,
+                    range:[1,9999],
+                },
+                subsidio:{
+                    required:true
+                    
+                }
+
+              
+            },
+          
+           submitHandler: function (form) {
+                    $.ajax({
+                        url: '../../models/seccion/registro_model.php',
+                        type: 'post',
+                        data: $("#frmRegistrar").serialize(),
+                        beforeSend: function() {
+                            transicion("Procesando Espere....");
+                        },
+                        success: function(response) {
+                            if(response==1){
+                                $('#modal_Registrar').modal('hide');
+                                $('#btnRegistrar').attr({
+                                    disabled: 'true'
+                                });
+                                transicionSalir();
+                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                                setTimeout(function(){
+                                    window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                                }, 3000);
+                            }else{
+                                transicionSalir();
+                                mensajes_alerta('ERROR AL EDITAR LA SECCION verifique los datos!! '+response,'error','EDITAR DATOS');
+                            }
+                        }
+                    });
+            }
+           
+            
+        });
+    });
+</script>

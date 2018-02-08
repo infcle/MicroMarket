@@ -28,7 +28,7 @@ CREATE TABLE `categoria` (
   `fecha_creacion` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
 
@@ -40,6 +40,7 @@ CREATE TABLE `cliente` (
   `id_cliente` bigint(20) NOT NULL AUTO_INCREMENT,
   `ci` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   `nombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -74,6 +75,7 @@ CREATE TABLE `limite` (
   `id_limite` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `limite` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_limite`)
@@ -107,13 +109,14 @@ CREATE TABLE `producto` (
   `tipo` int(11) NOT NULL COMMENT 'si es pesable 2 y si es unidad 1',
   `precio` float NOT NULL,
   `cod_plu` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_limite` bigint(11) NOT NULL,
   PRIMARY KEY (`id_prod`),
   KEY `id_cat` (`id_limite`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `producto` */
 
@@ -146,13 +149,14 @@ CREATE TABLE `seccion` (
   `id_seccion` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `limite` int(11) NOT NULL,
+  `estado` tinyint(1) DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_categoria` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_seccion`),
   KEY `id_categoria` (`id_categoria`),
-  CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `seccion` */
 

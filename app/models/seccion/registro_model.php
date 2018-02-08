@@ -6,8 +6,9 @@
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	$nombre = trim($_POST["nombre"]);
 	$limite = trim($_POST["limite"]);
+	$subsidio=trim($_POST["subsidio"]);
 
-	$sql = "INSERT INTO seccion(nombre, limite) VALUES('{$nombre}', {$limite})";
+	$sql = "INSERT INTO seccion(nombre, limite,id_categoria) VALUES('{$nombre}', {$limite},{$subsidio})";
 
 	if (!$con->query($sql)) {
 		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;

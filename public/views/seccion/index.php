@@ -18,7 +18,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="adv-table">
+                <div class="adv-table" >
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
@@ -29,7 +29,6 @@
                             </tr>
                         </thead>
                         <tbody id="lista">
-                            <?php require_once '../../models/seccion/lista_seccion.php'; ?>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -45,3 +44,9 @@
         </section>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
+});
+
+</script>

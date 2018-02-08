@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
   `id_prod` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nro_plu` tinyint(1) NOT NULL COMMENT 'es el numero que esta registrado en la balanza',
+  `nro_plu` int(11) NOT NULL COMMENT 'es el numero que esta registrado en la balanza',
   `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `tipo` int(11) NOT NULL COMMENT 'si es pesable 2 y si es unidad 1',
   `precio` float NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `producto` (
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_limite` bigint(11) NOT NULL,
+  `id_limite` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id_prod`),
   KEY `id_cat` (`id_limite`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`) ON DELETE CASCADE ON UPDATE CASCADE

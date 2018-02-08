@@ -9,10 +9,10 @@
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
 	//Variables para enviar a la plantilla
-	$titulo="Categorias";
-	$contenido="categoria/index.php";
+	$titulo="Limites";
+	$contenido="limite/index.php";
 	$menu_a= $menus['C_LIMITE'];
-	$subTitulo="Categoria";
+	$subTitulo="Limites";
 	if (!($categorias = $con->query("SELECT * FROM categoria"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

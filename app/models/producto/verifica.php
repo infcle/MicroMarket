@@ -4,7 +4,7 @@
 
 	$nroplu=$_REQUEST['plu'];
 	if(isset($_REQUEST['tipo'])){
-		$sql="SELECT * FROM usuario_login WHERE usuario = '{$usuario}' and id_usuario != {$_REQUEST['id_user']}";
+		$sql="SELECT * FROM producto WHERE nro_plu = '{$nroplu}' and id_prod != {$_REQUEST['idProd']}";
 		if($resultado=$con->query($sql)){
 			$nrodefilas=$resultado->num_rows;
 			if($nrodefilas == 0)
@@ -13,7 +13,7 @@
 				echo "false";
 		}
 	}else{
-		$sql="SELECT * FROM usuario_login WHERE usuario = '{$usuario}'";
+		$sql="SELECT * FROM producto WHERE nro_plu = '{$nroplu}'";
 		if ($resultado=$con->query($sql)) {
 			$nrodefilas=$resultado->num_rows;
 			if($nrodefilas == 0)

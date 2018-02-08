@@ -16,8 +16,9 @@
                         <select name="categoria" id="inputCategoria" class="form-control" required="required">
                             <option value="">Seleccione categoria</option>
                             <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?php echo $categoria['id_cagtegoria']; ?>"><?php echo $categoria['nombre']; ?></option>}
-                            option
+                            <option value="<?php echo $categoria['id_categoria']; ?>">
+                                <?php echo $categoria['nombre']; ?>
+                            </option>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -50,14 +51,13 @@
     </div>
 </div>
 <script>
-
     $(document).ready(function() {
         $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
-        $("#tipoVenta").change(function(event){
-            var mid = $("#tipoVenta").find(':selected').val();
+        $("#inputCategoria").change(function(event){
+            var mid = $("#inputCategoria").find(':selected').val();
             $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php?id='+mid);
         });
-         $('#frmRegistrar').validate({ 
+        $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
                 nombre:{
@@ -73,41 +73,34 @@
                 },
                 subsidio:{
                     required:true
-                    
                 }
-
-              
             },
-          
-           submitHandler: function (form) {
-                    $.ajax({
-                        url: '../../models/seccion/registro_model.php',
-                        type: 'post',
-                        data: $("#frmRegistrar").serialize(),
-                        beforeSend: function() {
-                            transicion("Procesando Espere....");
-                        },
-                        success: function(response) {
-                            if(response==1){
-                                $('#modal_Registrar').modal('hide');
-                                $('#btnRegistrar').attr({
-                                    disabled: 'true'
-                                });
-                                transicionSalir();
-                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                                setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
-                                }, 3000);
-                            }else{
-                                transicionSalir();
-                                mensajes_alerta('ERROR AL EDITAR LA SECCION verifique los datos!! '+response,'error','EDITAR DATOS');
-                            }
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/seccion/registro_model.php',
+                    type: 'post',
+                    data: $("#frmRegistrar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modal_Registrar').modal('hide');
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR LA SECCION verifique los datos!! '+response,'error','EDITAR DATOS');
                         }
-                    });
+                    }
+                });
             }
-           
-            
         });
     });
-
 </script>

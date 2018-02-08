@@ -12,12 +12,13 @@
 	if (!($secciones = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
+	$filas=$secciones->num_rows;
 	if ($secciones->num_rows >0) {
 		foreach ($secciones as $seccion): ?>
 		    <tr class="gradeX">
-		        <td><?php $seccion['id_seccion']; ?></td>
-		        <td><?php $seccion['nombre']; ?></td>
-		        <td><?php $seccion['limite']; ?></td>
+		        <td><?php echo $seccion['id_seccion']; ?></td>
+		        <td><?php echo $seccion['nombre']; ?></td>
+		        <td><?php echo $seccion['limite']; ?></td>
 		        <td ></td>
 		    </tr>
 		<?php endforeach;

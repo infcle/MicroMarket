@@ -6,25 +6,22 @@
                 <h4 class="modal-title">Registrar Nueva Seccion</h4>
             </div>
             <div class="modal-body">
-                
                 <form role="form" id="frmRegistrar" name="frmRegistrar">
-                    
                     <select  name="subsidio" id="subsidio" class="form-control" >
-                         <option value="" selected="selected">Selecione el tipo de subsidio</option>
-                                    
-                        <option value="1" >1.Subsidio prenatal y de lactancia</option> 
-                         <option value="2" >2.subsidio universal prenatal por la vida</option>
-
-                </select> <br><br>
-                    <div class="form-group">
+                        <option value="" selected="selected">Selecione el tipo de subsidio</option>
+                        <?php foreach ($categorias as $categoria): ?>
+                        <option value="<?php echo $categoria['id_categoria']; ?>">
+                            <?php echo $categoria['nombre']; ?>
+                        </option>
+                        <?php endforeach ?>
+                    </select> <br><br>
+                    <div class="form-group>
                         <label for="Nombre">Nombre de Seccion</label>
                         <input class=" form-control" id="nombre" name="nombre" type="text" />
                     </div><br>
-                    
                     <div class="form-group">
                         <label for="user" class="control-label">Limite de  Compra de la Seccion (en BS)</label>
                         <input class="form-control" id="limite" type="number" name="limite" />
-                        
                     </div><br>
                    
                     <div class=" modal-footer">

@@ -54,7 +54,7 @@
                     maxlength:25,
                 },
                 limite:{
-                    required:true,
+      vv               required:true,
                     minlength: 2,
                     maxlength:4,
                     range:[1,9999],
@@ -62,7 +62,7 @@
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '../../models/categoria/registro_model.php',
+                    url: '../../models/limite/registro_model.php',
                     type: 'post',
                     data: $("#frmRegistrar").serialize(),
                     beforeSend: function() {
@@ -70,14 +70,14 @@
                     },
                     success: function(response) {
                         if(response==1){
-                            $('#modal_Registrar').modal('hide');
+                            $('#modal_limite').modal('hide');
                             $('#btnRegistrar').attr({
                                 disabled: 'true'
                             });
                             transicionSalir();
                             mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>limite/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();

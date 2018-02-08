@@ -3,8 +3,10 @@
         <section class="panel">
             <header class="panel-heading">
                 categoria de subsidio
-                <span class="tools pull-right">
-                    <a href="#modal_Registrar" class="btn btn-xs btn-success" data-toggle="modal">Nueva categoria</a>
+                <span class="pull-right">
+                    <a href="#modal_Registrar" class="btn btn-xs btn-success" data-toggle="modal">
+                    <span class="fa  fa-pencil"></span> Nueva categoria
+                    </a>
                  </span>
             </header>
             <div class="panel-body">
@@ -44,9 +46,7 @@
     </div>
 </div>
 <script>
-    
     $(document).ready(function() {
-        
          $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
@@ -61,38 +61,33 @@
                     maxlength:4,
                     range:[1,9999],
                 },
-
-              
             },
-          
-           submitHandler: function (form) {
-                    $.ajax({
-                        url: '../../models/categoria/registro_model.php',
-                        type: 'post',
-                        data: $("#frmRegistrar").serialize(),
-                        beforeSend: function() {
-                            transicion("Procesando Espere....");
-                        },
-                        success: function(response) {
-                            if(response==1){
-                                $('#modal_Registrar').modal('hide');
-                                $('#btnRegistrar').attr({
-                                    disabled: 'true'
-                                });
-                                transicionSalir();
-                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                                setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
-                                }, 3000);
-                            }else{
-                                transicionSalir();
-                                mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
-                            }
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/categoria/registro_model.php',
+                    type: 'post',
+                    data: $("#frmRegistrar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modal_Registrar').modal('hide');
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','REGISTRO DE DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR LA CATEGORIA verifique los datos!! '+response,'error','REGISTRO DE DATOS');
                         }
-                    });
+                    }
+                });
             }
-           
-            
         });
     });
 </script>

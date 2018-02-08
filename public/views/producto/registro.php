@@ -23,7 +23,7 @@
 
                                <div class="row">
                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                       <input class="form-control " id="nro_plu" type="number" name="nro_plu"/>
+                                       <input class="form-control"  autofocus="true" id="nro_plu" type="number" name="nro_plu" value="<?php echo $fila[0]; ?>"/>
                                         
 
                                    </div>
@@ -78,6 +78,9 @@
 
 <script language="JavaScript" type="text/JavaScript">
     $(document).ready(function(){
+      $("#nro_plu").focus(function(){
+        this.select();
+      });
         $("#tipoVenta").change(function(event){ 
             var id = $("#precio").find(':selected').val();
             if(id==1)

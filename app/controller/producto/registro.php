@@ -8,10 +8,12 @@
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
 	$sql="SELECT MAX(nro_plu)+1 FROM producto";
-	if (!($resultado = $con->query("SELECT * FROM usuario_login"))) {
+	if (!($resultado = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
-	$nroplu=$resultado['nro_plu'];
+	$fila = $resultado->fetch_row();
+	/*$datos=$resultado
+	$nroplu=$resultado['nro_plu'];*/
 	$titulo="Nuevo usuario";
 	$contenido="producto/registro.php";
 	$menu_a= $menus['P_REGISTRO'];

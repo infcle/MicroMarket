@@ -50,19 +50,13 @@
     </div>
 </div>
 <script>
-<<<<<<< HEAD
-$(document).ready(function() {
-    $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
-    $("#tipoVenta").change(function(event){
-        var mid = $("#tipoVenta").find(':selected').val();
-        $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php?id='+mid);
-    });
-});
 
-=======
-    
     $(document).ready(function() {
-        
+        $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
+        $("#tipoVenta").change(function(event){
+            var mid = $("#tipoVenta").find(':selected').val();
+            $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php?id='+mid);
+        });
          $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
@@ -115,5 +109,5 @@ $(document).ready(function() {
             
         });
     });
->>>>>>> validacion_seccion
+
 </script>

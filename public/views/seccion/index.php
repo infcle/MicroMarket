@@ -15,6 +15,10 @@
                     <div class="col-md-4">
                         <select name="categoria" id="inputCategoria" class="form-control" required="required">
                             <option value="">Seleccione categoria</option>
+                            <?php foreach ($categorias as $categoria): ?>
+                            <option value="<?php echo $categoria['id_cagtegoria']; ?>"><?php echo $categoria['nombre']; ?></option>}
+                            option
+                            <?php endforeach ?>
                         </select>
                     </div>
                 </div>
@@ -47,6 +51,10 @@
 <script>
 $(document).ready(function() {
     $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
+    $("#tipoVenta").change(function(event){
+        var mid = $("#tipoVenta").find(':selected').val();
+        $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php?id='+mid);
+    });
 });
 
 </script>

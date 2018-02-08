@@ -2,7 +2,14 @@
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
 	require_once ("../../config/route.php");
-	if (!($secciones = $con->query("SELECT * FROM seccion"))) {
+	
+	if(isset($_REQUEST['id'])){
+		$sql="SELECT * FROM seccion WHERE id_categoria={$_REQUEST['id']}";
+	}else{
+		$sql="SELECT * FROM seccion where id_categoria=-1";
+	}
+
+	if (!($secciones = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	if ($secciones->num_rows >0) {

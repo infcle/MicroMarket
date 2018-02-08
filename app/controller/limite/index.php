@@ -13,7 +13,7 @@
 	$contenido="limite/index.php";
 	$menu_a= $menus['C_LIMITE'];
 	$subTitulo="Limites";
-	if (!($categorias = $con->query("SELECT * FROM categoria"))) {
+	if (!($limites = $con->query("SELECT * FROM limite"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 

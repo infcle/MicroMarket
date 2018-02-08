@@ -2,11 +2,10 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                categoria de subsidio
+                Lista de limites derivados
                 <span class="tools pull-right">
                     <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
                  </span>
-                 
             </header>
             <div class="panel-body">
                 <div class="adv-table">
@@ -14,17 +13,17 @@
                         <thead>
                             <tr>
                                 <th>codigo</th>
-                                <th>NOMBRE DE LA CATEGORIA</th>
+                                <th>NOMBRE DEL LIMITE</th>
                                 <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($categorias as $categoria): ?>
+                            <?php foreach ($limites as $limite): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $categoria['id_categoria']; ?></td>
-                                    <td><?php echo $categoria['nombre']; ?></td>
-                                    <td><?php echo $categoria['limite']; ?></td>
+                                    <td><?php echo $limite['id_limite']; ?></td>
+                                    <td><?php echo $limite['nombre']; ?></td>
+                                    <td><?php echo $limite['limite']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>
@@ -32,7 +31,7 @@
                         <tfoot>
                             <tr>
                                 <th>codigo</th>
-                                <th>NOMBRE DE LA CATEGORIA</th>
+                                <th>NOMBRE DEL LIMITE</th>
                                 <th>LIMITE DE COMPRA (BS)</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
@@ -40,7 +39,6 @@
                     </table>
                 </div>
             </div>
-            <?php require_once 'modal_registrar.php'; ?>
         </section>
     </div>
 </div>

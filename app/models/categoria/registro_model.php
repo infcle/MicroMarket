@@ -6,8 +6,9 @@
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	$nombre = trim($_POST["nombre"]);
 	$limite = trim($_POST["limite"]);
+	$fechaRegistro = date('Y-m-d H:i:s');
 
-	$sql = "INSERT INTO categoria(nombre, limite) VALUES('{$nombre}', {$limite})";
+	$sql = "INSERT INTO categoria(nombre, limite, fecha_creacion) VALUES('{$nombre}', {$limite}, '{$fechaRegistro}')";
 
 	if (!$con->query($sql)) {
 		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;

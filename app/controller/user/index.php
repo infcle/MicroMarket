@@ -10,8 +10,8 @@
 	//Variables para enviar a la plantilla
 	$titulo="Usuarios";
 	$contenido="user/index.php";
-	$sub_directory="";
-	$menu_a= array();
+	$subTitulo="Usuario";
+	$menu_a= $menus['U_LISTA'];
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

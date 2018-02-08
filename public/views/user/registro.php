@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Registro de usuario
+                Registro de usuariooo
             </header>
             <div class="panel-body">
                 <div class=" form">
@@ -10,13 +10,13 @@
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">Nombre completo (obligatorio)</label>
                             <div class="col-lg-8">
-                                <input class=" form-control" id="name" name="name" minlength="2" type="text" required />
+                                <input class=" form-control" id="name" name="name" minlength="7 " type="text" required autofocus="true" />
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="user" class="control-label col-lg-2">nombre de usuario (Obligatorio)</label>
                             <div class="col-lg-8">
-                                <input class="form-control " id="user" type="text" name="user" required />
+                                <input class="form-control " id="user" type="text" name="user" required  minlength="3" />
                             </div>
                         </div>
                         <div class="form-group ">
@@ -26,15 +26,14 @@
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="password_repeat" class="control-label col-lg-2">Repetir contraseña</label>
+                            <label for="password_repeat" class="control-label col-lg-2">Repita contraseña</label>
                             <div class="col-lg-8">
                                 <input class="form-control" type="password" id="password_repeat" name="password_repeat" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-primary" type="submit">Registrar</button>
-                                <button class="btn btn-default" type="button">Cancelar</button>
+                                <button class="btn btn-primary" type="submit" id="btnRegistrar" >Registrar</button>
                             </div>
                         </div>
                     </form>
@@ -47,18 +46,63 @@
     $(document).ready(function() {
         $("#frmUsuario").validate({
             debug:true,
+            rules:{
+                name:{
+                    required:true,
+                    minlength: 7,
+                },
+                user:{
+                    required:true,
+                    minlength: 3,
+                    remote: {
+                        url: "../../models/user/verifica.php",
+                        type: 'post',
+                        data: {
+                            user: function() {
+                                return $("#user").val();
+                            }
+                        }
+                    }
+                },
+                password:{
+                    required:true,
+                    minlength:6,
+                },
+                password_repeat:{
+                    required:true,
+                    minlength: 6,
+                    equalTo: "#password",
+                },
+            },
+            messages:{
+                user:{
+                    remote:"el nombre de usuario ya existe, seleccione otro."
+                },
+                password_repeat:{
+                    equalTo :"Las contraseñas no coinciden."
+                }
+            },
             submitHandler: function (form) {
                 $.ajax({
                     url: '../../models/user/registro_model.php',
                     type: 'post',
                     data: $("#frmUsuario").serialize(),
                     beforeSend: function() {
+                        transicion("Procesando Espere....");
                     },
                     success: function(response) {
                         if(response==1){
-                            window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            }, 3000);
                         }else{
-                            alert("Error al registrar");
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR AL USUARIO verifique los datos!! '+response,'error','GUARDAR DATOS');
                         }
                     }
                 });

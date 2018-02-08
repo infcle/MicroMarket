@@ -8,8 +8,7 @@
 	//Variables para enviar a la plantilla
 	$titulo="Nuevo usuario";
 	$contenido="user/registro.php";
-	$sub_directory="";
-	$menu_a= array();
-	
+	$subTitulo="Usuario";
+	$menu_a= $menus['U_REGISTRO'];
 	require_once ('../../../public/views/plantilla.php');
 ?>

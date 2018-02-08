@@ -2,11 +2,9 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                categoria de subsidio
-                <span class="pull-right">
-                    <a href="#modal_Registrar" class="btn btn-xs btn-success" data-toggle="modal">
-                    <span class="fa  fa-pencil"></span> Nueva categoria
-                    </a>
+                LIMITE DE PRODUCTO
+                 <span class="tools pull-right">
+                    <a href="#modal_limite" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nuevo limite"></a>
                  </span>
             </header>
             <div class="panel-body">
@@ -14,34 +12,34 @@
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
-                                <th>codigo</th>
-                                <th>NOMBRE DE LA CATEGORIA</th>
-                                <th>LIMITE DE COMPRA (BS)</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th>CODIGO</th>
+                                <th>NOMBRE DEL PRODUCTO</th>
+                                <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
+                                <th class="hidden-phone">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($categorias as $categoria): ?>
+                            <?php foreach ($limites as $limite): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $categoria['id_categoria']; ?></td>
-                                    <td><?php echo $categoria['nombre']; ?></td>
-                                    <td><?php echo $categoria['limite']; ?></td>
+                                    <td><?php echo $limite['id_limite']; ?></td>
+                                    <td><?php echo $limite['nombre']; ?></td>
+                                    <td><?php echo $limite['limite']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>codigo</th>
-                                <th>NOMBRE DE LA CATEGORIA</th>
-                                <th>LIMITE DE COMPRA (BS)</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th>CODIGO</th>
+                                <th>NOMBRE DEL PRODUCTO</th>
+                                <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
+                                <th class="hidden-phone">ACCIONES</th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
-            <?php require_once 'modal_registrar.php'; ?>
+            <?php require_once 'modal_limite.php'; ?>
         </section>
     </div>
 </div>
@@ -52,11 +50,11 @@
             rules:{
                 nombre:{
                     required:true,
-                    minlength: 5,
-                    maxlength:60,
+                    minlength: 3,
+                    maxlength:25,
                 },
                 limite:{
-                    required:true,
+                   required:true,
                     minlength: 2,
                     maxlength:4,
                     range:[1,9999],
@@ -64,7 +62,7 @@
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '../../models/categoria/registro_model.php',
+                    url: '../../models/limite/registro_model.php',
                     type: 'post',
                     data: $("#frmRegistrar").serialize(),
                     beforeSend: function() {
@@ -72,18 +70,18 @@
                     },
                     success: function(response) {
                         if(response==1){
-                            $('#modal_Registrar').modal('hide');
+                            $('#modal_limite').modal('hide');
                             $('#btnRegistrar').attr({
                                 disabled: 'true'
                             });
                             transicionSalir();
-                            mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','REGISTRO DE DATOS');
+                            mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>limite/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();
-                            mensajes_alerta('ERROR AL REGISTRAR LA CATEGORIA verifique los datos!! '+response,'error','REGISTRO DE DATOS');
+                            mensajes_alerta('ERROR AL REGISTRAR LIMITE DE PRODUCTO verifique los datos!! '+response,'error','REGISTRAR DATOS');
                         }
                     }
                 });

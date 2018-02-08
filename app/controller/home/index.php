@@ -9,7 +9,7 @@
 	$titulo="Bienvenido";
 	$contenido="inicio.php";
 	$sub_directory="";
-	$menu_a= array();
-	
+	$menu_a = $menus['INICIO'];
+	$subTitulo="Inicio";
 	require_once ('../../../public/views/plantilla.php');
 ?>

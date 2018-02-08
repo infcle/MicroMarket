@@ -9,18 +9,13 @@
 	$user_name = trim($_POST["user"]);
 	$user_password = $_POST['password'];
 	$user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
-	$rol=0; //0 super usuario, 1 Administrador, 2 Cajeros
+	$rol=2; //0 super usuario, 1 Administrador, 2 Cajeros
 
 	$sql = "CALL insertarUsuario('{$nombre}','{$fechaRegistro}','{$user_name}','{$user_password_hash}',{$rol});";
 
 	if (!$con->query($sql)) {
- 	   echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
+		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
 	}
 	else
 		echo 1;
-	// if ($con->query("CALL p(1)")) {
- //        echo 1;//Se registro correctamente
- //    } else {
- //        echo 0;// Error al registrar
- //    }
 ?>

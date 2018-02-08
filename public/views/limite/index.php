@@ -2,15 +2,9 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-<<<<<<< HEAD
-                Lista de limites derivados
-                <span class="tools pull-right">
-                    <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva categoria"></a>
-=======
                 LIMITE DE PRODUCTO
                  <span class="tools pull-right">
                     <a href="#modal_limite" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nuevo limite"></a>
->>>>>>> origin/validacion_seccion
                  </span>
             </header>
             <div class="panel-body">
@@ -18,17 +12,10 @@
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
-<<<<<<< HEAD
-                                <th>codigo</th>
-                                <th>NOMBRE DEL LIMITE</th>
-                                <th>LIMITE DE COMPRA (BS)</th>
-                                <th class="hidden-phone">Acciones</th>
-=======
                                 <th>CODIGO</th>
                                 <th>NOMBRE DEL PRODUCTO</th>
                                 <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
                                 <th class="hidden-phone">ACCIONES</th>
->>>>>>> origin/validacion_seccion
                             </tr>
                         </thead>
                         <tbody>
@@ -43,33 +30,21 @@
                         </tbody>
                         <tfoot>
                             <tr>
-<<<<<<< HEAD
-                                <th>codigo</th>
-                                <th>NOMBRE DEL LIMITE</th>
-                                <th>LIMITE DE COMPRA (BS)</th>
-                                <th class="hidden-phone">Acciones</th>
-=======
                                 <th>CODIGO</th>
                                 <th>NOMBRE DEL PRODUCTO</th>
                                 <th>LIMITE DE COMPRA DE PRODUCTO(BS)</th>
                                 <th class="hidden-phone">ACCIONES</th>
->>>>>>> origin/validacion_seccion
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
-<<<<<<< HEAD
-=======
             <?php require_once 'modal_limite.php'; ?>
->>>>>>> origin/validacion_seccion
         </section>
     </div>
 </div>
 <script>
-    
     $(document).ready(function() {
-        
          $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
@@ -84,38 +59,33 @@
                     maxlength:4,
                     range:[1,9999],
                 },
-
-              
             },
-          
-           submitHandler: function (form) {
-                    $.ajax({
-                        url: '../../models/categoria/registro_model.php',
-                        type: 'post',
-                        data: $("#frmRegistrar").serialize(),
-                        beforeSend: function() {
-                            transicion("Procesando Espere....");
-                        },
-                        success: function(response) {
-                            if(response==1){
-                                $('#modal_Registrar').modal('hide');
-                                $('#btnRegistrar').attr({
-                                    disabled: 'true'
-                                });
-                                transicionSalir();
-                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                                setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
-                                }, 3000);
-                            }else{
-                                transicionSalir();
-                                mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
-                            }
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/categoria/registro_model.php',
+                    type: 'post',
+                    data: $("#frmRegistrar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modal_Registrar').modal('hide');
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>categoria/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
                         }
-                    });
+                    }
+                });
             }
-           
-            
         });
     });
 </script>

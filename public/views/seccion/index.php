@@ -4,8 +4,10 @@
             <header class="panel-heading">
                 <div class="row panel-heading">
                     Lista de secciones
-                  <span class="tools pull-right">
-                    <a href="#modal_Registrar" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nueva seccion"></a>
+                  <span class="pull-right">
+                    <a href="#modal_Registrar" class="btn btn-xs btn-success" data-toggle="modal">
+                        <span class="fa fa-pencil"></span> Nueva seccion
+                    </a>
                  </span>
                 </div>
             </header>

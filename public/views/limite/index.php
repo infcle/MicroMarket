@@ -3,8 +3,8 @@
         <section class="panel">
             <header class="panel-heading">
                 LIMITE DE PRODUCTO
-                 <span class="tools pull-right">
-                    <a href="#modal_limite" class="fa fa-plus" data-toggle="modal" data-placement="top" title="nuevo limite"></a>
+                 <span class="pull-right">
+                    <a href="#modal_limite" class="btn btn-xs btn-success" data-toggle="modal"><span class="fa  fa-pencil"></span> Nuevo limite</a>
                  </span>
             </header>
             <div class="panel-body">

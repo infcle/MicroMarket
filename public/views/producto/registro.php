@@ -8,46 +8,44 @@
                 <div class=" form">
                     <form class="cmxform form-horizontal adminex-form" id="frmProducto" name="frmProducto" method="post">
 
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                     
-                            <div class="form-group ">
-                                <label for="cname" class="control-label col-lg-4">Nombre del producto </label>
-                                <div class="col-lg-6">
-                                    <input class=" form-control" id="nombre" name="nombre" type="text"/>
-                                </div>
-                            </div>
+                       <div class="row">
+                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <div class="row">
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label for="user">NRO de PLU de balanza </label>
 
-                            <div class="form-group ">
-                                <label for="user" class="control-label col-lg-4">NRO de PLU de balanza </label>
-                                <div class="col-lg-8">
-                                <input class="form-control " id="nro" type="number" name="nro"/>
-                                </div>
-                            </div>
+                                   </div>
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label for="cname">Nombre del producto </label>
+                                   </div>
+                                   
+                               </div>
 
-                           
+                               <div class="row">
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                       <input class="form-control " id="nro_plu" type="number" name="nro_plu"/>
+                                        
 
-                            <div class="form-group ">
-                                <label for="user" class="control-label col-lg-4" id="mensaje"></label>
-                                <div class="col-lg-8">
-                                <input class="form-control " id="precio" type="number" name="precio" disabled="true" />
-                                </div>
-                            </div>
+                                   </div>
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <input class=" form-control" id="nombre" name="nombre" type="text"/>
+                                   </div>
+                                   
+                               </div>
+<br>
+                                <div class="row">
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                       <label for="cname">tipo de venta </label>
+                                   </div>
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label for="precio" id="mensaje"></label>
+                                        
+                                   </div>
+                                   
+                               </div>
 
-                         
-
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-primary" type="submit" id="btnRegistrar">Registrar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                             
-                               <div class="form-group ">
-                                
-                                <div class="col-lg-6">
+                               <div class="row">
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <select  name="tipoVenta" id="tipoVenta" class="form-control">
                                         <option value="" selected="selected">peso o cantidad selecione una opcion</option>
                                     
@@ -55,27 +53,22 @@
                                         <option value="2" >2.PESO</option>
 
                                         </select>
-                                </div>
-                            </div>
-                              
-                             <div class="form-group ">
+                                   </div>
+                                   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <input class=" form-control" id="precio" name="precio" type="number"/>
+                                   </div>
+                                   
+                               </div>
+
+                           </div>
+                       </div>
+<br>
+                       
                                 
-                                <div class="col-lg-6">
-                                        <select   name="seccion" id="seccion" class="form-control"  >
-                                        <option value="" selected="selected">selecione una seccion</option> 
-                                        <option value="1" >1. CARNES</option> 
-                                        <option value="2" >2. VERDURAS</option>
-                                        <option value="3">3. FRUTAS</option> 
-                                        <option value="4" >4. TUBERCULOS</option>
-                                        </select>
-                                </div>
-                            </div>
-                        </div>
+                                    <button class="btn btn-primary" type="submit" id="btnRegistrar">Registrar</button>
+                                
                         
-                        </div>
-
-
-                        
+                       
                     </form>
                 </div>
             </div>
@@ -86,7 +79,7 @@
 <script language="JavaScript" type="text/JavaScript">
     $(document).ready(function(){
         $("#tipoVenta").change(function(event){ 
-            var id = $("#tipoVenta").find(':selected').val();
+            var id = $("#precio").find(':selected').val();
             if(id==1)
             {
               $("#mensaje").html("precio por cantidad ");  
@@ -114,7 +107,7 @@
                     minlength: 3,
                     maxlength:25,
                 },
-                nro:{
+                nro_plu:{
                     required:true,
                     minlength:1,
                     maxlength:4,
@@ -129,8 +122,11 @@
                         required: true,
                         
                     },
-                seccion: {
-                        required: true,
+                precio: {
+                        required:true,
+                        minlength:1,
+                        maxlength:4,
+                        range:[0.1,999.000],
                        
                     },
 
@@ -141,7 +137,7 @@
                 nombre:{
                     required:"Este es Campo Obligatorio.",
                 },
-                nro:{
+                nro_plu:{
                     required:"Este es Campo Obligatorio."
                 },
                 precio:{

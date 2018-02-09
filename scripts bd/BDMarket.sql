@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 10.1.8-MariaDB : Database - marketbd
+MySQL - 5.7.19 : Database - marketbd
 *********************************************************************
 */
 
@@ -28,9 +28,13 @@ CREATE TABLE `categoria` (
   `fecha_creacion` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
+
+LOCK TABLES `categoria` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `cliente` */
 
@@ -39,13 +43,17 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id_cliente` bigint(20) NOT NULL AUTO_INCREMENT,
   `ci` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `nombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `cliente` */
+
+LOCK TABLES `cliente` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `compra_r` */
 
@@ -67,6 +75,10 @@ CREATE TABLE `compra_r` (
 
 /*Data for the table `compra_r` */
 
+LOCK TABLES `compra_r` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `limite` */
 
 DROP TABLE IF EXISTS `limite`;
@@ -83,6 +95,10 @@ CREATE TABLE `limite` (
 
 /*Data for the table `limite` */
 
+LOCK TABLES `limite` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `pertenece` */
 
 DROP TABLE IF EXISTS `pertenece`;
@@ -97,6 +113,10 @@ CREATE TABLE `pertenece` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `pertenece` */
+
+LOCK TABLES `pertenece` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `producto` */
 
@@ -120,13 +140,17 @@ CREATE TABLE `producto` (
 
 /*Data for the table `producto` */
 
+LOCK TABLES `producto` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `producto_etiquetado` */
 
 DROP TABLE IF EXISTS `producto_etiquetado`;
 
 CREATE TABLE `producto_etiquetado` (
   `id_etiqueta` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cod_barras` varchar(300) COLLATE utf8_spanish2_ci NOT NULL COMMENT 'codigo de barras generado por productos etiquetados',
+  `cod_barras` int(11) NOT NULL COMMENT 'codigo de barras generado por productos etiquetados',
   `preciototal` float NOT NULL COMMENT 'precio deacurdo al peso o cantidad del producto',
   `peso_cantidad` float NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'estado si se vendio o no',
@@ -141,6 +165,10 @@ CREATE TABLE `producto_etiquetado` (
 
 /*Data for the table `producto_etiquetado` */
 
+LOCK TABLES `producto_etiquetado` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `seccion` */
 
 DROP TABLE IF EXISTS `seccion`;
@@ -149,16 +177,20 @@ CREATE TABLE `seccion` (
   `id_seccion` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `limite` int(11) NOT NULL,
-  `estado` tinyint(1) DEFAULT '1',
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_categoria` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_seccion`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `seccion` */
+
+LOCK TABLES `seccion` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `tiene` */
 
@@ -174,6 +206,10 @@ CREATE TABLE `tiene` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `tiene` */
+
+LOCK TABLES `tiene` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `usuario_login` */
 
@@ -193,7 +229,11 @@ CREATE TABLE `usuario_login` (
 
 /*Data for the table `usuario_login` */
 
+LOCK TABLES `usuario_login` WRITE;
+
 insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
+
+UNLOCK TABLES;
 
 /* Procedure structure for procedure `eliminarCliente` */
 

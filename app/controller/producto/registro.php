@@ -12,9 +12,7 @@
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	$fila = $resultado->fetch_row();
-	/*$datos=$resultado
-	$nroplu=$resultado['nro_plu'];*/
-	$titulo="Nuevo usuario";
+	$titulo="Nuevo Producto";
 	$contenido="producto/registro.php";
 	$menu_a= $menus['P_REGISTRO'];
 	$subTitulo="Producto o PLU";

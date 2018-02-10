@@ -12,6 +12,10 @@
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	$fila = $resultado->fetch_row();
+	$sql="SELECT * FROM categoria where estado = 1";
+	if (!($categorias = $con->query($sql))) {
+    	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
+	}
 	$titulo="Nuevo Producto";
 	$contenido="producto/registro.php";
 	$menu_a= $menus['P_REGISTRO'];

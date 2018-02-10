@@ -53,56 +53,17 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label col-lg-2" for="Categorias">CATEGORÍA</label>
                   <div class="col-lg-10 icheck">
-                    <div class="square-blue single-row">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="1">
-                          Subsidio universal
-                        </label>
-                      </div>
-                    </div>
-                    <div class="single-row">
-                      <div class="col-md-12">
-                        <div class="col-md-12 well">
-                          <select name="seccion" id="inputSeccion" class="form-control" required="required">
-                            <option value="">seleccione una seccion</option>
-                            <option value="">Carne</option>
-                            <option value="">Pollo</option>
-                            <option value="">Huevo</option>
-                          </select>
+                    <?php foreach ($categorias as $categoria): ?>
+                      <div class="square-blue single-row">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" id="categoria" name="categoria" required="" value="<?php echo $categoria['id_categoria']; ?>" >
+                            <?php echo $categoria['nombre'];?>
+                          </label>
                         </div>
+                        <div class="col-md-12"></div>
                       </div>
-                    </div>
-                    <div class="square-blue single-row">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="2">
-                          Subsidio Prenatal
-                        </label>
-                      </div>
-                    </div>
-                    <div class="single-row">
-                      <div class="col-md-12">
-                        <div class="col-md-12 well">
-                          <select name="seccion" id="inputSeccion" class="form-control" required="required">
-                            <option value="">seleccione una seccion</option>
-                            <option value="">Carnes y derivados</option>
-                            <option value="">Frutas</option>
-                            <option value="">Verduras</option>
-                            <option value="">Tuberculos</option>
-                          </select><br>                          
-                          <div class="col-md-12 form-group">
-                            <label>Selecione un limite para el derivado de la carne</label>
-                            <select name="limite" id="inputLimite" class="form-control" required="required">
-                              <option value="">Seleccione limite</option>
-                              <option value="">Carne de vaca 350</option>
-                              <option value="">Pollo y/o pescado 170</option>
-                              <option value="">Huevo 25</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <?php endforeach ?>
                   </div>
                 </div>
               </div>
@@ -126,10 +87,10 @@
     $("#tipoVenta").change(function(event){
       var id = $("#tipoVenta").find(':selected').val();
       if(id==1){
-        $("#mensaje").html("precio por cantidad ");
+        $("#mensaje").html("Precio por cantidad ");
 
       }else if(id==2){
-        $("#mensaje").html("precio por kilo ");
+        $("#mensaje").html("Precio por kilo ");
       }
       $("#precio").removeAttr('disabled');
       $("#precio").focus();
@@ -162,6 +123,9 @@
           minlength:1,
           maxlength:4,
           range:[0.1,999.000]
+        },
+        categoria:{
+          required: true
         }
       },
       messages:{
@@ -173,7 +137,13 @@
         },
         precio:{
           required:"Este es Campo Obligatorio."
-        },
+        }
+      },
+      errorPlacement: function(error, element) {
+        if (element.is(":checkbox"))
+          error.appendTo(element.next());
+        else
+          error.appendTo(element.parent().next());
       },
       submitHandler: function (form) {
         $.ajax({

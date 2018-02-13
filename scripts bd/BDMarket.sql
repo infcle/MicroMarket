@@ -28,11 +28,13 @@ CREATE TABLE `categoria` (
   `fecha_creacion` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
 
 LOCK TABLES `categoria` WRITE;
+
+insert  into `categoria`(`id_categoria`,`nombre`,`limite`,`estado`,`fecha_creacion`,`fecha_actualizacion`) values (1,'Subsidio Universal Prenatal por la vida',102,1,'2018-02-10 12:37:01','2018-02-10 12:37:01'),(2,'Subsidio Prenatal y de Lactancia',750,1,'2018-02-10 12:38:04','2018-02-10 12:38:04');
 
 UNLOCK TABLES;
 
@@ -91,11 +93,13 @@ CREATE TABLE `limite` (
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_limite`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `limite` */
 
 LOCK TABLES `limite` WRITE;
+
+insert  into `limite`(`id_limite`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`) values (1,'Carne Blanda de Res',350,1,'2018-02-10 13:44:50','2018-02-10 13:44:50'),(2,'Pollo y/o Pescado',175,1,'2018-02-10 13:45:15','2018-02-10 13:45:15'),(3,'Huevo de Gallina',25,1,'2018-02-10 13:45:42','2018-02-10 13:45:42');
 
 UNLOCK TABLES;
 
@@ -184,11 +188,13 @@ CREATE TABLE `seccion` (
   PRIMARY KEY (`id_seccion`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `seccion` */
 
 LOCK TABLES `seccion` WRITE;
+
+insert  into `seccion`(`id_seccion`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`,`id_categoria`) values (1,'Carne',50,1,'2018-02-10 12:41:17','2018-02-10 12:41:17',1),(2,'Pollo',30,1,'2018-02-10 12:41:44','2018-02-10 12:41:44',1),(3,'Huevo',22,1,'2018-02-10 12:42:09','2018-02-10 12:42:09',1),(4,'Carnes y derivados',550,1,'2018-02-10 12:44:12','2018-02-10 12:44:12',2),(5,'Frutas',60,1,'2018-02-10 12:44:31','2018-02-10 12:44:31',2),(6,'Verduras',60,1,'2018-02-10 12:44:48','2018-02-10 12:44:48',2),(7,'Leguminos, raices y tuberculos',80,1,'2018-02-10 12:45:36','2018-02-10 12:45:36',2);
 
 UNLOCK TABLES;
 

@@ -50,23 +50,22 @@
                 </div>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label col-lg-2" for="Categorias">CATEGORÍA</label>
-                  <div class="col-lg-10 icheck">
-                    <?php foreach ($categorias as $categoria): ?>
-                      <div class="square-blue single-row">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" id="categoria" name="categoria" required="" value="<?php echo $categoria['id_categoria']; ?>" >
-                            <?php echo $categoria['nombre'];?>
-                          </label>
-                        </div>
-                        <div class="col-md-12"></div>
-                      </div>
-                    <?php endforeach ?>
+                <h5>CATEGORÍA</h5>
+                <?php $cont=0; ?>
+                <?php foreach ($categorias as $categoria): ?>
+                  <?php $cont++; ?>
+                  <div class="form-group">
+                    <div class="col-md-12 checkbox">
+                      <label>
+                      <input type="checkbox" id="categoria[]" name="categoria[]" class="cambio" value="<?php echo $categoria['id_categoria']; ?>">
+                        <?php echo $categoria['nombre'];?>
+                      </label>
+                      <div class="col-md-12" id="resuldato_<?php echo $categoria['id_categoria']; ?>"></div>
+                    </div>
                   </div>
-                </div>
+                <?php endforeach ?>
               </div>
+              <em id="personalError"></em>
             </div>
             <div class="row form-group text-center">
               <div class="form-group">
@@ -80,7 +79,37 @@
   </div>
 </div>
 <script>
+  function ver(id){
+    var idsec=$('#seccion'+id+'.seccion_class').find(':selected').val();    
+    if(idsec==4){
+      $.ajax({
+        url: '../../models/producto/select_limite.php',
+        type: 'post',
+        success: function(response) {
+          $('#limite_'+id).html(response);
+        }
+      });
+    }else if(idsec==5 || idsec==6 || idsec==7){
+      $('#limite_'+id).empty();
+    }
+  }
+
   $(document).ready(function() {
+    $('.cambio').change(function(event) {
+      var mvalorc=$(this).val();      
+      if($(this).is(':checked')){
+        $.ajax({
+          url: '../../models/producto/select.php',
+          type: 'post',
+          data: {id: mvalorc},
+          success: function(response) {
+            $('#resuldato_'+mvalorc).html(response);
+          }
+        });
+      }else{
+        $('#resuldato_'+mvalorc).empty();
+      }
+    });
     $("#nro_plu").focus(function(){
       this.select();
     });
@@ -99,6 +128,16 @@
     });
     $("#frmProducto").validate({
       debug:true,
+      //errorElement: "em",
+      errorPlacement: function ( error, element ) {
+        error.addClass( "help-block" );
+        if ( element.prop( "type" ) === "checkbox" ) {
+          error.insertAfter("#personalError");
+          //error.appendTo(element.parent().next(''));
+        } else {
+          error.insertAfter( element );
+        }
+      },
       rules:{
         nombre:{
           required:true,
@@ -124,8 +163,8 @@
           maxlength:4,
           range:[0.1,999.000]
         },
-        categoria:{
-          required: true
+        'categoria[]':{
+          required:true
         }
       },
       messages:{
@@ -137,13 +176,10 @@
         },
         precio:{
           required:"Este es Campo Obligatorio."
+        },
+        'categoria[]':{
+          required:"Debe seleccionar al menos una categoria."
         }
-      },
-      errorPlacement: function(error, element) {
-        if (element.is(":checkbox"))
-          error.appendTo(element.next());
-        else
-          error.appendTo(element.parent().next());
       },
       submitHandler: function (form) {
         $.ajax({

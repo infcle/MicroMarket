@@ -27,7 +27,8 @@ CREATE TABLE `categoria` (
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_creacion` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_categoria`)
+  PRIMARY KEY (`id_categoria`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
@@ -48,7 +49,8 @@ CREATE TABLE `cliente` (
   `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_cliente`)
+  PRIMARY KEY (`id_cliente`),
+  UNIQUE KEY `ci_UNIQUE` (`ci`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `cliente` */
@@ -67,7 +69,7 @@ CREATE TABLE `compra_r` (
   `total` float NOT NULL,
   `fecha` datetime NOT NULL,
   `id_cliente` bigint(20) NOT NULL,
-  `id_usuario` bigint(20) DEFAULT NULL,
+  `id_usuario` bigint(20) NOT NULL,
   PRIMARY KEY (`id_compra`),
   KEY `FK_CLI_DET` (`id_cliente`),
   KEY `FK_USER_DET` (`id_usuario`),
@@ -92,7 +94,8 @@ CREATE TABLE `limite` (
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_limite`)
+  PRIMARY KEY (`id_limite`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `limite` */
@@ -138,6 +141,9 @@ CREATE TABLE `producto` (
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_limite` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id_prod`),
+  UNIQUE KEY `nro_plu_UNIQUE` (`nro_plu`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  UNIQUE KEY `cod_plu_UNIQUE` (`cod_plu`),
   KEY `id_cat` (`id_limite`),
   CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -186,6 +192,7 @@ CREATE TABLE `seccion` (
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_categoria` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_seccion`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -230,7 +237,8 @@ CREATE TABLE `usuario_login` (
   `tipo` int(11) NOT NULL DEFAULT '2',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_usuario`)
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `usuario_login` */

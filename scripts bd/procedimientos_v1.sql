@@ -72,3 +72,14 @@ end if;
 END
 //
 DELIMITER ;
+
+DELIMITER // 
+    CREATE  procedure obtener_id_producto ( in nro_plu_F int, out valor int) 
+    BEGIN
+    declare id int;
+       select id_prod as id from producto where nro_plu=nro_plu_F;
+       set valor=id;
+	
+    END
+//
+DELIMITER ;

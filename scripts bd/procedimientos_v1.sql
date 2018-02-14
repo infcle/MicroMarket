@@ -34,19 +34,19 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE  existe_usuario(in usu varchar(100), out valor int)
+create PROCEDURE  existe_usuario(in usu varchar(100), out valor bool)
 
 BEGIN
-set valor =0;
+set valor =false;
 if exists(select usuario from usuario_login where usuario=usu)
     
     then
-        set valor= 1;
+        set valor= true;
     else 
-        set valor = 0;
+        set valor = false;
     end if;
 
 END
 //
 DELIMITER ; 
-call existe_usuario('jhjh',@a); select @a;
+call existe_usuario('admin',@a); select @a;

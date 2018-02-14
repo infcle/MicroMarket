@@ -7,7 +7,7 @@
 	}
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
-	$sql="SELECT MAX(nro_plu)+1 FROM producto";
+	$sql="SELECT IFNULL(MAX(nro_plu),0)+1  AS numero FROM producto";
 	if (!($resultado = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
@@ -20,6 +20,6 @@
 	$contenido="producto/registro.php";
 	$menu_a= $menus['P_REGISTRO'];
 	$subTitulo="Producto o PLU";
-	$pie_class="si";
+	//$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

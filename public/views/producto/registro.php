@@ -80,7 +80,7 @@
 </div>
 <script>
   function ver(id){
-    var idsec=$('#seccion'+id+'.seccion_class').find(':selected').val();    
+    var idsec=$('#seccion'+id+'.seccion_class').find(':selected').val();
     if(idsec==4){
       $.ajax({
         url: '../../models/producto/select_limite.php',
@@ -96,7 +96,7 @@
 
   $(document).ready(function() {
     $('.cambio').change(function(event) {
-      var mvalorc=$(this).val();      
+      var mvalorc=$(this).val();
       if($(this).is(':checked')){
         $.ajax({
           url: '../../models/producto/select.php',

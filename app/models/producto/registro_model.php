@@ -13,12 +13,21 @@
 		$limite=$_REQUEST['limite'];
 	else
 		$limite=-1;
-	echo "<pre>";print_r ($_REQUEST);echo "</pre>";
-	echo "<pre>";print_r ($micategoria);echo "</pre>";
-	foreach ($micategoria as $categoria) {
-		echo "<pre>";
-		print_r ($_REQUEST['seccion'.$categoria]);
-		echo "</pre>";
+	$sqlProducto="CALL insertarProducto({$nroPlu},'{$nombre}',{$tipo}, {$precio}, '{$codPlu}',{$limite})";
+	if (!$con->query($sqlProducto)) {
+		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
+	}
+	else{
+		$sqlId="CALL obtener_id_producto({$nroPlu});";
+		if ($resultado=$con->query($sqlId)) {
+			foreach ($micategoria as $categoria) {
+				echo "<pre>";
+				print_r ($_REQUEST['seccion'.$categoria]);
+				echo "</pre>";
+			}
+		}else{
+			echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
+		}
 	}
 
 	// $sql="INSERT INTO producto(nroplu, descripcion, tipo, precio, cod_barras, id_cat) values({$nroPlu},'{$nombre}',{$tipo},{$precio},'{$codPlu}', {$seccion})";

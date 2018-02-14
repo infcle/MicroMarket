@@ -83,3 +83,11 @@ DELIMITER //
     END
 //
 DELIMITER ;
+DELIMITER // 
+    CREATE  procedure insertarTiene ( in idp int, in ids int) 
+    BEGIN
+    insert into tiene value (idp,ids);
+	
+    END
+//
+DELIMITER ;

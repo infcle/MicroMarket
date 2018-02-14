@@ -50,3 +50,26 @@ END
 //
 DELIMITER ; 
 call existe_usuario('admin',@a); select @a;
+
+DELIMITER // 
+CREATE PROCEDURE  insertarProducto
+(
+in nro_plu_p int,
+in nombre_p varchar(100),
+in tipo_p int,
+in precio_p float,
+in cod_plu_p varchar(200),
+in estado_p int,
+in id_limite_p bigint(11)
+)
+BEGIN
+
+if id_limite_p>0 then
+
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,estado,fecha_registro,id_limite)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,estado_p,now(),id_limite_P);
+else 
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,estado,fecha_registro)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,estado_p,now());
+end if;
+END
+//
+DELIMITER ;

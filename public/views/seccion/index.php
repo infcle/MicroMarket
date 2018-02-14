@@ -65,7 +65,7 @@
                 nombre:{
                     required:true,
                     minlength: 3,
-                    maxlength:15,
+                    maxlength:30,
                 },
                 limite:{
                     required:true,

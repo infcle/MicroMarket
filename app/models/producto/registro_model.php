@@ -9,10 +9,16 @@
 	$seccion = trim($_POST["seccion"]);
 	$codPlu=($tipo*1000)+$nroPlu;
 	$micategoria=$_REQUEST['categoria'];
+	if(isset($_REQUEST['limite']))
+		$limite=$_REQUEST['limite'];
+	else
+		$limite=-1;
 	echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	echo "<pre>";print_r ($micategoria);echo "</pre>";
 	foreach ($micategoria as $categoria) {
-		
+		echo "<pre>";
+		print_r ($_REQUEST['seccion'.$categoria]);
+		echo "</pre>";
 	}
 
 	// $sql="INSERT INTO producto(nroplu, descripcion, tipo, precio, cod_barras, id_cat) values({$nroPlu},'{$nombre}',{$tipo},{$precio},'{$codPlu}', {$seccion})";

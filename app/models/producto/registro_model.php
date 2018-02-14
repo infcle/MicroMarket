@@ -20,11 +20,20 @@
 	else{
 		$sqlId="CALL obtener_id_producto({$nroPlu});";
 		if ($resultado=$con->query($sqlId)) {
+			$idProd=$resultado->fetch_row();
+			$tamanio=count($categoria);
+			$nroInsercion=0;
 			foreach ($micategoria as $categoria) {
-				echo "<pre>";
-				print_r ($_REQUEST['seccion'.$categoria]);
-				echo "</pre>";
+				$sqlTiene="call insertarTiene({$idProd},{$_REQUEST['seccion'.$categoria]})";
+				if (!$con->query($sqlTiene))
+					echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
+				else
+					$nroInsercion++;
 			}
+			if($nroInsercion==$tamanio)
+				echo 1;
+			else
+				echo 0;
 		}else{
 			echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
 		}

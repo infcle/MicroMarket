@@ -126,86 +126,98 @@
       $("#precio").removeAttr('data-toggle');
       $("#precio").removeAttr('data-original-title');
     });
-    $("#frmProducto").validate({
-      debug:true,
-      //errorElement: "em",
-      errorPlacement: function ( error, element ) {
-        error.addClass( "help-block" );
-        if ( element.prop( "type" ) === "checkbox" ) {
-          error.insertAfter("#personalError");
-          //error.appendTo(element.parent().next(''));
-        } else {
-          error.insertAfter( element );
-        }
-      },
-      rules:{
-        nombre:{
-          required:true,
-          minlength: 3,
-          maxlength:25
-        },
-        nro_plu:{
-          required:true,
-          minlength:1,
-          maxlength:4,
-          range:[1,999]
-        },
-        precio:{
-          required:true,
-          range:[0.1,999.99]
-        },
-        tipoVenta: {
-          required: true
-        },
-        precio: {
-          required:true,
-          minlength:1,
-          maxlength:4,
-          range:[0.1,999.000]
-        },
-        'categoria[]':{
-          required:true
-        }
-      },
-      messages:{
-        nombre:{
-          required:"Este es Campo Obligatorio."
-        },
-        nro_plu:{
-          required:"Este es Campo Obligatorio."
-        },
-        precio:{
-          required:"Este es Campo Obligatorio."
-        },
-        'categoria[]':{
-          required:"Debe seleccionar al menos una categoria."
-        }
-      },
-      submitHandler: function (form) {
-        $.ajax({
-          url: '../../models/producto/registro_model.php',
-          type: 'post',
-          data: $("#frmProducto").serialize(),
-          beforeSend: function() {
-            transicion("Procesando Espere....");
-          },
-          success: function(response) {
-            if(response==1){
-              $('#btnRegistrar').attr({
-                disabled: 'true'
-              });
-              transicionSalir();
-              mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
-              setTimeout(function(){
-                window.location.href='<?php echo ROOT_CONTROLLER ?>producto/index.php';
-              }, 3000);
-            }else{
-              transicionSalir();
-              mensajes_alerta('ERROR AL REGISTRAR EL PRODUCTO verifique los datos!! '+response,'error','GUARDAR DATOS');
-            }
+    $('#btnRegistrar').click(function(event) {
+      $("#frmProducto").validate({
+        debug:true,
+        //errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          error.addClass( "help-block" );
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter("#personalError");
+            //error.appendTo(element.parent().next(''));
+          } else {
+            error.insertAfter( element );
           }
-        });
-      }
+        },
+        rules:{
+          nombre:{
+            required:true,
+            minlength: 3,
+            maxlength:25
+          },
+          nro_plu:{
+            required:true,
+            minlength:1,
+            maxlength:4,
+            range:[1,999],
+            remote: {
+              url: "../../models/producto/verifica.php",
+              type: 'post',
+              data: {
+                plu: function() {
+                  return $("#nro_plu").val();
+                }
+              }
+            }
+          },
+          precio:{
+            required:true,
+            range:[0.1,999.99]
+          },
+          tipoVenta: {
+            required: true
+          },
+          precio: {
+            required:true,
+            minlength:1,
+            maxlength:4,
+            range:[0.1,999.000]
+          },
+          'categoria[]':{
+            required:true
+          }
+        },
+        messages:{
+          nombre:{
+            required:"Este es Campo Obligatorio."
+          },
+          nro_plu:{
+            required:"Este es Campo Obligatorio.",
+            remote:"Este nro de plu ya existe digite otro"
+          },
+          precio:{
+            required:"Este es Campo Obligatorio."
+          },
+          'categoria[]':{
+            required:"Debe seleccionar al menos una categoria."
+          }
+        },
+        submitHandler: function (form) {
+          $.ajax({
+            url: '../../models/producto/registro_model.php',
+            type: 'post',
+            data: $("#frmProducto").serialize(),
+            beforeSend: function() {
+              transicion("Procesando Espere....");
+            },
+            success: function(response) {
+              if(response==1){
+                $('#btnRegistrar').attr({
+                  disabled: 'true'
+                });
+                transicionSalir();
+                mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
+                setTimeout(function(){
+                  window.location.href='<?php echo ROOT_CONTROLLER ?>producto/index.php';
+                }, 3000);
+              }else{
+                transicionSalir();
+                mensajes_alerta('ERROR AL REGISTRAR EL PRODUCTO verifique los datos!! '+response,'error','GUARDAR DATOS');
+              }
+            }
+          });
+        }
+      });
     });
   });
 </script>

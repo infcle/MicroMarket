@@ -303,8 +303,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTiene`( in idp bigint, in ids bigint)
 BEGIN
-    insert into tiene value (ids,idp);
-	
+    insert into tiene values(ids,idp);	
     END */$$
 DELIMITER ;
 

@@ -28,25 +28,19 @@
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li class="active"><a href="<?php echo ROOT; ?>"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-            <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>Usuarios</span></a>
+            <li class="<?php echo $menu_a['inicio']; ?>"><a href="<?php echo ROOT; ?>"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+            <li class="menu-list <?php echo $menu_a['usuario']; ?>"><a href=""><i class="fa fa-users"></i> <span>Usuarios</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>user/"> Lista de usuarios</a></li>
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php"> Registro de usuarios</a></li>
+                    <li class="<?php echo $menu_a['lista_u']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>user/"> Lista de usuarios</a></li>
+                    <li class="<?php echo $menu_a['registro_u']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php"> Registro de usuarios</a></li>
                 </ul>
             </li>
-            <li class=""><a href="<?php echo ROOT_CONTROLLER; ?>ventas/"><i class="fa fa-shopping-cart"></i> <span>Ventas</span></a>
+            <li class="<?php echo $menu_a['ventas']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>ventas/"><i class="fa fa-shopping-cart"></i> <span>Ventas</span></a>
             </li>
-            <li class="menu-list"><a href="#"><i class="fa fa-bookmark"></i> <span>Categoria</span></a>
+            <li class="menu-list <?php echo $menu_a['producto']; ?>"><a href="#"><i class="fa fa-book"></i> <span>Producto o PLU</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>categoria/"> Lista de categorias</a></li>
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>categoria/registro.php"> Registro de categoria</a></li>
-                </ul>
-            </li>
-            <li class="menu-list"><a href="#"><i class="fa fa-book"></i> <span>Productos</span></a>
-                <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>producto/"> Listado</a></li>
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php"> Registro de producto</a></li>
+                    <li class="<?php echo $menu_a['lista_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/"> Listado</a></li>
+                    <li class="<?php echo $menu_a['registro_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php"> Registro de producto</a></li>
                 </ul>
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
@@ -56,10 +50,14 @@
                     <li><a href="#"> Reporte 3</a></li>
                 </ul>
             </li>
-            <li class="menu-list"><a href="#"><i class="fa fa-tags"></i> <span>Clientes</span></a>
+            <li class="<?php echo $menu_a['cliente']; ?>">
+                <a href="#"><i class="fa fa-tags"></i> <span>Clientes</span></a>
+            </li>
+            <li class="menu-list <?php echo $menu_a['configuracion']; ?>"><a href=""><i class="fa fa-cog"></i> <span>Configuraciónes</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>cliente"> Lista de clientes</a></li>
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>cliente/registro.php"> Registro de clientes</a></li>
+                    <li class="<?php echo $menu_a['configuracion_c']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>categoria/"> Categoria</a></li>
+                    <li class="<?php echo $menu_a['configuracion_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Seccion</a></li>
+                    <li class="<?php echo $menu_a['configuracion_l']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>limite/"> Limites</a></li>
                 </ul>
             </li>
             <li><a href="<?php echo ROOT_CONTROLLER; ?>login/index.php?logout"><i class="fa fa-sign-in"></i> <span>Salir</span></a></li>

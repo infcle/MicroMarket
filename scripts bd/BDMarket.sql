@@ -21,15 +21,19 @@ USE `marketbd`;
 DROP TABLE IF EXISTS `categoria`;
 
 CREATE TABLE `categoria` (
-  `id_cat` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `limite` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_cat`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `id_categoria` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_creacion` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_categoria`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categoria` */
 
-insert  into `categoria`(`id_cat`,`nombre`,`limite`) values (1,'CARNES',0),(2,'FRUTAS',0),(3,'VERDURAS',0),(4,'TUBERCULOS',0);
+insert  into `categoria`(`id_categoria`,`nombre`,`limite`,`estado`,`fecha_creacion`,`fecha_actualizacion`) values (1,'Subsidio Universal Prenatal por la vida',102,1,'2018-02-10 12:37:01','2018-02-10 12:37:01'),(2,'Subsidio Prenatal y de Lactancia',750,1,'2018-02-10 12:38:04','2018-02-10 12:38:04');
 
 /*Table structure for table `cliente` */
 
@@ -38,9 +42,11 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id_cliente` bigint(20) NOT NULL AUTO_INCREMENT,
   `ci` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
-  `nombre` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_cliente`)
+  PRIMARY KEY (`id_cliente`),
+  UNIQUE KEY `ci_UNIQUE` (`ci`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `cliente` */
@@ -55,7 +61,7 @@ CREATE TABLE `compra_r` (
   `total` float NOT NULL,
   `fecha` datetime NOT NULL,
   `id_cliente` bigint(20) NOT NULL,
-  `id_usuario` bigint(20) DEFAULT NULL,
+  `id_usuario` bigint(20) NOT NULL,
   PRIMARY KEY (`id_compra`),
   KEY `FK_CLI_DET` (`id_cliente`),
   KEY `FK_USER_DET` (`id_usuario`),
@@ -65,26 +71,64 @@ CREATE TABLE `compra_r` (
 
 /*Data for the table `compra_r` */
 
+/*Table structure for table `limite` */
+
+DROP TABLE IF EXISTS `limite`;
+
+CREATE TABLE `limite` (
+  `id_limite` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_limite`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `limite` */
+
+insert  into `limite`(`id_limite`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`) values (1,'Carne Blanda de Res',350,1,'2018-02-10 13:44:50','2018-02-10 13:44:50'),(2,'Pollo y/o Pescado',175,1,'2018-02-10 13:45:15','2018-02-10 13:45:15'),(3,'Huevo de Gallina',25,1,'2018-02-10 13:45:42','2018-02-10 13:45:42');
+
+/*Table structure for table `pertenece` */
+
+DROP TABLE IF EXISTS `pertenece`;
+
+CREATE TABLE `pertenece` (
+  `id_categoria` bigint(20) NOT NULL,
+  `id_cliente` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_categoria`,`id_cliente`),
+  KEY `pertenece_ibfk_2` (`id_cliente`),
+  CONSTRAINT `pertenece_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
+  CONSTRAINT `pertenece_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `pertenece` */
+
 /*Table structure for table `producto` */
 
 DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
   `id_prod` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nroplu` tinyint(1) NOT NULL COMMENT 'es el numero que esta registrado en la balanza',
-  `descripcion` varchar(100) COLLATE utf8_spanish2_ci DEFAULT '2',
+  `nro_plu` int(11) NOT NULL COMMENT 'es el numero que esta registrado en la balanza',
+  `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `tipo` int(11) NOT NULL COMMENT 'si es pesable 2 y si es unidad 1',
-  `precio` float DEFAULT NULL,
-  `cod_barras` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `id_cat` bigint(11) NOT NULL,
+  `precio` float NOT NULL,
+  `cod_plu` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_limite` bigint(11) DEFAULT NULL,
   PRIMARY KEY (`id_prod`),
-  KEY `id_cat` (`id_cat`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categoria` (`id_cat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  UNIQUE KEY `nro_plu_UNIQUE` (`nro_plu`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  UNIQUE KEY `cod_plu_UNIQUE` (`cod_plu`),
+  KEY `id_cat` (`id_limite`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_limite`) REFERENCES `limite` (`id_limite`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `producto` */
-
-insert  into `producto`(`id_prod`,`nroplu`,`descripcion`,`tipo`,`precio`,`cod_barras`,`id_cat`) values (1,1,'filete',2,60,'2001',1),(2,2,'pulpa',2,48,'2002',1),(3,3,'cabeza de lomo',2,48,'2003',1),(4,4,'peseto',2,48,'2004',1),(5,5,'churrasco',2,38,'2005',1),(6,6,'aujilla',2,30,'2006',1),(7,7,'costilla',2,28,'2007',1),(8,8,'cadera',2,32,'2008',1),(9,9,'pecho',2,28,'2009',1),(10,10,'lapin',2,32,'2010',1),(11,11,'molida',2,38,'2011',1),(12,12,'ozobuco',2,28,'2012',1),(13,13,'pollo',2,16,'2013',1),(14,14,'pescado_pacu',2,40,'2014',1),(15,15,'pescado_trucha',2,45,'2015',1),(16,16,'pesacado_pejerrey',2,50,'2016',1),(17,17,'huevo_setenta',1,0,'1017',1),(18,18,'huevo_ochenta',1,0,'1018',1),(19,19,'papaya',1,8,'1019',2),(20,20,'platano',1,0,'1020',2),(21,21,'naranja',1,0,'1021',2),(22,22,'durazno',2,8,'2022',2),(23,23,'tuna',1,1,'1023',2),(24,24,'piña',1,10,'1024',2),(25,25,'mandarina',1,0,'1025',2),(26,26,'uva',2,10,'2026',2),(27,27,'apio',2,3,'2027',3),(28,28,'zanahoria',2,6,'2028',3),(29,29,'vainitas',2,6,'2029',3),(30,30,'espinaca',2,8,'2030',3),(31,31,'arberja',2,10,'2031',3),(32,32,'postre',1,1,'1032',3),(33,33,'locoto',2,10,'2033',3),(34,34,'perejil',2,3,'2034',3),(35,35,'cebolla',2,8,'2035',3),(36,36,'papa',2,6,'2036',4),(37,37,'camote',2,6,'2037',4),(38,38,'yuca',2,8,'2038',4);
 
 /*Table structure for table `producto_etiquetado` */
 
@@ -92,7 +136,7 @@ DROP TABLE IF EXISTS `producto_etiquetado`;
 
 CREATE TABLE `producto_etiquetado` (
   `id_etiqueta` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cod_barras` varchar(300) COLLATE utf8_spanish2_ci NOT NULL COMMENT 'codigo de barras generado por productos etiquetados',
+  `cod_barras` int(11) NOT NULL COMMENT 'codigo de barras generado por productos etiquetados',
   `preciototal` float NOT NULL COMMENT 'precio deacurdo al peso o cantidad del producto',
   `peso_cantidad` float NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'estado si se vendio o no',
@@ -107,6 +151,43 @@ CREATE TABLE `producto_etiquetado` (
 
 /*Data for the table `producto_etiquetado` */
 
+/*Table structure for table `seccion` */
+
+DROP TABLE IF EXISTS `seccion`;
+
+CREATE TABLE `seccion` (
+  `id_seccion` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `limite` int(11) NOT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_categoria` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_seccion`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  KEY `id_categoria` (`id_categoria`),
+  CONSTRAINT `seccion_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `seccion` */
+
+insert  into `seccion`(`id_seccion`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`,`id_categoria`) values (1,'Carne',50,1,'2018-02-10 12:41:17','2018-02-10 12:41:17',1),(2,'Pollo',30,1,'2018-02-10 12:41:44','2018-02-10 12:41:44',1),(3,'Huevo',22,1,'2018-02-10 12:42:09','2018-02-10 12:42:09',1),(4,'Carnes y derivados',550,1,'2018-02-10 12:44:12','2018-02-10 12:44:12',2),(5,'Frutas',60,1,'2018-02-10 12:44:31','2018-02-10 12:44:31',2),(6,'Verduras',60,1,'2018-02-10 12:44:48','2018-02-10 12:44:48',2),(7,'Leguminos, raices y tuberculos',80,1,'2018-02-10 12:45:36','2018-02-10 12:45:36',2);
+
+/*Table structure for table `tiene` */
+
+DROP TABLE IF EXISTS `tiene`;
+
+CREATE TABLE `tiene` (
+  `id_seccion` bigint(20) NOT NULL,
+  `id_producto` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_seccion`,`id_producto`),
+  KEY `id_producto` (`id_producto`),
+  CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_seccion`) REFERENCES `seccion` (`id_seccion`),
+  CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `tiene` */
+
 /*Table structure for table `usuario_login` */
 
 DROP TABLE IF EXISTS `usuario_login`;
@@ -114,17 +195,19 @@ DROP TABLE IF EXISTS `usuario_login`;
 CREATE TABLE `usuario_login` (
   `id_usuario` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha_registro` datetime NOT NULL,
   `usuario` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `contrasenia` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `tipo` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_usuario`)
+  `tipo` int(11) NOT NULL DEFAULT '2',
+  `fecha_registro` datetime NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `usuario_login` */
 
-insert  into `usuario_login`(`id_usuario`,`nombre`,`fecha_registro`,`usuario`,`contrasenia`,`estado`,`tipo`) values (1,'Haki Ari','2018-02-01 02:26:10','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0);
+insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
 
 /* Procedure structure for procedure `eliminarCliente` */
 
@@ -154,6 +237,26 @@ delete from usuario_login where id_usuario=id_u;
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `existe_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `existe_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `existe_usuario`(in usu varchar(100), out valor bool)
+BEGIN
+set valor =false;
+if exists(select usuario from usuario_login where usuario=usu)
+    
+    then
+        set valor= true;
+    else 
+        set valor = false;
+    end if;
+
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertarcliente` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertarcliente` */;
@@ -167,6 +270,41 @@ in Nombre varchar(200)
 BEGIN
 insert into cliente(ci,nombre) values(ci,nombre);
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertarProducto` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertarProducto` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarProducto`(
+in nro_plu_p int,
+in nombre_p varchar(100),
+in tipo_p int,
+in precio_p float,
+in cod_plu_p varchar(200),
+in id_limite_p bigint(11)
+)
+BEGIN
+if id_limite_p>0 then
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,fecha_registro,id_limite)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,now(),id_limite_P);
+else 
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,fecha_registro)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,now());
+end if;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertarTiene` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertarTiene` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTiene`( in idp bigint, in ids bigint)
+BEGIN
+    insert into tiene values(ids,idp);	
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `insertarUsuario` */
@@ -234,6 +372,133 @@ in tipo int(11)
 BEGIN
 update usuario_login set nombre=Nombre, fecha_registro=fecha_reg,usuario=Usuario,contrasenia=contrasenia,estado=estado,tipo=tipo where id_usuario=id_u;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `Numeros_a_Letras` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `Numeros_a_Letras` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Numeros_a_Letras`(IN lnEntero TEXT)
+BEGIN
+DECLARE lcRetorno VARCHAR(512);
+DECLARE lnTerna INT;
+DECLARE lcMiles VARCHAR(512);
+DECLARE lcCadena VARCHAR(512);
+DECLARE lnUnidades INT;
+DECLARE lnDecenas INT;
+DECLARE lnCentenas INT;
+IF lnEntero > 0 THEN
+SET lcRetorno = '';
+SET lnTerna = 1 ;
+WHILE lnEntero > 0 DO
+-- Recorro columna por columna
+SET lcCadena = '';
+SET lnUnidades = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+SET lnDecenas = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+SET lnCentenas = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+-- Analizo las unidades
+SET lcCadena =
+CASE /* UNIDADES */
+WHEN lnUnidades = 1 AND lnTerna = 1 THEN CONCAT('UNO ',lcCadena)
+WHEN lnUnidades = 1 AND lnTerna <> 1 THEN CONCAT('',lcCadena)
+WHEN lnUnidades = 2 THEN CONCAT('DOS ',lcCadena)
+WHEN lnUnidades = 3 THEN CONCAT('TRES ',lcCadena)
+WHEN lnUnidades = 4 THEN CONCAT('CUATRO ',lcCadena)
+WHEN lnUnidades = 5 THEN CONCAT('CINCO ',lcCadena)
+WHEN lnUnidades = 6 THEN CONCAT('SEIS ',lcCadena)
+WHEN lnUnidades = 7 THEN CONCAT('SIETE ',lcCadena)
+WHEN lnUnidades = 8 THEN CONCAT('OCHO ',lcCadena)
+WHEN lnUnidades = 9 THEN CONCAT('NUEVE ',lcCadena)
+ELSE lcCadena
+END ;/* UNIDADES */
+-- Analizo las decenas
+SET lcCadena =
+CASE /* DECENAS */
+WHEN lnDecenas = 1 THEN
+CASE lnUnidades
+WHEN 0 THEN 'DIEZ '
+WHEN 1 THEN 'ONCE '
+WHEN 2 THEN 'DOCE '
+WHEN 3 THEN 'TRECE '
+WHEN 4 THEN 'CATORCE '
+WHEN 5 THEN 'QUINCE '
+ELSE CONCAT('DIECI',lcCadena)
+END
+WHEN lnDecenas = 2 AND lnUnidades = 0 THEN CONCAT('VEINTE ',lcCadena)
+WHEN lnDecenas = 2 AND lnUnidades <> 0 THEN CONCAT('VEINTI',lcCadena)
+WHEN lnDecenas = 3 AND lnUnidades = 0 THEN CONCAT('TREINTA ',lcCadena)
+WHEN lnDecenas = 3 AND lnUnidades <> 0 THEN CONCAT('TREINTA Y ',lcCadena)
+WHEN lnDecenas = 4 AND lnUnidades = 0 THEN CONCAT('CUARENTA ',lcCadena)
+WHEN lnDecenas = 4 AND lnUnidades <> 0 THEN CONCAT('CUARENTA Y ',lcCadena)
+WHEN lnDecenas = 5 AND lnUnidades = 0 THEN CONCAT('CINCUENTA ',lcCadena)
+WHEN lnDecenas = 5 AND lnUnidades <> 0 THEN CONCAT('CINCUENTA Y ',lcCadena)
+WHEN lnDecenas = 6 AND lnUnidades = 0 THEN CONCAT('SESENTA ',lcCadena)
+WHEN lnDecenas = 6 AND lnUnidades <> 0 THEN CONCAT('SESENTA Y ',lcCadena)
+WHEN lnDecenas = 7 AND lnUnidades = 0 THEN CONCAT('SETENTA ',lcCadena)
+WHEN lnDecenas = 7 AND lnUnidades <> 0 THEN CONCAT('SETENTA Y ',lcCadena)
+WHEN lnDecenas = 8 AND lnUnidades = 0 THEN CONCAT('OCHENTA ',lcCadena)
+WHEN lnDecenas = 8 AND lnUnidades <> 0 THEN CONCAT('OCHENTA Y ',lcCadena)
+WHEN lnDecenas = 9 AND lnUnidades = 0 THEN CONCAT('NOVENTA ',lcCadena)
+WHEN lnDecenas = 9 AND lnUnidades <> 0 THEN CONCAT('NOVENTA Y ',lcCadena)
+ELSE lcCadena
+END ;/* DECENAS */
+-- Analizo las centenas
+SET lcCadena =
+CASE /* CENTENAS */
+WHEN lnCentenas = 1 AND lnUnidades = 0 AND lnDecenas = 0 THEN CONCAT('CIEN ',lcCadena)
+WHEN lnCentenas = 1 AND NOT(lnUnidades = 0 AND lnDecenas = 0) THEN CONCAT('CIENTO ',lcCadena)
+WHEN lnCentenas = 2 THEN CONCAT('DOSCIENTOS ',lcCadena)
+WHEN lnCentenas = 3 THEN CONCAT('TRESCIENTOS ',lcCadena)
+WHEN lnCentenas = 4 THEN CONCAT('CUATROCIENTOS ',lcCadena)
+WHEN lnCentenas = 5 THEN CONCAT('QUINIENTOS ',lcCadena)
+WHEN lnCentenas = 6 THEN CONCAT('SEISCIENTOS ',lcCadena)
+WHEN lnCentenas = 7 THEN CONCAT('SETECIENTOS ',lcCadena)
+WHEN lnCentenas = 8 THEN CONCAT('OCHOCIENTOS ',lcCadena)
+WHEN lnCentenas = 9 THEN CONCAT('NOVECIENTOS ',lcCadena)
+ELSE lcCadena
+END ;/* CENTENAS */
+-- Analizo los millares
+SET lcCadena =
+CASE /* TERNA */
+WHEN lnTerna = 1 THEN lcCadena
+WHEN lnTerna = 2 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL ')
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' MILLON ')
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' MILLONES ')
+WHEN lnTerna = 4 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL MILLONES ')
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' BILLON ')
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' BILLONES ')
+WHEN lnTerna = 6 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL BILLONES ')
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' TRILLON ')
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' TRILLONES ')
+WHEN lnTerna = 8 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL TRILLONES ')
+ELSE ''
+END ;/* MILLARES */
+-- Armo el retorno columna a columna
+SET lcRetorno = CONCAT(lcCadena,lcRetorno);
+SET lnTerna = lnTerna + 1;
+END WHILE ; /* WHILE */
+ELSE
+SET lcRetorno = 'CERO' ;
+END IF ;
+SELECT RTRIM(lcRetorno) ;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `obtener_id_producto` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `obtener_id_producto` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `obtener_id_producto`( in nro_plu_F int)
+BEGIN
+       select id_prod from producto where nro_plu=nro_plu_F;
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `producto_categoria` */

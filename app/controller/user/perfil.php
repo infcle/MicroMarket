@@ -10,6 +10,7 @@
 	//Variables para enviar a la plantilla
 	$titulo="Mi cuenta";
 	$contenido="user/perfil.php";
+	$subTitulo="Cuenta";
 	$sub_directory="";
 	$menu_a= array();
 

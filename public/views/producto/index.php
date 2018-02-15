@@ -24,11 +24,11 @@
                         <tbody>
                             <?php foreach ($productos as $producto): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $producto['nroplu']; ?></td>
-                                    <td><?php echo $producto['descripcion']; ?></td>
+                                    <td><?php echo $producto['nro_plu']; ?></td>
+                                    <td><?php echo $producto['nombre']; ?></td>
                                     <td><?php echo $producto['tipo']; ?></td>
                                     <td><?php echo $producto['precio']; ?></td>
-                                    <td><?php echo $producto['cod_barras']; ?></td>
+                                    <td><?php echo $producto['cod_plu']; ?></td>
                                     <td ></td>
                                 </tr>
                             <?php endforeach ?>

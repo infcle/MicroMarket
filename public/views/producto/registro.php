@@ -148,7 +148,16 @@
           required:true,
           minlength:1,
           maxlength:4,
-          range:[1,999]
+          range:[1,999],
+          remote: {
+            url: "../../models/producto/verifica.php",
+            type: 'post',
+            data: {
+              plu: function() {
+                return $("#nro_plu").val();
+              }
+            }
+          }
         },
         precio:{
           required:true,
@@ -172,7 +181,8 @@
           required:"Este es Campo Obligatorio."
         },
         nro_plu:{
-          required:"Este es Campo Obligatorio."
+          required:"Este es Campo Obligatorio.",
+          remote:"Este nro de plu ya existe digite otro"
         },
         precio:{
           required:"Este es Campo Obligatorio."

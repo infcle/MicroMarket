@@ -40,8 +40,14 @@
 				    echo "Falló la insercion tiene: (" . $con->errno . ") " . $con->error;
 				    //$con->rolback();
 				    //exit();
-				}else
-					echo 1;
+				}else{
+					$nroInsercion++;
+				}
+			}
+			if ($nroInsercion==$tamanio) {
+				echo 1;
+			}else {
+				echo 0;
 			}
 		}else{
 			echo "Falló la obtencion del id: (" . $con->errno . ") " . $con->error;

@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.19 : Database - marketbd
+MySQL - 10.1.8-MariaDB : Database - marketbd
 *********************************************************************
 */
 
@@ -33,11 +33,7 @@ CREATE TABLE `categoria` (
 
 /*Data for the table `categoria` */
 
-LOCK TABLES `categoria` WRITE;
-
 insert  into `categoria`(`id_categoria`,`nombre`,`limite`,`estado`,`fecha_creacion`,`fecha_actualizacion`) values (1,'Subsidio Universal Prenatal por la vida',102,1,'2018-02-10 12:37:01','2018-02-10 12:37:01'),(2,'Subsidio Prenatal y de Lactancia',750,1,'2018-02-10 12:38:04','2018-02-10 12:38:04');
-
-UNLOCK TABLES;
 
 /*Table structure for table `cliente` */
 
@@ -54,10 +50,6 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `cliente` */
-
-LOCK TABLES `cliente` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `compra_r` */
 
@@ -79,10 +71,6 @@ CREATE TABLE `compra_r` (
 
 /*Data for the table `compra_r` */
 
-LOCK TABLES `compra_r` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `limite` */
 
 DROP TABLE IF EXISTS `limite`;
@@ -100,11 +88,7 @@ CREATE TABLE `limite` (
 
 /*Data for the table `limite` */
 
-LOCK TABLES `limite` WRITE;
-
 insert  into `limite`(`id_limite`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`) values (1,'Carne Blanda de Res',350,1,'2018-02-10 13:44:50','2018-02-10 13:44:50'),(2,'Pollo y/o Pescado',175,1,'2018-02-10 13:45:15','2018-02-10 13:45:15'),(3,'Huevo de Gallina',25,1,'2018-02-10 13:45:42','2018-02-10 13:45:42');
-
-UNLOCK TABLES;
 
 /*Table structure for table `pertenece` */
 
@@ -120,10 +104,6 @@ CREATE TABLE `pertenece` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `pertenece` */
-
-LOCK TABLES `pertenece` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `producto` */
 
@@ -150,10 +130,6 @@ CREATE TABLE `producto` (
 
 /*Data for the table `producto` */
 
-LOCK TABLES `producto` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `producto_etiquetado` */
 
 DROP TABLE IF EXISTS `producto_etiquetado`;
@@ -175,10 +151,6 @@ CREATE TABLE `producto_etiquetado` (
 
 /*Data for the table `producto_etiquetado` */
 
-LOCK TABLES `producto_etiquetado` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `seccion` */
 
 DROP TABLE IF EXISTS `seccion`;
@@ -199,11 +171,7 @@ CREATE TABLE `seccion` (
 
 /*Data for the table `seccion` */
 
-LOCK TABLES `seccion` WRITE;
-
 insert  into `seccion`(`id_seccion`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`,`id_categoria`) values (1,'Carne',50,1,'2018-02-10 12:41:17','2018-02-10 12:41:17',1),(2,'Pollo',30,1,'2018-02-10 12:41:44','2018-02-10 12:41:44',1),(3,'Huevo',22,1,'2018-02-10 12:42:09','2018-02-10 12:42:09',1),(4,'Carnes y derivados',550,1,'2018-02-10 12:44:12','2018-02-10 12:44:12',2),(5,'Frutas',60,1,'2018-02-10 12:44:31','2018-02-10 12:44:31',2),(6,'Verduras',60,1,'2018-02-10 12:44:48','2018-02-10 12:44:48',2),(7,'Leguminos, raices y tuberculos',80,1,'2018-02-10 12:45:36','2018-02-10 12:45:36',2);
-
-UNLOCK TABLES;
 
 /*Table structure for table `tiene` */
 
@@ -219,10 +187,6 @@ CREATE TABLE `tiene` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `tiene` */
-
-LOCK TABLES `tiene` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `usuario_login` */
 
@@ -243,11 +207,7 @@ CREATE TABLE `usuario_login` (
 
 /*Data for the table `usuario_login` */
 
-LOCK TABLES `usuario_login` WRITE;
-
 insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
-
-UNLOCK TABLES;
 
 /* Procedure structure for procedure `eliminarCliente` */
 
@@ -277,6 +237,26 @@ delete from usuario_login where id_usuario=id_u;
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `existe_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `existe_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `existe_usuario`(in usu varchar(100), out valor bool)
+BEGIN
+set valor =false;
+if exists(select usuario from usuario_login where usuario=usu)
+    
+    then
+        set valor= true;
+    else 
+        set valor = false;
+    end if;
+
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertarcliente` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertarcliente` */;
@@ -290,6 +270,42 @@ in Nombre varchar(200)
 BEGIN
 insert into cliente(ci,nombre) values(ci,nombre);
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertarProducto` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertarProducto` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarProducto`(
+in nro_plu_p int,
+in nombre_p varchar(100),
+in tipo_p int,
+in precio_p float,
+in cod_plu_p varchar(200),
+in id_limite_p bigint(11)
+)
+BEGIN
+if id_limite_p>0 then
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,fecha_registro,id_limite)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,now(),id_limite_P);
+else 
+insert into producto (nro_plu,nombre,tipo,precio,cod_plu,fecha_registro)values(nro_plu_p,nombre_p,tipo_p,precio_p,cod_plu_p,now());
+end if;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertarTiene` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertarTiene` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTiene`( in idp bigint, in ids bigint)
+BEGIN
+    insert into tiene value (ids,idp);
+	
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `insertarUsuario` */
@@ -357,6 +373,133 @@ in tipo int(11)
 BEGIN
 update usuario_login set nombre=Nombre, fecha_registro=fecha_reg,usuario=Usuario,contrasenia=contrasenia,estado=estado,tipo=tipo where id_usuario=id_u;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `Numeros_a_Letras` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `Numeros_a_Letras` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Numeros_a_Letras`(IN lnEntero TEXT)
+BEGIN
+DECLARE lcRetorno VARCHAR(512);
+DECLARE lnTerna INT;
+DECLARE lcMiles VARCHAR(512);
+DECLARE lcCadena VARCHAR(512);
+DECLARE lnUnidades INT;
+DECLARE lnDecenas INT;
+DECLARE lnCentenas INT;
+IF lnEntero > 0 THEN
+SET lcRetorno = '';
+SET lnTerna = 1 ;
+WHILE lnEntero > 0 DO
+-- Recorro columna por columna
+SET lcCadena = '';
+SET lnUnidades = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+SET lnDecenas = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+SET lnCentenas = RIGHT(lnEntero,1);
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+-- Analizo las unidades
+SET lcCadena =
+CASE /* UNIDADES */
+WHEN lnUnidades = 1 AND lnTerna = 1 THEN CONCAT('UNO ',lcCadena)
+WHEN lnUnidades = 1 AND lnTerna <> 1 THEN CONCAT('',lcCadena)
+WHEN lnUnidades = 2 THEN CONCAT('DOS ',lcCadena)
+WHEN lnUnidades = 3 THEN CONCAT('TRES ',lcCadena)
+WHEN lnUnidades = 4 THEN CONCAT('CUATRO ',lcCadena)
+WHEN lnUnidades = 5 THEN CONCAT('CINCO ',lcCadena)
+WHEN lnUnidades = 6 THEN CONCAT('SEIS ',lcCadena)
+WHEN lnUnidades = 7 THEN CONCAT('SIETE ',lcCadena)
+WHEN lnUnidades = 8 THEN CONCAT('OCHO ',lcCadena)
+WHEN lnUnidades = 9 THEN CONCAT('NUEVE ',lcCadena)
+ELSE lcCadena
+END ;/* UNIDADES */
+-- Analizo las decenas
+SET lcCadena =
+CASE /* DECENAS */
+WHEN lnDecenas = 1 THEN
+CASE lnUnidades
+WHEN 0 THEN 'DIEZ '
+WHEN 1 THEN 'ONCE '
+WHEN 2 THEN 'DOCE '
+WHEN 3 THEN 'TRECE '
+WHEN 4 THEN 'CATORCE '
+WHEN 5 THEN 'QUINCE '
+ELSE CONCAT('DIECI',lcCadena)
+END
+WHEN lnDecenas = 2 AND lnUnidades = 0 THEN CONCAT('VEINTE ',lcCadena)
+WHEN lnDecenas = 2 AND lnUnidades <> 0 THEN CONCAT('VEINTI',lcCadena)
+WHEN lnDecenas = 3 AND lnUnidades = 0 THEN CONCAT('TREINTA ',lcCadena)
+WHEN lnDecenas = 3 AND lnUnidades <> 0 THEN CONCAT('TREINTA Y ',lcCadena)
+WHEN lnDecenas = 4 AND lnUnidades = 0 THEN CONCAT('CUARENTA ',lcCadena)
+WHEN lnDecenas = 4 AND lnUnidades <> 0 THEN CONCAT('CUARENTA Y ',lcCadena)
+WHEN lnDecenas = 5 AND lnUnidades = 0 THEN CONCAT('CINCUENTA ',lcCadena)
+WHEN lnDecenas = 5 AND lnUnidades <> 0 THEN CONCAT('CINCUENTA Y ',lcCadena)
+WHEN lnDecenas = 6 AND lnUnidades = 0 THEN CONCAT('SESENTA ',lcCadena)
+WHEN lnDecenas = 6 AND lnUnidades <> 0 THEN CONCAT('SESENTA Y ',lcCadena)
+WHEN lnDecenas = 7 AND lnUnidades = 0 THEN CONCAT('SETENTA ',lcCadena)
+WHEN lnDecenas = 7 AND lnUnidades <> 0 THEN CONCAT('SETENTA Y ',lcCadena)
+WHEN lnDecenas = 8 AND lnUnidades = 0 THEN CONCAT('OCHENTA ',lcCadena)
+WHEN lnDecenas = 8 AND lnUnidades <> 0 THEN CONCAT('OCHENTA Y ',lcCadena)
+WHEN lnDecenas = 9 AND lnUnidades = 0 THEN CONCAT('NOVENTA ',lcCadena)
+WHEN lnDecenas = 9 AND lnUnidades <> 0 THEN CONCAT('NOVENTA Y ',lcCadena)
+ELSE lcCadena
+END ;/* DECENAS */
+-- Analizo las centenas
+SET lcCadena =
+CASE /* CENTENAS */
+WHEN lnCentenas = 1 AND lnUnidades = 0 AND lnDecenas = 0 THEN CONCAT('CIEN ',lcCadena)
+WHEN lnCentenas = 1 AND NOT(lnUnidades = 0 AND lnDecenas = 0) THEN CONCAT('CIENTO ',lcCadena)
+WHEN lnCentenas = 2 THEN CONCAT('DOSCIENTOS ',lcCadena)
+WHEN lnCentenas = 3 THEN CONCAT('TRESCIENTOS ',lcCadena)
+WHEN lnCentenas = 4 THEN CONCAT('CUATROCIENTOS ',lcCadena)
+WHEN lnCentenas = 5 THEN CONCAT('QUINIENTOS ',lcCadena)
+WHEN lnCentenas = 6 THEN CONCAT('SEISCIENTOS ',lcCadena)
+WHEN lnCentenas = 7 THEN CONCAT('SETECIENTOS ',lcCadena)
+WHEN lnCentenas = 8 THEN CONCAT('OCHOCIENTOS ',lcCadena)
+WHEN lnCentenas = 9 THEN CONCAT('NOVECIENTOS ',lcCadena)
+ELSE lcCadena
+END ;/* CENTENAS */
+-- Analizo los millares
+SET lcCadena =
+CASE /* TERNA */
+WHEN lnTerna = 1 THEN lcCadena
+WHEN lnTerna = 2 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL ')
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' MILLON ')
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' MILLONES ')
+WHEN lnTerna = 4 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL MILLONES ')
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' BILLON ')
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' BILLONES ')
+WHEN lnTerna = 6 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL BILLONES ')
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' TRILLON ')
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' TRILLONES ')
+WHEN lnTerna = 8 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL TRILLONES ')
+ELSE ''
+END ;/* MILLARES */
+-- Armo el retorno columna a columna
+SET lcRetorno = CONCAT(lcCadena,lcRetorno);
+SET lnTerna = lnTerna + 1;
+END WHILE ; /* WHILE */
+ELSE
+SET lcRetorno = 'CERO' ;
+END IF ;
+SELECT RTRIM(lcRetorno) ;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `obtener_id_producto` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `obtener_id_producto` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `obtener_id_producto`( in nro_plu_F int)
+BEGIN
+       select id_prod from producto where nro_plu=nro_plu_F;
+    END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `producto_categoria` */

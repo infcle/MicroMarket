@@ -74,19 +74,16 @@ END
 DELIMITER ;
 
 DELIMITER // 
-    CREATE  procedure obtener_id_producto ( in nro_plu_F int, out valor int) 
+    CREATE  procedure obtener_id_producto ( in nro_plu_F int) 
     BEGIN
-    declare id int;
-       select id_prod as id from producto where nro_plu=nro_plu_F;
-       set valor=id;
-	
+       select id_prod from producto where nro_plu=nro_plu_F;
     END
 //
 DELIMITER ;
 DELIMITER // 
-    CREATE  procedure insertarTiene ( in idp int, in ids int) 
+    CREATE  procedure insertarTiene ( in idp bigint, in ids bigint) 
     BEGIN
-    insert into tiene value (idp,ids);
+    insert into tiene values(ids,idp);
 	
     END
 //

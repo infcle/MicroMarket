@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <section class="panel">
             <header class="panel-heading">
-                Venta de Productos
+                VENTA DE PRODUCTOS
                 <span class="tools pull-right">
                     <a href="javascript:;" class="fa fa-chevron-down"></a>
                     <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
@@ -11,74 +11,97 @@
                     <div class="panel-body">
                     <form class="form-horizontal" role="form">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                    DATOS DEL USUARIO                       
-                                    <div class="form-group">
-                                        <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Usuario</label>
-                                        <div class="col-lg-10">
-                                            <input type="text" class="form-control" id="txt_usuario" placeholder="Nombre del usuario">
-                                            
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">C.I.</label>
                                         <div class="col-lg-10">
                                             <input type="text" class="form-control" id="txt_ci" placeholder="Carnet de identidad">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Cliente</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="txt_usuario" placeholder="Nombre del usuario">
+                                            
+                                        </div>
+                                    </div>
                             </div>     
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                     TIPO DE VENTA
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" checked>
                                             Manual
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras">
                                             Cod. Barras
                                         </label>
                                     </div>
-                                    </div>
                             </div>
-                            <div class=""></div>
+                            <div class="col-lg-5">
+                                <div id="resultado" class="jumbotron">
+                                    
+                                </div>
+                            </div>
                         </form>
                     </div>
-
-            <!--div class="panel-body">
-                <div class="adv-table">
-                    <table  class="display table table-bordered table-striped" id="dynamic-table">
-                        <thead>
+        </section>
+        <section class="panel">
+            <header class="panel-heading">
+                DETALLE DE VENTA
+            </header>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Producto</th>
+                          <th>Precio Unitario</th>
+                          <th>Cantidad/Peso</th>
+                          <th>Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                             <tr>
-                                <th>Nombre completo</th>
-                                <th>Usuario</th>
-                                <th>Estado</th>
-                                <th class="hidden-phone">Acciones</th>
+                              <th scope="row">1</th>
+                              <td>Carne</td>
+                              <td>12</td>
+                              <td>1</td>
+                              <td>123</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($usuarios as $user): ?>
-                                <tr class="gradeX">
-                                    <td><?php echo $user['nombre']; ?></td>
-                                    <td><?php echo $user['usuario']; ?></td>
-                                    <td><?php echo $user['estado']; ?></td>
-                                    <td ></td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                        <tfoot>
                             <tr>
-                                <th>Nombre completo</th>
-                                <th>Usuario</th>
-                                <th>Estado</th>
-                                <th class="hidden-phone">Acciones</th>
+                              <th scope="row">2</th>
+                              <td>huevo</td>
+                              <td>0.50</td>
+                              <td>5</td>
+                              <td>30</td>
                             </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div-->
+                      </tbody>
+                </table>
+                <label>Total </label>
+                 <input type="text" name="prec_total">
+            </div>
         </section>
     </div>
 </div>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        $("input[name=optionsRadios]").click(function () {    
+            //alert("tipo de venta seleccionada es: " + $('input:radio[name=optionsRadios]:checked').val());
+            var valor=$(this).val();
+            $.ajax({
+              url: '../../../public/views/ventas/tipoventa.php',
+              type: 'post',
+              data: {id: valor},
+              success: function(response) {
+                $('#resultado').html(response);
+              }
+            });
+        });
+    });
+    </script>

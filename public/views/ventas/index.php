@@ -140,6 +140,6 @@
                 }
             });
         });
-        $('#resultado').
+        $('#resultado').load(<?php echo ROOT; ?>+"public/views/ventas/tipoventa.php?id=barras");
     });
 </script>

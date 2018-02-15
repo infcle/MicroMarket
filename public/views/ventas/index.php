@@ -91,7 +91,7 @@
             rules:{
                 nombre:{
                     required:true,
-                    minlength: 5,
+                    minlength: 4,
                     maxlength:40,
                 },
                 ci:{

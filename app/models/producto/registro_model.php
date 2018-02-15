@@ -20,7 +20,7 @@
 	else{
 		$sqlId="CALL obtener_id_producto({$nroPlu});";
 		if ($resultado=$con->query($sqlId)) {
-			echo "<pre>";print_r ($resultado);echo "</pre>";
+			//echo "<pre>";print_r ($resultado);echo "</pre>";
 			$idProd=$resultado->fetch_row();
 			$resultado->close();
 			$con->close();

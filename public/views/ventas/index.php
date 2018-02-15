@@ -3,9 +3,9 @@
         <section class="panel">
             <header class="panel-heading">
                 Venta de Productos
-                <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php" class="fa fa-plus"></a>
+               
+                   <span class="pull-right">
+                    <a href="#modal_ventas" class="btn btn-xs btn-success" data-toggle="modal"><span class="fa  fa-pencil"></span> Nuevo Cliente</a>
                  </span>
             </header>
                     <div class="panel-body">
@@ -79,6 +79,65 @@
                     </table>
                 </div>
             </div-->
+             <?php require_once 'modal_ventas.php'; ?>
         </section>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+         $('#frmRegistrar').validate({ 
+            debug:true,
+            rules:{
+                nombre:{
+                    required:true,
+                    minlength: 8,
+                    maxlength:40,
+                },
+                ci:{
+                   required:true,
+                    minlength:5,
+                    maxlength:20,
+                    
+                },
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/cliente/registro_model.php',
+                    type: 'post',
+                    data: $("#frmRegistrar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) 
+                    {
+                        if(response==1)
+                        {
+                            var nom=$('#nombre').val();
+                            var ci=$('#ci').val();
+                           
+                            $('#nombre').val('');
+                            $('#ci').val('');
+                           
+                            $('#txt_usuario').val(nom);
+                            $('#txt_ci').val(ci);
+
+                            $('#modal_ventas').modal('hide');
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            
+                        }
+                        else
+                        {
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR AL CLIENTE verifique los datos!! '+response,'error','REGISTRAR DATOS');
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

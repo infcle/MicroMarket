@@ -62,12 +62,12 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 // Set some content to print
 
     //$sql = "SELECT * FROM seccion WHERE 1=1";
-    $sql = "call ";
+    $sql = "call lista_productos()";
     //echo $sql;
     $res=$con->query($sql);
     $conca = ""; 
     foreach($res as $fila){
-        $conca .= $fila['nombre'];
+        $conca .= $fila['nro_plu']."/".$fila['nombre'].'/'.$fila['nombre'];
     }
      
 $html = <<<EOD

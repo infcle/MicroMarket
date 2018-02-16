@@ -30,13 +30,13 @@
                         TIPO DE VENTA
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" checked>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" >
                                 Manual
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras">
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras" checked>
                                 Cod. Barras
                             </label>
                         </div>
@@ -140,5 +140,6 @@
                 }
             });
         });
+        $('#resultado').
     });
 </script>

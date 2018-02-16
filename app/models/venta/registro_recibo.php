@@ -4,7 +4,7 @@
 	require_once ("../../config/route.php");
 
 	echo "<pre>";
-	printf($_REQUEST);
+	print_r($_REQUEST);
 	echo "</pre>";
 
 	

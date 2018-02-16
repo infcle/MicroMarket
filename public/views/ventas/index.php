@@ -139,7 +139,7 @@
                 debug:true,
                 submitHandler: function (form) {
                     $.ajax({
-                        url: '../../models/ventas/registro_recibo.php',
+                        url: '../../models/venta/registro_recibo.php',
                         type: 'post',
                         data: $("#frmVenta").serialize(),
                         beforeSend: function() {

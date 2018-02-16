@@ -45,42 +45,35 @@
                         <div id="resultado" class="jumbotron">
                         </div>
                     </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            DETALLE DE VENTA
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Cantidad/Peso</th>
+                                        <th>Subtotal</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="miDetalle">
+                                </tbody>
+                            </table>
+                            <div class="row text-right">
+                                <div class="col-md-12 panel-body">
+                                    <label>Total </label>
+                                    <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>
-        <div class="panel">
-            <div class="panel-heading">
-                DETALLE DE VENTA
-            </div>
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Producto</th>
-                            <th>Precio Unitario</th>
-                            <th>Cantidad/Peso</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td>Carne</td>
-                            <td>12</td>
-                            <td>1</td>
-                            <td>123</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row text-right">
-                    <div class="col-md-12 panel-body">
-                        <label>Total </label>
-                        <input type="text" name="prec_total">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -140,6 +133,29 @@
                 }
             });
         });
-        $('#resultado').load(<?php echo ROOT; ?>+"public/views/ventas/tipoventa.php?id=barras");
+        $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
     });
+    function leer(){
+        var codigo=$('#cod_barra').val();
+        if(codigo.length==13){
+            $.ajax({
+                url: '../../models/venta/detalle.php',
+                type: 'post',
+                dataType: "json",
+                data: {codigo: codigo},
+                beforeSend: function() {
+                    transicion("Procesando Espere....");
+                },
+                success: function(datos){
+                    var total=$('#prec_total').val();
+                    var detalle=datos['detalle'];
+                    console.log(datos['detalle']);
+                    transicionSalir();
+                    $('#cod_barra').val('');
+                    $('#miDetalle').append('<tr><td><input type="hidden" name="detalle[][0]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="detalle[][1]" id="detalle[][1]" value="'+detalle['nombre']+'"></td><td><input type="text" name="detalle[][2]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="detalle[][3]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="detalle[][4]" class ="text-right" value="'+datos['precioTotal']+'" readonly></td><td></td></tr>');
+                    $('#prec_total').val(total*1+datos['precioTotal']);
+                }
+            });
+        }
+    }
 </script>

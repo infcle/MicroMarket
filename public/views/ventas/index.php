@@ -92,7 +92,7 @@
             rules:{
                 nombre:{
                     required:true,
-                    minlength: 8,
+                    minlength: 4,
                     maxlength:40,
                 },
                 ci:{
@@ -140,6 +140,6 @@
                 }
             });
         });
-        $('#resultado').
+        $('#resultado').load(<?php echo ROOT; ?>+"public/views/ventas/tipoventa.php?id=barras");
     });
 </script>

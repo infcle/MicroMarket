@@ -218,3 +218,15 @@ SELECT RTRIM(lcRetorno) ;
 
 END$$
 DELIMITER ;$$
+
+
+#lista de productos x seccion
+DELIMITER //
+
+CREATE PROCEDURE  lista_productos()
+BEGIN
+
+select nro_plu,p.nombre, s.nombre from producto as p , tiene as t , seccion as s where id_producto=id_prod and s.id_seccion=t.id_seccion order by t.id_producto;
+END
+//
+DELIMITER ; 

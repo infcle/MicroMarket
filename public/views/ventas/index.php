@@ -10,7 +10,7 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" name="frmVenta" id="frmVenta">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -70,6 +70,7 @@
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
                     </div>
                 </form>
             </div>
@@ -130,6 +131,38 @@
                 data: {id: valor},
                 success: function(response) {
                     $('#resultado').html(response);
+                }
+            });
+        });
+        $('#btnEnviar').click(function(event) {
+            $('#frmVenta').validate({
+                debug:true,
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '../../models/ventas/registro_recibo.php',
+                        type: 'post',
+                        data: $("#frmVenta").serialize(),
+                        beforeSend: function() {
+                            transicion("Procesando Espere....");
+                        },
+                        success: function(response){
+                            if(response==1){
+                                var nom=$('#nombre').val();
+                                var ci=$('#ci').val();
+                                $('#nombre').val('');
+                                $('#ci').val('');
+                                $('#txt_usuario').val(nom);
+                                $('#txt_ci').val(ci);
+                                $('#modal_ventas').modal('hide');
+                                $('#btnRegistrar').attr({disabled: 'true'});
+                                transicionSalir();
+                                mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            }else{
+                                transicionSalir();
+                                mensajes_alerta('ERROR AL REGISTRAR AL CLIENTE verifique los datos!! '+response,'error','REGISTRAR DATOS');
+                            }
+                        }
+                    });
                 }
             });
         });

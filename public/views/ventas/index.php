@@ -16,13 +16,13 @@
                             <div class="form-group">
                                 <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">C.I.</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="txt_ci" placeholder="Carnet de identidad">
+                                    <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad">
                                 </div>
                             </div>
                         <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Cliente</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="txt_usuario" placeholder="Nombre del cliente">
+                                <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente">
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                     console.log(datos['detalle']);
                     transicionSalir();
                     $('#cod_barra').val('');
-                    $('#miDetalle').append('<tr><td><input type="hidden" name="detalle[][0]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="detalle[][1]" id="detalle[][1]" value="'+detalle['nombre']+'"></td><td><input type="text" name="detalle[][2]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="detalle[][3]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="detalle[][4]" class ="text-right" value="'+datos['precioTotal']+'" readonly></td><td></td></tr>');
+                    $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td></td></tr>');
                     $('#prec_total').val(total*1+datos['precioTotal']);
                 }
             });

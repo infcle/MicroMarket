@@ -41,7 +41,7 @@ $sql="SELECT ifnull(max(id_compra),0)+1 FROM compra_r";
 				echo $row[0];			
 			}
 		}else{echo "ningun registro";}
-	}else{echo "Error";}
+	}else{echo "Error consulta";}
 
 	
 ?>

@@ -12,65 +12,80 @@
             <div class="panel-body">
                 <form class="form-horizontal" role="form" name="frmVenta" id="frmVenta">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">C.I.</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad">
+                        <div class="col-md-5">
+                            <div class="row panel-body">
+                                <div class="form-group">
+                                    <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad" required>
+                                    </div>
+                                    <span class="pull-right">
+                                        <a href="#modal_ventas" class="btn btn-xs btn-success" data-toggle="modal">
+                                            <span class="fa  fa-pencil"></span> Nuevo Cliente
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cliente" class="col-lg-2 col-sm-2 control-label">Cliente</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente" required>
+                                    </div>
                                 </div>
                             </div>
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Cliente</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-heading">
+                                        Detalle De Venta
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="tablaDetalle">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-md-6">Producto</th>
+                                                <th class="col-md-1">Precio Unitario</th>
+                                                <th class="col-md-1">Cantidad/Peso</th>
+                                                <th class="col-md-1">Subtotal</th>
+                                                <th class="col-md-3">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="miDetalle">
+                                        </tbody>
+                                    </table>
+                                    <div class="row text-right">
+                                        <div class="col-md-12 panel-body">
+                                            <label>Total </label>
+                                            <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
+                                </div>
+                                    
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        TIPO DE VENTA
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" >
-                                Manual
-                            </label>
+                        <div class="col-md-2">
+                            TIPO DE VENTA
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" >
+                                    Manual
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras" checked>
+                                    Cod. Barras
+                                </label>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras" checked>
-                                Cod. Barras
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div id="resultado" class="jumbotron">
+                        <div class="col-md-5">
+                            <div id="resultado" class="jumbotron">
+                            </div>
                         </div>
                     </div>
                     <div class="panel">
-                        <div class="panel-heading">
-                            DETALLE DE VENTA
-                        </div>
+                        
                         <div class="panel-body">
-                            <table class="table table-striped table-bordered table-hover" id="tablaDetalle">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Cantidad/Peso</th>
-                                        <th>Subtotal</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="miDetalle">
-                                </tbody>
-                            </table>
-                            <div class="row text-right">
-                                <div class="col-md-12 panel-body">
-                                    <label>Total </label>
-                                    <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
-                                </div>
-                            </div>
+                            
                         </div>
-                        <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
                     </div>
                 </form>
             </div>

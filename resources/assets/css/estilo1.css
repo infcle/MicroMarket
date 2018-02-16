@@ -52,3 +52,7 @@
 .relojj .cajaSegundos2 {
   display: inline-block;  
 }
+.relojj .ampm2, .relojj .segundos2{
+  
+  font-size: 2rem;
+}

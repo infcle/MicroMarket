@@ -19,8 +19,8 @@
 			      <p id="minutos2" class="minutos2"></p>
 			      <p>:</p>
 			      <div class="cajaSegundos2">
-			       
 			        <p id="segundos2" class="segundos2"></p>
+			        <p id="ampm2" class="ampm2"></p>
 			      </div>
 			    </div>
 			  </div>

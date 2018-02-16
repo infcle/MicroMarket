@@ -182,9 +182,10 @@
                     console.log(datos['detalle']);
                     transicionSalir();
                     $('#cod_barra').val('');
-                    var numeroFilas = $("#tablaDetalle tr").length+1;
+                    
                     $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
-                    $('#prec_total').val(total*1+datos['precioTotal']);
+
+                    $('#prec_total').val(redondeo2decimales(total)*1+datos['precioTotal']);
                 }
             });
         }
@@ -192,6 +193,14 @@
     function resta(numero){
         numero=numero*1;
         var total=Number($('#prec_total').val()*1);
-        $('#prec_total').val(total-numero);
+        var tot_redondeo=total-numero;
+        
+        $('#prec_total').val(redondeo2decimales(tot_redondeo));
     }
+        function redondeo2decimales(numero)
+        {
+        var flotante = parseFloat(numero);
+        var resultado = Math.round(flotante*100)/100;
+        return resultado;
+        }
 </script>

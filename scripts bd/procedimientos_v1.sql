@@ -226,7 +226,8 @@ DELIMITER //
 CREATE PROCEDURE  lista_productos()
 BEGIN
 
-select nro_plu,p.nombre, s.nombre from producto as p , tiene as t , seccion as s where id_producto=id_prod and s.id_seccion=t.id_seccion order by t.id_producto;
+select p.nro_plu, p.nombre ,p.precio,p.cod_plu, s.nombre  from producto p, seccion s where idseccion=id_seccion; 
 END
 //
 DELIMITER ; 
+select * from seccion

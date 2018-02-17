@@ -1909,6 +1909,7 @@ class TCPDF {
 		$this->setPageFormat($format, $orientation);
 		// page margins (1 cm)
 		$margin = 28.35 / $this->k;
+		//$margin = 14 / $this->k;
 		$this->SetMargins($margin, $margin);
 		$this->clMargin = $this->lMargin;
 		$this->crMargin = $this->rMargin;

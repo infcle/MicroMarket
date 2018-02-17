@@ -15,6 +15,8 @@ $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'SUSI', 'PAS (Proveedora de Alimentos y Servicios)', array(0,64,255), array(0,64,128));
 $pdf->setFooterData(array(0,64,0), array(0,64,128));
 
 // set header and footer fonts
@@ -43,6 +45,18 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // ---------------------------------------------------------
 
+//Declaramos las columnas
+$posxini = PDF_MARGIN_LEFT+1;
+$posxnro = 40;
+$posxnom = 90;
+$posxtip = 110;
+$posxpre = 140;
+$posxplu = 170;
+$posxfin = 200;
+
+
+
+// ---------------------------------------------------------
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
 
@@ -50,37 +64,86 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('dejavusans', '', 14, '', true);
+
+$pdf->SetFont('dejavusans', '', 10, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
 $pdf->AddPage();
-
 // set text shadow effect
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 // Set some content to print
+
+/* La linea rectangular de pagina vertical */
+$hidetop = 50; 
+$tab_top = 50;
+$tab_height = 180;
+
+//$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
+$pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
+
+if (!empty($hidetop)){    
+    $pdf->SetXY($posxini + 2, $tab_top+3);
+    $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
+    $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height+50);
+    
+    $pdf->SetXY($posxnro-1, $tab_top+3);
+    $pdf->MultiCell($posxnom-$posxnro-1,2, "Nombre Producto",'','C');
+    $pdf->line($posxnom-1, $tab_top, $posxnom-1, $tab_top + $tab_height + 50);
+
+    $pdf->SetXY($posxnom-1, $tab_top+1);
+    $pdf->MultiCell($posxtip-$posxnom-1,2, "Tipo de Venta",'','C');
+    $pdf->line($posxtip-1, $tab_top, $posxtip-1, $tab_top + $tab_height + 50);
+
+    $pdf->SetXY($posxtip-1, $tab_top+3);
+    $pdf->MultiCell($posxpre-$posxtip-1,2, "Precio",'','C');
+    $pdf->line($posxpre-1, $tab_top, $posxpre-1, $tab_top + $tab_height + 50);
+
+    $pdf->SetXY($posxpre-1, $tab_top+3);
+    $pdf->MultiCell($posxplu-$posxpre-1,2, "Codigo PLU",'','C');
+    $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height + 50);
+
+    $pdf->SetXY($posxplu-1, $tab_top+3);
+    $pdf->MultiCell($posxfin-$posxplu-1,2, "Acciones",'','C');
+    //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height + 50);
+    $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
+}
+
 
     //$sql = "SELECT * FROM seccion WHERE 1=1";
     $sql = "call lista_productos()";
     //echo $sql;
     $res=$con->query($sql);
     $conca = ""; 
+
+    $iniY = 30;
+    $curY = $tab_top + 12;
+    $nexY = 30;
     foreach($res as $fila){
-        $conca .= $fila['nro_plu']."/".$fila['nombre'].'/'.$fila['nombre'];
+        $pdf->SetXY($posxini, $curY);
+        $pdf->MultiCell($posxnro-$posxini-1, 1,$fila['nro_plu'] , 0, 'C',0);
+
+        $pdf->SetXY($posxnro, $curY);
+        $pdf->MultiCell($posxnom-$posxnro-1, 1,$fila['nombreuno'] , 0, 'L',0);
+
+        $pdf->SetXY($posxnom, $curY);
+        $pdf->MultiCell($posxtip-$posxnom-1, 1,$fila['nombredos'] , 0, 'C',0);
+
+        $pdf->SetXY($posxtip, $curY);
+        $pdf->MultiCell($posxpre-$posxtip-1, 1,$fila['nro_plu'] , 0, 'C',0);
+
+        $pdf->SetXY($posxpre, $curY);
+        $pdf->MultiCell($posxplu-$posxpre-1, 1,$fila['nombreuno'] , 0, 'C',0);
+
+        $pdf->SetXY($posxplu, $curY);
+        $pdf->MultiCell($posxfin-$posxplu-1, 1,$fila['nombredos'] , 0, 'L',0);
+
+        $nexY = $pdf->GetY();
+        $curY = $nexY + 4;
+
+        //$conca .= $fila['nro_plu']."/".$fila['nombreuno'].'/'.$fila['nombredos'].'<br>';
     }
-     
-$html = <<<EOD
-<h1>'$conca' <a href="http://www.tcpdf.org" style="text-decoration:none;background-color:#CC0000;color:black;">&nbsp;<span style="color:black;">TC</span><span style="color:white;">PDF</span>&nbsp;</a>!</h1>
-<i>This is the first example of TCPDF library.</i>
-<p>This text is printed using the <i>writeHTMLCell()</i> method but you can also use: <i>Multicell(), writeHTML(), Write(), Cell() and Text()</i>.</p>
-<p>Please check the source code documentation and other examples for further information.</p>
-<p style="color:#CC0000;">TO IMPROVE AND EXPAND TCPDF I NEED YOUR SUPPORT, PLEASE <a href="http://sourceforge.net/donate/index.php?group_id=128076">MAKE A DONATION!</a></p>
-EOD;
-
-// Print text using writeHTMLCell()
-$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-
 // ---------------------------------------------------------
 
 // Close and output PDF document

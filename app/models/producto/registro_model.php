@@ -13,7 +13,7 @@
 		$limite=$_REQUEST['limite'];
 	else
 		$limite=-1;
-	$sqlProducto="CALL insertarProducto({$nroPlu},'{$nombre}',{$tipo}, {$precio}, '{$codPlu}',{$limite})";
+	$sqlProducto="CALL insertarProducto({$nroPlu},'{$nombre}',{$tipo}, {$precio}, '{$codPlu}',{$idSeccion})";
 	if (!$con->query($sqlProducto)) {
 		echo "Falló la insercion producto: (" . $con->errno . ") " . $con->error;
 	}

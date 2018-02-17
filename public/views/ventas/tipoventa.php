@@ -27,12 +27,11 @@ if($tipo_venta=="manual"){?>
 	<h4>VENTA CON CÓDIGO DE BARRAS</h4>
 			<div class="form-group">
             	 <label>Ingrese Código de barras</label>
-<<<<<<< HEAD
-            	 <input type="text" name="cod_barra" id="cod_barra" autofocus maxlength="13" onkeypress="leer()">
+
+            	 <input type="text" name="cod_barra" id="cod_barra" autofocus maxlength="13" autocomplete="false" onkeypress="leer()">
           	</div>
 <?php }
 ?>
-
 <script>
   $(document).ready(function(){
 
@@ -71,9 +70,3 @@ if($tipo_venta=="manual"){?>
 
 });
 </script>
-=======
-            	 <input type="text" name="cod_barra" id="cod_barra" autofocus maxlength="13" onkeyup="leer()">
-          	</div>';
-}
-?>
->>>>>>> BaseDeDatos

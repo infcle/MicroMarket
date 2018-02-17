@@ -12,9 +12,6 @@
 	}else{
 		$peso=substr($cod_barras,6, 5)*1;
 	}
-	$peso=substr($cod_barras,6, 5)/1000;
-	$codPlu=substr($cod_barras,2, 4);
-
 	$sqlPrecio="select * from producto where cod_plu='{$codPlu}'";
 	if($resultado=$con->query($sqlPrecio)){
 		if($resultado->num_rows>0){

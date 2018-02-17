@@ -33,7 +33,7 @@
                                 <div class="col-md-8">
                                     <div class="row panel-body">
                                         <div class="form-group">
-                                            <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
+                                            <label for="ci" class="col-lg-2 col-sm-2 control-label">Nro C.I.</label>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad" required>
                                             </div>

@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.1.53-community-log : Database - marketbd
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -33,11 +34,11 @@ CREATE TABLE `cliente` (
 /*Data for the table `cliente` */
 
 /*Table structure for table `compra_r` */
-
+#quitando auto incrementado ... no funciona con alter table x la relacion
 DROP TABLE IF EXISTS `compra_r`;
 
 CREATE TABLE `compra_r` (
-  `id_compra` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_compra` bigint(20) NOT NULL,
   `nro_recibo` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
   `total` float NOT NULL,
   `fecha` datetime NOT NULL,

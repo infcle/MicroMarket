@@ -139,7 +139,7 @@
         $("input[name=optionsRadios]").click(function () {
             var valor=$(this).val();
             $.ajax({
-                url: '../../../public/views/ventas/tipoventa.php',
+                url: '../../models/venta/tipoventa.php',
                 type: 'post',
                 data: {id: valor},
                 success: function(response) {
@@ -172,7 +172,7 @@
                 }
             });
         });
-        $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
+        $('#resultado').load("../../models/venta/tipoventa.php?id=barras");
     });
     function leer(){
         var codigo=$('#cod_barra').val();

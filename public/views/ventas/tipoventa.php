@@ -18,25 +18,21 @@ if($tipo_venta=="manual"){?>
              <label>BUSQUEDA</label>
              <input type="text" id="busqueda" placeholder="" maxlength="30" autocomplete="off"  /><br>
              <label>resultado</label>
-             <div id="resultado"> </div> 
-             
+             <div id="resultado"> </div>
           </div>
       <?php  
 
 }else{?>
 	<h4>VENTA CON CÓDIGO DE BARRAS</h4>
-			<div class="form-group">
-            	 <label>Ingrese Código de barras</label>
-
-            	 <input type="text" name="cod_barra" id="cod_barra" autofocus maxlength="13" autocomplete="false" onkeypress="leer()">
-          	</div>
+		<div class="form-group">
+      <label>Ingrese Código de barras</label>
+      <input type="text" name="cod_barra" id="cod_barra" autofocus maxlength="13" autocomplete="false" onkeypress="leer()">
+  	</div>
 <?php }
 ?>
 <script>
   $(document).ready(function(){
-
-        var consulta;
-
+    var consulta;
          //hacemos focus al campo de búsqueda
         $("#busqueda").focus();
 

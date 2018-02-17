@@ -27,44 +27,13 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="panel">
-                        <div class="panel-heading">
-                            DETALLE DE VENTA
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Cantidad/Peso</th>
-                                        <th>Subtotal</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="miDetalle">
-                                </tbody>
-                            </table>
-                            <div class="row text-right">
-                                <div class="col-md-12 panel-body">
-                                    <label>Total </label>
-                                    <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-=======
                     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                         <form class="form-horizontal" role="form" name="frmVenta" id="frmVenta">
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row panel-body">
                                         <div class="form-group">
-                                            <label for="ci" class="col-lg-2 col-sm-2 control-label">Nro C.I.</label>
+                                            <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad" required>
                                             </div>
@@ -115,7 +84,6 @@
                 </div>
             </div>
         </div>
->>>>>>> master
     </div>
 </div>
 
@@ -179,8 +147,6 @@
                 }
             });
         });
-<<<<<<< HEAD
-=======
         $('#btnEnviar').click(function(event) {
             $('#frmVenta').validate({
                 debug:true,
@@ -206,7 +172,6 @@
                 }
             });
         });
->>>>>>> master
         $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
     });
     function leer(){
@@ -226,20 +191,13 @@
                     console.log(datos['detalle']);
                     transicionSalir();
                     $('#cod_barra').val('');
-<<<<<<< HEAD
-                    $('#miDetalle').append('<tr><td><input type="hidden" name="detalle[][0]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="detalle[][1]" id="detalle[][1]" value="'+detalle['nombre']+'"></td><td><input type="text" name="detalle[][2]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="detalle[][3]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="detalle[][4]" class ="text-right" value="'+datos['precioTotal']+'" readonly></td><td></td></tr>');
-                    $('#prec_total').val(total*1+datos['precioTotal']);
-=======
                     $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
 
                     $('#prec_total').val(redondeo2decimales(total*1+datos['precioTotal']));
->>>>>>> master
                 }
             });
         }
     }
-<<<<<<< HEAD
-=======
     function resta(numero){
         numero=numero*1;
         var total=Number($('#prec_total').val()*1);
@@ -251,5 +209,4 @@
         var resultado = Math.round(flotante*100)/100;
         return resultado;
     }
->>>>>>> master
 </script>

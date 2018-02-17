@@ -230,4 +230,26 @@ select p.nro_plu, p.nombre  ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre  from p
 END
 //
 DELIMITER ; 
-select * from seccion
+
+#recibo cliente
+DELIMITER //
+
+CREATE PROCEDURE  Recibo_cliente(in cliente int)
+BEGIN
+
+select r.nro_recibo, r.fecha , c.nombre , c.ci from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_cliente=cliente;
+END
+//
+DELIMITER ; 
+#detalle venta
+DELIMITER //
+
+CREATE PROCEDURE  detalle_venta(in id int)
+BEGIN
+select p.nro_plu, p.nombre, p.precio, pe.peso_cantidad, pe.preciototal  
+		from producto p, producto_etiquetado pe, compra_r c 
+				where p.id_prod=pe.id_prod and pe.id_compra= c.id_compra and pe.id_compra=id;
+
+END
+//
+DELIMITER ; 

@@ -4,8 +4,12 @@ require_once('../../config/conexion.php');
 require_once('../../librarys/tcpdf/examples/tcpdf_include.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$dimen = array(216,280);
+// $pdf = new TCPDF('P','mm','A4',true, 'UTF-8', false);
+ //$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT,$dimen, true, 'UTF-8', false);
 
+//$pdf->addFormat('custom',216,280);
 // set document information 
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Nicola Asuni');
@@ -78,7 +82,7 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 /* La linea rectangular de pagina vertical */
 $hidetop = 50; 
 $tab_top = 50;
-$tab_height = 180;
+$tab_height = 160;
 
 //$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
 $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
@@ -86,27 +90,27 @@ $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
 if (!empty($hidetop)){    
     $pdf->SetXY($posxini + 2, $tab_top+3);
     $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
-    $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height+50);
+    $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
     
     $pdf->SetXY($posxnro-1, $tab_top+3);
     $pdf->MultiCell($posxnom-$posxnro-1,2, "Nombre Producto",'','C');
-    $pdf->line($posxnom-1, $tab_top, $posxnom-1, $tab_top + $tab_height + 50);
+    $pdf->line($posxnom-1, $tab_top, $posxnom-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxnom-1, $tab_top+1);
     $pdf->MultiCell($posxtip-$posxnom-1,2, "Tipo de Venta",'','C');
-    $pdf->line($posxtip-1, $tab_top, $posxtip-1, $tab_top + $tab_height + 50);
+    $pdf->line($posxtip-1, $tab_top, $posxtip-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxtip-1, $tab_top+3);
     $pdf->MultiCell($posxpre-$posxtip-1,2, "Precio",'','C');
-    $pdf->line($posxpre-1, $tab_top, $posxpre-1, $tab_top + $tab_height + 50);
+    $pdf->line($posxpre-1, $tab_top, $posxpre-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxpre-1, $tab_top+3);
     $pdf->MultiCell($posxplu-$posxpre-1,2, "Codigo PLU",'','C');
-    $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height + 50);
+    $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxplu-1, $tab_top+3);
     $pdf->MultiCell($posxfin-$posxplu-1,2, "Acciones",'','C');
-    //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height + 50);
+    //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
     $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
 }
 

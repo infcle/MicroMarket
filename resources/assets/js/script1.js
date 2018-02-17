@@ -13,7 +13,7 @@ $(function(){
     var $pHoras = $("#horas2"),
         $pSegundos = $("#segundos2"),
         $pMinutos = $("#minutos2"),
-        $pAMPM = $("#ampm"),
+        $pAMPM = $("#ampm2"),
         $pDiaSemana = $("#diaSemana"),
         $pDia = $("#dia"),
         $pMes = $("#mes"),

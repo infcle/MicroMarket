@@ -1,50 +1,33 @@
 <div class="row">
-    <div class="col-sm-12">
-        <section class="panel">
+    <div class="col-md-12">
+        <div class="panel">
             <div class="panel-heading">
                 VENTA DE PRODUCTOS
-                <span class="pull-right">
-                    <a href="#modal_ventas" class="btn btn-xs btn-success" data-toggle="modal">
-                        <span class="fa  fa-pencil"></span> Nuevo Cliente
-                    </a>
-                </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">C.I.</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="txt_ci" placeholder="Carnet de identidad">
-                                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-md-12">
+                            TIPO DE VENTA
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" >
+                                    Manual
+                                </label>
                             </div>
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Cliente</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="txt_usuario" placeholder="Nombre del cliente">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras" checked>
+                                    Cod. Barras
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="resultado" class="jumbotron">
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        TIPO DE VENTA
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="manual" >
-                                Manual
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="barras" checked>
-                                Cod. Barras
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div id="resultado" class="jumbotron">
-                        </div>
-                    </div>
+<<<<<<< HEAD
                     <div class="panel">
                         <div class="panel-heading">
                             DETALLE DE VENTA
@@ -74,12 +57,75 @@
                 </form>
             </div>
         </section>
+=======
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <form class="form-horizontal" role="form" name="frmVenta" id="frmVenta">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row panel-body">
+                                        <div class="form-group">
+                                            <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="#modal_ventas" class="btn btn-success" data-toggle="modal">
+                                                    <span class="fa fa-pencil"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cliente" class="col-lg-2 col-sm-2 control-label">Cliente</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="panel-heading">
+                                        Detalle De Venta
+                                    </div>
+                                    <table class="table table-striped table-bordered" id="tablaDetalle">
+                                        <thead>
+                                            <tr>
+                                                <th class="">Producto</th>
+                                                <th class="">Precio Unitario</th>
+                                                <th class="">Cantidad Peso</th>
+                                                <th class="">Subtotal</th>
+                                                <th class="">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="miDetalle">
+                                        </tbody>
+                                    </table>
+                                    <div class="row text-right">
+                                        <div class="col-md-12 panel-body">
+                                            <label>Total </label>
+                                            <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+>>>>>>> master
     </div>
 </div>
 
 <?php require_once 'modal_ventas.php'; ?>
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#tablaDetalle").on('click', '.eliminar', function () {
+            $(this).parents()
+            $(this).closest('tr').remove();
+        });
         $('#frmRegistrar').validate({
             debug:true,
             rules:{
@@ -133,6 +179,34 @@
                 }
             });
         });
+<<<<<<< HEAD
+=======
+        $('#btnEnviar').click(function(event) {
+            $('#frmVenta').validate({
+                debug:true,
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '../../models/venta/registro_recibo.php',
+                        type: 'post',
+                        data: $("#frmVenta").serialize(),
+                        beforeSend: function() {
+                            transicion("Procesando Espere....");
+                        },
+                        success: function(response){
+                            if(response==1){
+                                $('#btnEnviar').attr({disabled: 'true'});
+                                transicionSalir();
+                                mensajes_alerta('VENTA REALIZADA EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            }else{
+                                transicionSalir();
+                                mensajes_alerta('ERROR AL REGISTRAR LA VENTA verifique los datos!! '+response,'error','REGISTRAR DATOS');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+>>>>>>> master
         $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
     });
     function leer(){
@@ -152,10 +226,30 @@
                     console.log(datos['detalle']);
                     transicionSalir();
                     $('#cod_barra').val('');
+<<<<<<< HEAD
                     $('#miDetalle').append('<tr><td><input type="hidden" name="detalle[][0]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="detalle[][1]" id="detalle[][1]" value="'+detalle['nombre']+'"></td><td><input type="text" name="detalle[][2]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="detalle[][3]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="detalle[][4]" class ="text-right" value="'+datos['precioTotal']+'" readonly></td><td></td></tr>');
                     $('#prec_total').val(total*1+datos['precioTotal']);
+=======
+                    $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
+
+                    $('#prec_total').val(redondeo2decimales(total*1+datos['precioTotal']));
+>>>>>>> master
                 }
             });
         }
     }
+<<<<<<< HEAD
+=======
+    function resta(numero){
+        numero=numero*1;
+        var total=Number($('#prec_total').val()*1);
+        var tot_redondeo=total-numero;
+        $('#prec_total').val(redondeo2decimales(tot_redondeo));
+    }
+    function redondeo2decimales(numero){
+        var flotante = parseFloat(numero);
+        var resultado = Math.round(flotante*100)/100;
+        return resultado;
+    }
+>>>>>>> master
 </script>

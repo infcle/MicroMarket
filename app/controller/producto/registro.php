@@ -12,8 +12,8 @@
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	$fila = $resultado->fetch_row();
-	$sql="SELECT * FROM categoria where estado = 1";
-	if (!($categorias = $con->query($sql))) {
+	$sql="SELECT * FROM SECCION where estado = 1 and id_categoria=2";
+	if (!($secciones = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	$titulo="Nuevo Producto";

@@ -29,13 +29,11 @@
                   <label for="tipo" class=" col-sm-4 control-label">Tipo de venta </label>
                   <div class="col-sm-8">
                     <div class="col-sm-8">
-                      <label class="radio-inline">
-                        <input type="radio" name="tipoVenta" id="tipoVenta" value="1" class="form-group tipoVenta" required=""> CANTIDAD
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="tipoVenta" id="tipoVenta" value="2" class="form-group tipoVenta" required=""> PESO
-                      </label>
-                      <em id="personalError"></em>
+                      <select  name="tipoVenta" id="tipoVenta" class="form-control">
+                        <option value="" selected="selected">selecione una opcion</option>
+                        <option value="1" >1.CANTIDAD</option>
+                        <option value="2" >2.PESO</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -47,20 +45,27 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                <h5>SECCIÓN</h5>
-                <div class="col-md-12 well">
-                  <select name="seccion" id="seccion" class="seccion_class form-control" required="required">
-                    <option value="">Seleccione una seccion</option>
-                    <?php foreach ($secciones as $seccion): ?>
-                    <option value="<?php echo $seccion['id_seccion'] ?>"><?php echo $seccion['nombre']; ?></option>
-                    <?php endforeach ?>
-                  </select>
-                  <div class="col-md-12 form-group" id="limite_<?php echo $id_categoria; ?>">
-                  </div>
+                <div class="alert alert-info fade in">
+                  <strong>¡Aviso!</strong> Debe asignar en que categoria se encontrarra el producto y en que seccion de la categoria.
                 </div>
               </div>
+              <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                <h5>CATEGORÍA</h5>
+                <?php $cont=0; ?>
+                <?php foreach ($categorias as $categoria): ?>
+                  <?php $cont++; ?>
+                  <div class="form-group">
+                    <div class="col-md-12 checkbox">
+                      <label>
+                      <input type="checkbox" id="categoria[]" name="categoria[]" class="cambio" value="<?php echo $categoria['id_categoria']; ?>">
+                        <?php echo $categoria['nombre'];?>
+                      </label>
+                      <div class="col-md-12" id="resuldato_<?php echo $categoria['id_categoria']; ?>"></div>
+                    </div>
+                  </div>
+                <?php endforeach ?>
+              </div>
+              <em id="personalError"></em>
             </div>
             <div class="row form-group text-center">
               <div class="form-group">
@@ -90,11 +95,26 @@
   }
 
   $(document).ready(function() {
+    $('.cambio').change(function(event) {
+      var mvalorc=$(this).val();
+      if($(this).is(':checked')){
+        $.ajax({
+          url: '../../models/producto/select.php',
+          type: 'post',
+          data: {id: mvalorc},
+          success: function(response) {
+            $('#resuldato_'+mvalorc).html(response);
+          }
+        });
+      }else{
+        $('#resuldato_'+mvalorc).empty();
+      }
+    });
     $("#nro_plu").focus(function(){
       this.select();
     });
-    $(".tipoVenta").change(function(event){
-      var id = $(this).val();
+    $("#tipoVenta").change(function(event){
+      var id = $("#tipoVenta").find(':selected').val();
       if(id==1){
         $("#mensaje").html("Precio por cantidad ");
 
@@ -112,12 +132,9 @@
         //errorElement: "em",
         errorPlacement: function ( error, element ) {
           error.addClass( "help-block" );
-
           if ( element.prop( "type" ) === "checkbox" ) {
             error.insertAfter("#personalError");
             //error.appendTo(element.parent().next(''));
-          }else if ( element.prop( "type" ) === "radio" ) {
-            error.insertAfter(element.next());
           } else {
             error.insertAfter( element );
           }
@@ -157,9 +174,6 @@
             range:[0.1,999.000]
           },
           'categoria[]':{
-            required:true
-          },
-          tipoVenta:{
             required:true
           }
         },

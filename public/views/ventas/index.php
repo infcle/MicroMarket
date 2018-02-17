@@ -28,6 +28,7 @@
                         </div>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <div class="panel">
                         <div class="panel-heading">
                             DETALLE DE VENTA
@@ -58,6 +59,8 @@
             </div>
         </section>
 =======
+=======
+>>>>>>> master
                     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                         <form class="form-horizontal" role="form" name="frmVenta" id="frmVenta">
                             <div class="row">
@@ -115,6 +118,9 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
     </div>
 </div>
@@ -180,7 +186,10 @@
             });
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
         $('#btnEnviar').click(function(event) {
             $('#frmVenta').validate({
                 debug:true,
@@ -206,6 +215,9 @@
                 }
             });
         });
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
         $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
     });
@@ -227,8 +239,14 @@
                     transicionSalir();
                     $('#cod_barra').val('');
 <<<<<<< HEAD
+<<<<<<< HEAD
                     $('#miDetalle').append('<tr><td><input type="hidden" name="detalle[][0]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="detalle[][1]" id="detalle[][1]" value="'+detalle['nombre']+'"></td><td><input type="text" name="detalle[][2]" class ="text-right" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="detalle[][3]" class="text-right" value="'+datos['peso']+'" readonly></td><td><input type="text" name="detalle[][4]" class ="text-right" value="'+datos['precioTotal']+'" readonly></td><td></td></tr>');
                     $('#prec_total').val(total*1+datos['precioTotal']);
+=======
+                    $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
+
+                    $('#prec_total').val(redondeo2decimales(total*1+datos['precioTotal']));
+>>>>>>> master
 =======
                     $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
 
@@ -239,7 +257,10 @@
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
     function resta(numero){
         numero=numero*1;
         var total=Number($('#prec_total').val()*1);
@@ -251,5 +272,8 @@
         var resultado = Math.round(flotante*100)/100;
         return resultado;
     }
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 </script>

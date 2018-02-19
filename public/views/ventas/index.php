@@ -34,18 +34,18 @@
                                     <div class="row panel-body">
                                         <div class="form-group">
                                             <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Digite C.I. luego presione Enter" required>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Digite C.I. luego presione buscar" required>
                                             </div>
-                                            <div class="col-md-2 hide" id="nuevoCliente">
+                                            <div class="col-md-1 hide" id="nuevoCliente">
                                                 <a href="#modal_ventas" class="btn btn-success tooltips" data-original-title="Nuevo cliente" data-toggle="modal">
                                                     <span class="fa fa-pencil"></span>
                                                 </a>
                                             </div>
-                                            <div class="col-md-2" id="buscarCliente">
-                                                <button type="button" class="btn btn-info tooltips" data-toggle="tooltip" data-original-title="Presione para Buscar"><span class="fa fa-search" id="btnBuscar"></span></button>
+                                            <div class="col-md-1" id="buscarCliente">
+                                                <button type="button" class="btn btn-info tooltips" data-toggle="tooltip" data-original-title="Presione para Buscar" id="btnBuscar"><span class="fa fa-search"></span></button>
                                             </div>
-                                             <div class="col-md-2" id="buscarCliente">
+                                             <div class="col-md-1" id="buscarCliente">
                                                 <button type="button" class="btn btn-primary tooltips" data-toggle="tooltip" data-original-title="Limpiar y volver a buscar"><span class="fa fa-refresh" id="limpiar"></span></button>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
         });
         $('#resultado').load("../../models/venta/tipoventa.php?id=barras");
         $('#btnBuscar').click(function(event) {
-            var ci=$("#txt_ci").val();alert("buscar");
+            var ci=$("#txt_ci").val();
             $.ajax({
                 url: '../../models/cliente/buscar.php',
                 type: 'post',

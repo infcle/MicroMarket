@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
-                                    <button type="submit" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button>
+                                    <button type="button" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button>
                                 </div>
                             </div>
                         </form>
@@ -98,7 +98,7 @@
 <script type="text/javascript">
     function imprime(){
         $.ajax({
-            url: '../reportes/recibo.php',
+            url: '../reporte/recibo.php',
             type: 'post',
             data: {param1: 'value1'},
             success: function(response){

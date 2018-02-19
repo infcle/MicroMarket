@@ -16,6 +16,24 @@ function mensajes_alerta(mensaje,tipo,titulo){
 	}
 	toastr[tipo](mensaje, titulo);
 }
+function mensajes_alerta_pequeño(mensaje,tipo,titulo){
+	toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "progressBar": true,
+	  "positionClass": "toast-top-center",
+	  "onclick": null,
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "3000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
+	toastr[tipo](mensaje, titulo);
+}
 
 function transicion(mensaje){
 	$.blockUI({

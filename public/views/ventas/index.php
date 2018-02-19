@@ -34,19 +34,25 @@
                                     <div class="row panel-body">
                                         <div class="form-group">
                                             <label for="ci" class="col-lg-2 col-sm-2 control-label">C.I.</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Carnet de identidad" required>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" id="txt_ci" name="txt_ci" placeholder="Digite C.I. luego presione buscar" required>
                                             </div>
-                                            <div class="col-md-2">
-                                                <a href="#modal_ventas" class="btn btn-success" data-toggle="modal">
+                                            <div class="col-md-1 hide" id="nuevoCliente">
+                                                <a href="#modal_ventas" class="btn btn-success tooltips" data-original-title="Nuevo cliente" data-toggle="modal">
                                                     <span class="fa fa-pencil"></span>
                                                 </a>
+                                            </div>
+                                            <div class="col-md-1" id="buscarCliente">
+                                                <button type="button" class="btn btn-info tooltips" data-toggle="tooltip" data-original-title="Presione para Buscar" id="btnBuscar"><span class="fa fa-search"></span></button>
+                                            </div>
+                                             <div class="col-md-1">
+                                                <button type="button" class="btn btn-primary tooltips" data-toggle="tooltip" data-original-title="Limpiar y volver a buscar" id="limpiar"><span class="fa fa-refresh"></span></button>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="cliente" class="col-lg-2 col-sm-2 control-label">Cliente</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente" required>
+                                                <input type="text" class="form-control" id="txt_usuario" name="txt_usuario" placeholder="Nombre del cliente" required readonly="true">
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +79,7 @@
                                     <div class="row text-right">
                                         <div class="col-md-12 panel-body">
                                             <label>Total </label>
-                                            <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
+                                            <input type="number" name="prec_total" id="prec_total" class="text-right" value="0" readonly="">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
@@ -105,8 +111,22 @@
                 ci:{
                     required:true,
                     minlength:5,
-                    maxlength:20
+                    maxlength:20,
+                    remote: {
+                        url: "../../models/cliente/verifica.php",
+                        type: 'post',
+                        data: {
+                            ci: function() {
+                                return $("#ci").val();
+                            }
+                        }
+                    }
                 },
+            },
+            messages:{
+                ci:{
+                    remote:"el numero de carnet ya esta registrado."
+                }
             },
             submitHandler: function (form) {
                 $.ajax({
@@ -139,7 +159,7 @@
         $("input[name=optionsRadios]").click(function () {
             var valor=$(this).val();
             $.ajax({
-                url: '../../../public/views/ventas/tipoventa.php',
+                url: '../../models/venta/tipoventa.php',
                 type: 'post',
                 data: {id: valor},
                 success: function(response) {
@@ -163,6 +183,9 @@
                                 $('#btnEnviar').attr({disabled: 'true'});
                                 transicionSalir();
                                 mensajes_alerta('VENTA REALIZADA EXITOSAMENTE !! ','success','EDITAR DATOS');
+                                setTimeout(function(){
+                                    window.location.href='<?php echo ROOT_CONTROLLER ?>ventas/index.php';
+                                }, 3000);
                             }else{
                                 transicionSalir();
                                 mensajes_alerta('ERROR AL REGISTRAR LA VENTA verifique los datos!! '+response,'error','REGISTRAR DATOS');
@@ -172,23 +195,77 @@
                 }
             });
         });
-        $('#resultado').load("../../../public/views/ventas/tipoventa.php?id=barras");
+        $('#resultado').load("../../models/venta/tipoventa.php?id=barras");
+        $('#btnBuscar').click(function(event) {
+            var ci=$("#txt_ci").val();
+            if(ci.length>0){
+                $.ajax({
+                    url: '../../models/cliente/buscar.php',
+                    type: 'post',
+                    dataType: "json",
+                    data: {id: ci},
+                    success: function(datos) {
+                        //console.log(datos);
+                        //console.log(datos['estado']);
+                        if(datos['estado']=="No"){
+                            $("#buscarCliente").addClass('hide');
+                            $("#nuevoCliente").removeClass('hide');
+                            mensajes_alerta_pequeño('CLIENTE NO REGISTRADO !! debe registrarlo','warning','DATOS CLIENTE');
+                        }else{
+                            var cliente=datos['cliente'];
+                            $("#txt_ci").val("");
+                            $("#txt_ci").val(cliente['ci']);
+                            $("#txt_usuario").val(cliente['nombre']);
+                            $("#txt_ci").attr({readonly: 'true',});
+                            mensajes_alerta_pequeño('CLIENTE REGISTRADO !! '+cliente['nombre'],'info','DATOS CLIENTE');
+                        }
+                    }
+                });
+            }else{
+                mensajes_alerta_pequeño('debe escribir un C.I. !!','warning','ADVERTENCIA');
+            }
+        });
+        $('input').keypress(function(e){
+            if(e.which == 13){
+              return false;
+            }
+        });
+        $("#limpiar").click(function(event) {
+            $("#buscarCliente").removeClass('hide');
+            $("#nuevoCliente").addClass('hide');
+            $("#txt_ci").val("");
+            $("#txt_ci").removeAttr('readonly');
+            $("#txt_usuario").val("");
+            $("#txt_ci").focus();
+        });
     });
-    function leer(){
-        var codigo=$('#cod_barra').val();
-        if(codigo.length==13){
+    function leer(manual, mcodigo,pesoCantidad){
+        var codigo=1;
+        var tam=0;
+        if(manual=="no"){
+            codigo=$('#cod_barra').val();
+            tam=13;
+        }else{
+            codigo=mcodigo;
+            tam=4;
+        }
+        if(codigo.length==tam){
             $.ajax({
                 url: '../../models/venta/detalle.php',
                 type: 'post',
                 dataType: "json",
-                data: {codigo: codigo},
+                data: {
+                    codigo: codigo,
+                    tipo: manual,
+                    peso: pesoCantidad
+                },
                 beforeSend: function() {
-                    transicion("Procesando Espere....");
+                    transicion("Obteniendo Datos....");
                 },
                 success: function(datos){
                     var total=$('#prec_total').val();
                     var detalle=datos['detalle'];
-                    console.log(datos['detalle']);
+                    //console.log(datos['detalle']);
                     transicionSalir();
                     $('#cod_barra').val('');
                     $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');

@@ -26,7 +26,14 @@
                                 <tr class="gradeX">
                                     <td><?php echo $seccion['id_seccion']; ?></td>
                                     <td><?php echo $seccion['nombre']; ?></td>
-                                    <td ></td>
+                                    <td >
+                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $seccion['id_seccion'] ?>)">
+                                            <span class="fa fa-edit" ></span>
+                                        </a>
+                                        <a class="btn btn-danger" href="#modalEliminar" role="button" data-toggle="modal" data-placement="top" title="Eliminar" onclick="eliminar_datos(<?php echo $seccion['id_seccion'] ?>)">
+                                            <span class="fa fa-trash-o"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach;?>
                         </tbody>
@@ -34,56 +41,24 @@
                 </div>
             </div>
             <?php require_once 'modal_registrar.php'; ?>
+            <?php require_once 'modal_eliminar.php'; ?>
+             <?php require_once 'modal_editar.php'; ?>
+
         </section>
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#frmRegistrar').validate({ 
-            debug:true,
-            rules:{
-                nombre:{
-                    required:true,
-                    minlength: 3,
-                    maxlength:30,
-                },
-                limite:{
-                    required:true,
-                    minlength: 2,
-                    maxlength:4,
-                    range:[1,9999],
-                },
-                subsidio:{
-                    required:true
-                }
-            },
-            submitHandler: function (form) {
-                $.ajax({
-                    url: '../../models/seccion/registro_model.php',
-                    type: 'post',
-                    data: $("#frmRegistrar").serialize(),
-                    beforeSend: function() {
-                        transicion("Procesando Espere....");
-                    },
-                    success: function(response) {
-                        if(response==1){
-                            $('#modal_Registrar').modal('hide');
-                            $('#btnRegistrar').attr({
-                                disabled: 'true'
-                            });
-                            transicionSalir();
-                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                            setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
-                            }, 3000);
-                        }else{
-                            transicionSalir();
-                            mensajes_alerta('ERROR AL EDITAR LA SECCION verifique los datos!! '+response,'error','EDITAR DATOS');
-                        }
-                    }
-                });
+     function obtener_datos(id){
+        $.ajax({
+            url: '../../models/seccion/datos_seccion.php',
+            type: 'POST',
+            dataType: "json",
+            data: {id_seccion: id},
+            success: function(datos){
+                $("#name").val(datos['seccion']['nombre']);
+                
+                //console.log(datos['usuario']['name']);
             }
         });
-        $('#tdSeccione').dataTable();
-    });
+    }
 </script>

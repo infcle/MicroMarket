@@ -47,7 +47,6 @@
             </div>
             <?php require_once 'modal_editar.php'; ?>
             <?php require_once 'modal_eliminar.php'; ?>
-
         </section>
     </div>
 </div>
@@ -68,28 +67,25 @@
         });
     }
     function eliminar_datos(id){
-      $("#id_user").val(id);
-
+        $("#id_user").val(id);
     }
     $(document).ready(function() {
-        
         $("#btnEliminar").click(function(event) {
-             $.ajax({
-            url: '../../models/user/eliminar_model.php',
-            type: 'POST',
-            data: $("#frmEliminar").serialize(),
-            success: function(datos){
-                ('#modalEliminar').modal('hide');
-                $('#btnEliminar').attr({
-                    disabled: 'true'
-                });
-                transicionSalir();
-                mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+            $.ajax({
+                url: '../../models/user/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
+                success: function(datos){
+                    ('#modalEliminar').modal('hide');
+                    $('#btnEliminar').attr({
+                        disabled: 'true'
+                    });
+                    transicionSalir();
+                    mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                     setTimeout(function(){
-                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                        window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
                     }, 3000);
-                //console.log(datos['usuario']['name']);
-            }
+                }
             });
         });
         $('#frmEditar').validate({
@@ -135,30 +131,30 @@
                 }
             },
             submitHandler: function (form) {
-                    $.ajax({
-                        url: '../../models/user/editar_model.php',
-                        type: 'post',
-                        data: $("#frmEditar").serialize(),
-                        beforeSend: function() {
-                            transicion("Procesando Espere....");
-                        },
-                        success: function(response) {
-                            if(response==1){
-                                $('#modalEditar').modal('hide');
-                                $('#btnEditar').attr({
-                                    disabled: 'true'
-                                });
-                                transicionSalir();
-                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                                setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
-                                }, 3000);
-                            }else{
-                                transicionSalir();
-                                mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
-                            }
+                $.ajax({
+                    url: '../../models/user/editar_model.php',
+                    type: 'post',
+                    data: $("#frmEditar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modalEditar').modal('hide');
+                            $('#btnEditar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
                         }
-                    });
+                    }
+                });
             }
         });
 
@@ -196,4 +192,4 @@
             })
         });
     });
-</script> 
+</script>

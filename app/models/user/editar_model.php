@@ -7,7 +7,7 @@
 	$nombre = trim($_REQUEST["name"]);
 	$user = trim($_REQUEST["user"]);
 
-	$sql = "UPDATE usario_login set nombre='{$nombre}', usuario='{$user}' where id_usuario={$id}";
+	$sql = "UPDATE usuario_login set nombre='{$nombre}', usuario='{$user}' where id_usuario={$id}";
 
 	if (!$con->query($sql)) {
 		echo "Falló la edicion: (" . $con->errno . ") " . $con->error;

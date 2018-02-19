@@ -26,9 +26,8 @@
                                     <td><?php echo $user['estado']; ?></td>
                                     <td class="text-center">
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $user['id_usuario'] ?>)">
-                                            <span class="fa fa-edit" ></span>
-                                        </a>
-                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <span class="fa fa-edit" ></span></a>
+                                        <a class="btn btn-danger" href="#modalEliminar" role="button" data-toggle="modal" data-placement="top" title="Eliminar" onclick="eliminar_datos(<?php echo $user['id_usuario'] ?>)">
                                             <span class="fa fa-trash-o"></span>
                                         </a>
                                     </td>
@@ -47,11 +46,13 @@
                 </div>
             </div>
             <?php require_once 'modal_editar.php'; ?>
+            <?php require_once 'modal_eliminar.php'; ?>
+
         </section>
     </div>
 </div>
 
-<script>
+ <script>
     function obtener_datos(id){
         $.ajax({
             url: '../../models/user/datos_usuarios.php',
@@ -66,7 +67,31 @@
             }
         });
     }
+    function eliminar_datos(id){
+      $("#id_user").val(id);
+
+    }
     $(document).ready(function() {
+        
+        $("#btnEliminar").click(function(event) {
+             $.ajax({
+            url: '../../models/user/eliminar_model.php',
+            type: 'POST',
+            data: $("#frmEliminar").serialize(),
+            success: function(datos){
+                ('#modalEliminar').modal('hide');
+                $('#btnEliminar').attr({
+                    disabled: 'true'
+                });
+                transicionSalir();
+                mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                    setTimeout(function(){
+                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                    }, 3000);
+                //console.log(datos['usuario']['name']);
+            }
+            });
+        });
         $('#frmEditar').validate({
             debug:true,
             rules:{
@@ -171,4 +196,4 @@
             })
         });
     });
-</script>
+</script> 

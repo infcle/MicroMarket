@@ -31,7 +31,12 @@
                                     <td class="text-right"><?php echo $producto['precio']; ?></td>
                                     <td class="text-right"><?php echo $producto['cod_plu']; ?></td>
                                     <td><?php echo $producto['nomSeccion']; ?></td>
-                                    <td></td>
+                                    <td>
+                                        <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-edit" ></span>
+                                        </a>
+                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -52,12 +57,11 @@
         </section>
     </div>
 </div>
+<?php require_once 'modal_editar.php'; ?>
 <script>
     $(document).ready(function() {
         $('#tbProductos').dataTable({
-            language:{
-                sSearch: "Buscar:"
-            }
+           oSearching: false,
         });
     });
 </script>

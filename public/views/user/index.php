@@ -15,7 +15,7 @@
                                 <th>Nombre completo</th>
                                 <th>Usuario</th>
                                 <th>Estado</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,7 +24,7 @@
                                     <td><?php echo $user['nombre']; ?></td>
                                     <td><?php echo $user['usuario']; ?></td>
                                     <td><?php echo $user['estado']; ?></td>
-                                    <td>
+                                    <td class="text-center">
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $user['id_usuario'] ?>)">
                                             <span class="fa fa-edit" ></span>
                                         </a>

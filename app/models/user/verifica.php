@@ -14,15 +14,15 @@
 				echo "false";
 		}
 	}else{
-		$sql="call existe_usuario('{$usuario}',@a);";
+		$sql="SELECT * FROM usuario_login WHERE usuario = '{$usuario}'";
 		if ($resultado=$con->query($sql)) {
-			$resultado2=$con->query("select @a;");
-			$fila = $resultado2->fetch_row();
-			if(!$fila[0])
+			$nrodefilas=$resultado->num_rows;
+			if($nrodefilas == 0)
 				echo "true";
 			else
 				echo "false";
-		}else
+		}else{
 			echo "Falló la insercion: (" . $con->errno . ") " . $con->error;
+		}
 	}
 ?>

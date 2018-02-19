@@ -12,39 +12,24 @@
                 </div>
             </header>
             <div class="panel-body">
-                <div class="row">
-                    <label class="control-label col-md-2" for="categoria">SELECCIONE CATEGORIA</label>
-                    <div class="col-md-4">
-                        <select name="categoria" id="inputCategoria" class="form-control" required="required">
-                            <option value="">Seleccione categoria</option>
-                            <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?php echo $categoria['id_categoria']; ?>">
-                                <?php echo $categoria['nombre']; ?>
-                            </option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                </div>
                 <div class="adv-table" >
-                    <table  class="display table table-bordered table-striped" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped" id="tdSeccione">
                         <thead>
                             <tr>
                                 <th>codigo</th>
                                 <th>Nombre de seccion</th>
-                                <th>Limite</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="lista">
+                        <tbody>
+                            <?php foreach ($secciones as $seccion): ?>
+                                <tr class="gradeX">
+                                    <td><?php echo $seccion['id_seccion']; ?></td>
+                                    <td><?php echo $seccion['nombre']; ?></td>
+                                    <td ></td>
+                                </tr>
+                            <?php endforeach;?>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>codigo</th>
-                                <th>Nombre de seccion</th>
-                                <th>Limite</th>
-                                <th class="hidden-phone">Acciones</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -54,11 +39,6 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php');
-        $("#inputCategoria").change(function(event){
-            var mid = $("#inputCategoria").find(':selected').val();
-            $('#lista').load('<?php echo ROOT ?>app/models/seccion/lista_seccion.php?id='+mid);
-        });
         $('#frmRegistrar').validate({ 
             debug:true,
             rules:{
@@ -104,5 +84,6 @@
                 });
             }
         });
+        $('#tdSeccione').dataTable();
     });
 </script>

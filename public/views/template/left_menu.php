@@ -55,9 +55,7 @@
             </li>
             <li class="menu-list <?php echo $menu_a['configuracion']; ?>"><a href=""><i class="fa fa-cog"></i> <span>Configuraciónes</span></a>
                 <ul class="sub-menu-list">
-                    <li class="<?php echo $menu_a['configuracion_c']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>categoria/"> Categoria</a></li>
                     <li class="<?php echo $menu_a['configuracion_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Seccion</a></li>
-                    <li class="<?php echo $menu_a['configuracion_l']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>limite/"> Limites</a></li>
                 </ul>
             </li>
             <li><a href="<?php echo ROOT_CONTROLLER; ?>login/index.php?logout"><i class="fa fa-sign-in"></i> <span>Salir</span></a></li>

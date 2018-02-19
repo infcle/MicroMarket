@@ -82,7 +82,7 @@
                     equalTo :"Las contraseñas no coinciden."
                 }
             },
-            submitHandler: function (form) {
+            submitHandler: function (form) {alert("exito");
                 $.ajax({
                     url: '../../models/user/registro_model.php',
                     type: 'post',

@@ -10,7 +10,7 @@
             </header>
             <div class="panel-body">
                 <div class="adv-table">
-                    <table  class="display table table-bordered table-striped" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped" id="tbProductos">
                         <thead>
                             <tr>
                                 <th>Nro PLU</th>
@@ -18,18 +18,20 @@
                                 <th>tipo venta</th>
                                 <th>Precio</th>
                                 <th>Codigo PLU</th>
+                                <th>Seccion</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($productos as $producto): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $producto['nro_plu']; ?></td>
-                                    <td><?php echo $producto['nombre']; ?></td>
+                                    <td class="text-right"><?php echo $producto['nro_plu']; ?></td>
+                                    <td><?php echo $producto['nomProducto']; ?></td>
                                     <td><?php echo $producto['tipo']; ?></td>
-                                    <td><?php echo $producto['precio']; ?></td>
-                                    <td><?php echo $producto['cod_plu']; ?></td>
-                                    <td ></td>
+                                    <td class="text-right"><?php echo $producto['precio']; ?></td>
+                                    <td class="text-right"><?php echo $producto['cod_plu']; ?></td>
+                                    <td><?php echo $producto['nomSeccion']; ?></td>
+                                    <td></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -37,8 +39,10 @@
                             <tr>
                                 <th>Nro PLU</th>
                                 <th>Nombre producto</th>
+                                <th>tipo venta</th>
                                 <th>Precio</th>
                                 <th>Codigo PLU</th>
+                                <th>Seccion</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </tfoot>
@@ -48,3 +52,12 @@
         </section>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#tbProductos').dataTable({
+            language:{
+                sSearch: "Buscar:"
+            }
+        });
+    });
+</script>

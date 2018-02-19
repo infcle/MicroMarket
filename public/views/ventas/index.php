@@ -79,7 +79,7 @@
                                     <div class="row text-right">
                                         <div class="col-md-12 panel-body">
                                             <label>Total </label>
-                                            <input type="text" name="prec_total" id="prec_total" class="text-right" value="0">
+                                            <input type="number" name="prec_total" id="prec_total" class="text-right" value="0" readonly="">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
@@ -111,8 +111,22 @@
                 ci:{
                     required:true,
                     minlength:5,
-                    maxlength:20
+                    maxlength:20,
+                    remote: {
+                        url: "../../models/cliente/verifica.php",
+                        type: 'post',
+                        data: {
+                            ci: function() {
+                                return $("#ci").val();
+                            }
+                        }
+                    }
                 },
+            },
+            messages:{
+                ci:{
+                    remote:"el numero de carnet ya esta registrado."
+                }
             },
             submitHandler: function (form) {
                 $.ajax({

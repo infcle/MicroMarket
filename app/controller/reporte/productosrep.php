@@ -83,13 +83,14 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 $hidetop = 50; 
 $tab_top = 50;
 $tab_height = 160;
+$pdf->SetFillColor(255, 255, 127);
 
 //$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
 $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
 
 if (!empty($hidetop)){    
     $pdf->SetXY($posxini + 2, $tab_top+3);
-    $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
+    $pdf->MultiCell($posxnro-$posxini-1,7, "Nro PLU",'','C',0, 0, '', '', true);
     $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
     
     $pdf->SetXY($posxnro-1, $tab_top+3);

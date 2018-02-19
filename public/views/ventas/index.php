@@ -198,12 +198,12 @@
                             $("#nuevoCliente").removeClass('hide');
                             mensajes_alerta_pequeño('CLIENTE NO REGISTRADO !! debe registrarlo','warning','DATOS CLIENTE');
                         }else{
-                            mensajes_alerta_pequeño('CLIENTE REGISTRADO !! '+cliente['nombre'],'info','DATOS CLIENTE');
                             var cliente=datos['cliente'];
                             $("#txt_ci").val("");
                             $("#txt_ci").val(cliente['ci']);
                             $("#txt_usuario").val(cliente['nombre']);
                             $("#txt_ci").attr({readonly: 'true',});
+                            mensajes_alerta_pequeño('CLIENTE REGISTRADO !! '+cliente['nombre'],'info','DATOS CLIENTE');
                         }
                     }
                 });
@@ -220,6 +220,7 @@
             $("#buscarCliente").removeClass('hide');
             $("#nuevoCliente").addClass('hide');
             $("#txt_ci").val("");
+            $("#txt_ci").removeAttr('readonly');
             $("#txt_usuario").val("");
             $("#txt_ci").focus();
         });

@@ -45,8 +45,8 @@
                                             <div class="col-md-1" id="buscarCliente">
                                                 <button type="button" class="btn btn-info tooltips" data-toggle="tooltip" data-original-title="Presione para Buscar" id="btnBuscar"><span class="fa fa-search"></span></button>
                                             </div>
-                                             <div class="col-md-1" id="buscarCliente">
-                                                <button type="button" class="btn btn-primary tooltips" data-toggle="tooltip" data-original-title="Limpiar y volver a buscar"><span class="fa fa-refresh" id="limpiar"></span></button>
+                                             <div class="col-md-1">
+                                                <button type="button" class="btn btn-primary tooltips" data-toggle="tooltip" data-original-title="Limpiar y volver a buscar" id="limpiar"><span class="fa fa-refresh"></span></button>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -169,6 +169,9 @@
                                 $('#btnEnviar').attr({disabled: 'true'});
                                 transicionSalir();
                                 mensajes_alerta('VENTA REALIZADA EXITOSAMENTE !! ','success','EDITAR DATOS');
+                                setTimeout(function(){
+                                    window.location.href='<?php echo ROOT_CONTROLLER ?>ventas/index.php';
+                                }, 3000);
                             }else{
                                 transicionSalir();
                                 mensajes_alerta('ERROR AL REGISTRAR LA VENTA verifique los datos!! '+response,'error','REGISTRAR DATOS');
@@ -181,25 +184,44 @@
         $('#resultado').load("../../models/venta/tipoventa.php?id=barras");
         $('#btnBuscar').click(function(event) {
             var ci=$("#txt_ci").val();
-            $.ajax({
-                url: '../../models/cliente/buscar.php',
-                type: 'post',
-                dataType: "json",
-                data: {id: ci},
-                success: function(datos) {
-                    console.log(datos);
-                    console.log(datos['estado']);
-                    if(datos['estado']=="No"){
-                        $("#buscarCliente").addClass('hide');
-                        $("#nuevoCliente").removeClass('hide');
-                    }else{
-                        var cliente=datos['cliente'];
-                        $("#txt_ci").val("");
-                        $("#txt_ci").val(cliente['ci']);
-                        $("#txt_usuario").val(cliente['nombre']);
+            if(ci.length>0){
+                $.ajax({
+                    url: '../../models/cliente/buscar.php',
+                    type: 'post',
+                    dataType: "json",
+                    data: {id: ci},
+                    success: function(datos) {
+                        //console.log(datos);
+                        //console.log(datos['estado']);
+                        if(datos['estado']=="No"){
+                            $("#buscarCliente").addClass('hide');
+                            $("#nuevoCliente").removeClass('hide');
+                            mensajes_alerta_pequeño('CLIENTE NO REGISTRADO !! debe registrarlo','warning','DATOS CLIENTE');
+                        }else{
+                            mensajes_alerta_pequeño('CLIENTE REGISTRADO !! '+cliente['nombre'],'info','DATOS CLIENTE');
+                            var cliente=datos['cliente'];
+                            $("#txt_ci").val("");
+                            $("#txt_ci").val(cliente['ci']);
+                            $("#txt_usuario").val(cliente['nombre']);
+                            $("#txt_ci").attr({readonly: 'true',});
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                mensajes_alerta_pequeño('debe escribir un C.I. !!','warning','ADVERTENCIA');
+            }
+        });
+        $('input').keypress(function(e){
+            if(e.which == 13){
+              return false;
+            }
+        });
+        $("#limpiar").click(function(event) {
+            $("#buscarCliente").removeClass('hide');
+            $("#nuevoCliente").addClass('hide');
+            $("#txt_ci").val("");
+            $("#txt_usuario").val("");
+            $("#txt_ci").focus();
         });
     });
     function leer(manual, mcodigo,pesoCantidad){

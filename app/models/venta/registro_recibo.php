@@ -7,12 +7,16 @@
 
 	if(isset($_REQUEST["txt_ci"]))
 		$txt_ci=$_REQUEST["txt_ci"];
-	else
+	else{
 		echo "Error: CI no definido";
+		exit();
+	}
 	if(isset($_REQUEST["txt_usuario"]))
 		$txt_usuario=$_REQUEST["txt_usuario"];
-	else
+	else{
 		echo "Error: Cliente no definido";
+		exit();
+	}
 	if(isset($_REQUEST["id_prod"]) && isset($_REQUEST["producto"]) && isset($_REQUEST["precio"]) && isset($_REQUEST["cantpeso"]) && isset($_REQUEST["subtotal"]) && isset($_REQUEST["codbarras"]) && isset($_REQUEST["prec_total"])){
 		$id_prod=$_REQUEST["id_prod"];
 		$producto=$_REQUEST["producto"];
@@ -21,7 +25,8 @@
 		$subtotal=$_REQUEST["subtotal"];
 		$codbarras=$_REQUEST["codbarras"];
 	}else{
-		echo "Error: Detalle no definido";exit();
+		echo "Error: Detalle no definido";
+		exit();
 	}
 	if(isset($_REQUEST["prec_total"]))
 		$prec_total=$_REQUEST["prec_total"];

@@ -83,6 +83,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button>
                                 </div>
                             </div>
                         </form>
@@ -95,6 +96,16 @@
 
 <?php require_once 'modal_ventas.php'; ?>
 <script type="text/javascript">
+    function imprime(){
+        $.ajax({
+            url: '../reportes/recibo.php',
+            type: 'post',
+            data: {param1: 'value1'},
+            success: function(response){
+                mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! '+response,'success','EDITAR DATOS');
+            }
+        });
+    }
     $(document).ready(function(){
         $("#tablaDetalle").on('click', '.eliminar', function () {
             $(this).parents()

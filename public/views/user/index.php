@@ -159,7 +159,7 @@
         });
 
         $('#btnReset').click(function(event) {
-            $$.ajax({
+            $.ajax({
                 url: '../../models/user/reset_model.php',
                 type: 'post',
                 data: {

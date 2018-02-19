@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <label for="user" class="control-label">nombre de usuario (Obligatorio)</label>
                         <input class="form-control" id="user" type="text" name="user" required  minlength="3" />
-                        <input type="hidden" name="id" id="inputId" class="form-con trol" value="">
+                        <input type="hidden" name="id" id="inputId" class="form-control" value="">
                     </div><br>
                     <div class="form-group">
                         <button type="button" class="btn btn-primary" id="btnReset">Resetear password</button>

@@ -3,7 +3,7 @@
 	require_once ("../../config/conexion.php");
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
-	$id = trim($_REQUEST["id"]);
+	$id = trim($_REQUEST["id_user"]);
 
 	$sql = "UPDATE usuario_login set estado=0 where id_usuario={$id}";
 

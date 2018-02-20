@@ -98,8 +98,11 @@ $printer->text("--------------------------------------------". "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
 //Consultamos los Datos del Cliente
-$sqlCliente = "call recibo_cliente({$nroCompra})";
-$resCliente = $con->query($sqlCliente);
+try{
+	$sqlCliente = "call recibo_cliente({$nroCompra})";
+    $resCliente = $con->query($sqlCliente);
+}catch(Exception $e){/*No hacemos nada si hay error*/}
+
 $total = 0;
 foreach ($resCliente as $value) {
 	$printer->text("Benificiaria : ".$value['nombre']. "\n");

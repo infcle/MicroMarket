@@ -5,7 +5,7 @@
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	$nombre = trim($_POST["nombre"]);
-	$limite = trim($_POST["limite"]);
+	$limite = 0;
 	$subsidio=trim($_POST["subsidio"]);
 	$fechaRegistro = date('Y-m-d H:i:s');
 

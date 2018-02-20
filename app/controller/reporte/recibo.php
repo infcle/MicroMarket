@@ -94,7 +94,7 @@ $printer -> selectPrintMode();
 $printer->text("Comprobante de entrega de Subsidios". "\n");
 $printer->text("Nro Telefono : ". "\n");
 $printer->text("Oruro - Bolivia". "\n");
-$printer->text("-----------------------------------------". "\n");
+$printer->text("--------------------------------------------". "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
 //Consultamos los Datos del Cliente
@@ -107,7 +107,7 @@ foreach ($resCliente as $value) {
 	$total = $value['total'];
 }
 
-$printer->text("-----------------------------------------". "\n");
+$printer->text("--------------------------------------------". "\n");
 $con->close();
 /*
 	Ahora vamos a imprimir los
@@ -135,7 +135,7 @@ foreach ($items as $item) {
 		//$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
 		$printer->setJustification(Printer::JUSTIFY_CENTER);
 		$printer -> text($item);
-		$printer->text("-----------------------------------------". "\n");
+		$printer->text("--------------------------------------------". "\n");
 		$printer -> selectPrintMode();
 
 	}else{
@@ -194,7 +194,7 @@ class item
 	Terminamos de imprimir
 	los productos, ahora va el total
 */
-$printer->text("--------\n");
+$printer->text("----------------------\n");
 $printer->text("TOTAL: Bs". $total ."\n");
 
 

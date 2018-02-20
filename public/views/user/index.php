@@ -165,7 +165,7 @@
                 data: {
                     id: function() {
                             return $("#inputId").val();
-                        }
+                        }                    
                 },
                 beforeSend: function() {
                     transicion("Procesando Espere....");

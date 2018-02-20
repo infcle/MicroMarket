@@ -82,26 +82,26 @@
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '../../models/user/editar_model.php',
+                    url: '../../models/user/editar_model_user.php',
                     type: 'post',
-                    data: $("#frmEditar").serialize(),
+                    data: $("#frmEditarUser").serialize(),
                     beforeSend: function() {
                         transicion("Procesando Espere....");
                     },
                     success: function(response) {
                         if(response==1){
                             $('#modalEditar').modal('hide');
-                            $('#btnEditar').attr({
+                            $('#btnEditarUser').attr({
                                 disabled: 'true'
                             });
                             transicionSalir();
-                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            mensajes_alerta('SE MODIFICO EL NOMBRE DE USUARIO !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>login/index.php?logout';
                             }, 3000);
                         }else{
                             transicionSalir();
-                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                            mensajes_alerta('ERROR AL EDITAR EL NOMBRE DE USUARIO!! '+response,'error','EDITAR DATOS');
                         }
                     }
                 });
@@ -127,26 +127,26 @@
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '../../models/user/editar_model.php',
+                    url: '../../models/user/editar_model_pass.php',
                     type: 'post',
-                    data: $("#frmEditar").serialize(),
+                    data: $("#frmEditarPassword").serialize(),
                     beforeSend: function() {
                         transicion("Procesando Espere....");
                     },
                     success: function(response) {
                         if(response==1){
-                            $('#modalEditar').modal('hide');
-                            $('#btnEditar').attr({
+                            $('#modalEditarPassword').modal('hide');
+                            $('#btnEditarPass').attr({
                                 disabled: 'true'
                             });
                             transicionSalir();
-                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            mensajes_alerta('CONTRASEÑA CAMBIADA !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>login/index.php?logout';
                             }, 3000);
                         }else{
                             transicionSalir();
-                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                            mensajes_alerta('ERROR AL CAMBIAR LA CONTRASEÑA!! '+response,'error','EDITAR DATOS');
                         }
                     }
                 });

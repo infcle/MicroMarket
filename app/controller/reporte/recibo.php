@@ -98,11 +98,13 @@ $printer->text("-----------------------------------------". "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
 //Consultamos los Datos del Cliente
-$sqlCliente = "call recibo_cliente(1)";
+$sqlCliente = "call recibo_cliente({$nroCompra})";
 $resCliente = $con->query($sqlCliente);
+$total = 0;
 foreach ($resCliente as $value) {
 	$printer->text("Benificiaria : ".$value['nombre']. "\n");
-	$printer->text("CI : ".$value['ci']. "\n");	
+	$printer->text("CI : ".$value['ci']. "\n");
+	$total = $value['total'];
 }
 
 $printer->text("-----------------------------------------". "\n");
@@ -115,8 +117,8 @@ $con= new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if($con->connect_errno){
         die("imposible conectarse: (".$con->connect_errno.") ".$con->connect_error);
     }
-$total = 0;
-$sqlVenta = "call detalle_venta(1)";
+
+$sqlVenta = "call detalle_venta({$nroCompra})";
 $resVenta = $con->query($sqlVenta);
 
 $printer->setJustification(Printer::JUSTIFY_LEFT);
@@ -125,7 +127,7 @@ $items[] = new item("Producto","Cant","Bs","Sub Total");
 foreach ($resVenta as $value) {
 	//$printer->text($value['nombre'] ."\t".$value['peso_cantidad'] ."\t".$value['precio'] ."\t".$value['preciototal']."\n");
 	$items[] = new item($value['nombre'],$value['peso_cantidad'] ,$value['precio'] ,$value['preciototal']);
-	$total += $value['preciototal'];
+	//$total += $value['preciototal'];
 }
 $i = 0;
 foreach ($items as $item) {
@@ -138,7 +140,7 @@ foreach ($items as $item) {
 
 	}else{
 		$printer -> text($item);
-	}	
+	}
     $i++;
 }
 
@@ -162,7 +164,7 @@ class item
     private $producto;
     private $cantidad;
 	private $precio;
-	private $total;	
+	private $total;
 
     public function __construct($producto = '', $cantidad = '',$precio = '', $total = '')
     {
@@ -181,7 +183,7 @@ class item
         //}
 		$left = str_pad($this -> producto, $leftCols) ;
 		$left1 = str_pad($this -> cantidad, $leftCols) ;
-		$left2 = str_pad($this -> precio, $leftCols, ' ', STR_PAD_LEFT) ;        
+		$left2 = str_pad($this -> precio, $leftCols, ' ', STR_PAD_LEFT) ;
         $right = str_pad($this -> total, $rightCols, ' ', STR_PAD_LEFT);
         return "$left$left1$left2$right\n";
     }

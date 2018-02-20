@@ -61,9 +61,33 @@
                 
             }
         });
+
+          
+    }
+    function eliminar_datos(id){
+                $("#id_eliminar").val(id);
     }
 
        $(document).ready(function() {
+             $("#btnEliminar").click(function(event) {
+            $.ajax({
+                url: '../../models/seccion/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
+                success: function(datos){
+                    ('#modalEliminar').modal('hide');
+                    $('#btnEliminar').attr({
+                        disabled: 'true'
+                    });
+                    transicionSalir();
+                    mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                    setTimeout(function(){
+                            window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                        }, 3000);
+                    }
+                });
+             });
+
             $('#frmEditar').validate({
             debug:true,
             rules:{
@@ -91,7 +115,7 @@
                             transicionSalir();
                             mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();

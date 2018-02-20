@@ -3,6 +3,8 @@ require __DIR__ . '/ticket/autoload.php'; //Nota: si renombraste la carpeta a al
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+require_once('../../config/db.php');
+require_once('../../config/conexion.php');
 
 /*
 	Este ejemplo imprime un
@@ -79,51 +81,125 @@ $printer->setJustification(Printer::JUSTIFY_CENTER);
 	el logo
 */
 try{
-	$logo = EscposImage::load("logo.png", false);
-    $printer->bitImage($logo);
+	//$logo = EscposImage::load("logo.png", false);
+   // $printer->bitImage($logo);
 }catch(Exception $e){/*No hacemos nada si hay error*/}
 
 /*
 	Ahora vamos a imprimir un encabezado
 */
-
-$printer->text("Yo voy en el encabezado" . "\n");
-$printer->text("Otra linea" . "\n");
+$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+$printer->text("Proveedora de alimentos a su Servicio". "\n");
+$printer -> selectPrintMode();
+$printer->text("Comprobante de entrega de Subsidios". "\n");
+$printer->text("Nro Telefono : ". "\n");
+$printer->text("Oruro - Bolivia". "\n");
+$printer->text("-----------------------------------------". "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
+//Consultamos los Datos del Cliente
+$sqlCliente = "call recibo_cliente(1)";
+$resCliente = $con->query($sqlCliente);
+foreach ($resCliente as $value) {
+	$printer->text("Benificiaria : ".$value['nombre']. "\n");
+	$printer->text("CI : ".$value['ci']. "\n");	
+}
 
-
+$printer->text("-----------------------------------------". "\n");
+$con->close();
 /*
 	Ahora vamos a imprimir los
 	productos
 */
+$con= new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if($con->connect_errno){
+        die("imposible conectarse: (".$con->connect_errno.") ".$con->connect_error);
+    }
+$total = 0;
+$sqlVenta = "call detalle_venta(1)";
+$resVenta = $con->query($sqlVenta);
+
+$printer->setJustification(Printer::JUSTIFY_LEFT);
+//$items[] = array();
+$items[] = new item("Producto","Cant","Bs","Sub Total");
+foreach ($resVenta as $value) {
+	//$printer->text($value['nombre'] ."\t".$value['peso_cantidad'] ."\t".$value['precio'] ."\t".$value['preciototal']."\n");
+	$items[] = new item($value['nombre'],$value['peso_cantidad'] ,$value['precio'] ,$value['preciototal']);
+	$total += $value['preciototal'];
+}
+$i = 0;
+foreach ($items as $item) {
+	if($i == 0){
+		//$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+		$printer->setJustification(Printer::JUSTIFY_CENTER);
+		$printer -> text($item);
+		$printer->text("-----------------------------------------". "\n");
+		$printer -> selectPrintMode();
+
+	}else{
+		$printer -> text($item);
+	}	
+    $i++;
+}
 
 # Para mostrar el total
-$total = 0;
+/*$total = 0;
 foreach ($productos as $producto) {
 	$total += $producto->cantidad * $producto->precio;
 
-	/*Alinear a la izquierda para la cantidad y el nombre*/
-	$printer->setJustification(Printer::JUSTIFY_LEFT);
+	//Alinear a la izquierda para la cantidad y el nombre
+	//$printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->text($producto->cantidad . "x" . $producto->nombre . "\n");
 
-    /*Y a la derecha para el importe*/
+    //Y a la derecha para el importe
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
     $printer->text(' $' . $producto->precio . "\n");
+}*/
+
+/* Clase de para organizar las columnas */
+class item
+{
+    private $producto;
+    private $cantidad;
+	private $precio;
+	private $total;	
+
+    public function __construct($producto = '', $cantidad = '',$precio = '', $total = '')
+    {
+        $this -> producto = $producto;
+        $this -> cantidad = $cantidad;
+        $this -> precio = $precio;
+        $this -> total = $total;
+    }
+
+    public function __toString()
+    {
+        $rightCols = 10;
+        $leftCols = 60;
+        //if ($this -> dollarSign) {
+            $leftCols = $leftCols / 4 - $rightCols / 4;
+        //}
+		$left = str_pad($this -> producto, $leftCols) ;
+		$left1 = str_pad($this -> cantidad, $leftCols) ;
+		$left2 = str_pad($this -> precio, $leftCols, ' ', STR_PAD_LEFT) ;        
+        $right = str_pad($this -> total, $rightCols, ' ', STR_PAD_LEFT);
+        return "$left$left1$left2$right\n";
+    }
 }
+
 
 /*
 	Terminamos de imprimir
 	los productos, ahora va el total
 */
 $printer->text("--------\n");
-$printer->text("TOTAL: $". $total ."\n");
+$printer->text("TOTAL: Bs". $total ."\n");
 
 
 /*
 	Podemos poner también un pie de página
 */
-$printer->text("Muchas gracias por su compra\nparzibyte.me");
+$printer->text("Muchas gracias por su preferencia...");
 
 
 

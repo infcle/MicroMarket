@@ -3,10 +3,10 @@
         <section class="panel">
             <header class="panel-heading">
                 Lista de productos
-                <span class="tools pull-right">
-                    <a href="#modalImprimir" class="btn  fa fa-print" data-toggle="modal" onclick="verRep()"></a>
-                    <a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php" class="fa fa-plus"></a>
-                 </span>
+                <div class="text-right">
+                    <a href="#modalImprimir" class="btn btn-primary fa fa-print" data-toggle="modal" onclick="verRep()"></a>
+                    <a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php" class="btn btn-success fa fa-plus"></a>
+                </div>
             </header>
             <div class="panel-body">
                 <div class="adv-table">
@@ -62,7 +62,7 @@
 <?php require_once 'modal_imprimir.php'; ?>
 <script>
     function verRep(){
-        $('#cuerpo').load('../reporte/productosrep.php');
+        $('#cuerpo').html('<embed src="<?php echo ROOT_CONTROLLER?>reporte/productosrep.php" width="100%" height="600"></embed>');
     }
     function obtener_datos(id){
         $.ajax({

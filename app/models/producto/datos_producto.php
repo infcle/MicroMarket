@@ -1,7 +1,7 @@
 <?php
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
-	$id=$_REQUEST['id_prod'];
+	$id=$_REQUEST['id_producto'];
 	$sql="SELECT * FROM producto WHERE id_prod={$id}";
 	if($result = $con->query($sql)){
 		if($result->num_rows > 0){

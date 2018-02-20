@@ -80,7 +80,6 @@
                 }
                 $("#seccion option").each(function() {
                     if($(this).attr('value') == datos['producto']['idseccion']){
-                        //alert('value: '+$(this).attr('value'));
                         $(this).attr('selected', 'true');
                     }
                 });

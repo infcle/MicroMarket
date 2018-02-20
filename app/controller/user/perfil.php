@@ -7,12 +7,12 @@
 	}
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
-	//Variables para enviar a la plantilla
 	$titulo="Mi cuenta";
 	$contenido="user/perfil.php";
 	$subTitulo="Cuenta";
 	$sub_directory="";
 	$menu_a= array();
-
+	$menu_a= $menus['PERFIL'];
+	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

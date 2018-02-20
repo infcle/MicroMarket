@@ -13,19 +13,19 @@
                     <table  class="display table table-bordered table-striped" id="dynamic-table">
                         <thead>
                             <tr>
-                                <th>Nombre completo</th>
-                                <th>Usuario</th>
+                                <th>C.I.</th>
+                                <th>Nombre</th>
                                 <th>Estado</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($usuarios as $user): ?>
+                            <?php foreach ($clientes as $cliente): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $user['nombre']; ?></td>
-                                    <td><?php echo $user['usuario']; ?></td>
-                                    <td><?php echo $user['estado']; ?></td>
-                                    <td ></td>
+                                    <td><?php echo $cliente['ci']; ?></td>
+                                    <td><?php echo $cliente['nombre']; ?></td>
+                                    <td><?php echo $cliente['estado']; ?></td>
+                                    <td></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -34,7 +34,7 @@
                                 <th>Nombre completo</th>
                                 <th>Usuario</th>
                                 <th>Estado</th>
-                                <th class="hidden-phone">Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </tfoot>
                     </table>

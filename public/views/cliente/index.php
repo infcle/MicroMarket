@@ -28,7 +28,7 @@
                                     <td>
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $cliente['id_cliente'] ?>)"><span class="fa fa-edit" ></span>
                                         </a>
-                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
+                                        <a class="btn btn-danger" href="#modalEliminar" role="button" data-toggle="modal" data-placement="top" title="Eliminar" onclick="eliminar_datos(<?php echo $cliente['id_cliente'] ?>)"><span class="fa fa-trash-o"></span>
                                         </a>
                                     </td>
                                 </tr>
@@ -49,6 +49,7 @@
     </div>
 </div>
 <?php require_once 'modal_editar.php'; ?>
+<?php require_once 'modal_eliminar.php'; ?>
 <script>
     function obtener_datos(id){
         $.ajax({
@@ -63,11 +64,15 @@
             }
         });
     }
+    function eliminar_datos(id){
+        $("#id_eliminar").val(id);
+    }
 
     $(document).ready(function() {
         $('#frmEditar').validate({
             debug:true,
-            name:{
+            rules:{
+                name:{
                     required:true,
                     minlength: 4,
                     maxlength:40,
@@ -85,7 +90,7 @@
                             },
                             tipo: 'si',
                             id: function() {
-                                return $("#inputId").val();
+                                return $("#id").val();
                             }
                         }
                     }
@@ -98,7 +103,7 @@
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '../../models/seccion/editar_model.php',
+                    url: '../../models/cliente/editar_model.php',
                     type: 'post',
                     data: $("#frmEditar").serialize(),
                     beforeSend: function() {
@@ -113,7 +118,7 @@
                             transicionSalir();
                             mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                             setTimeout(function(){
-                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>cliente/index.php';
                             }, 3000);
                         }else{
                             transicionSalir();
@@ -122,6 +127,30 @@
                     }
                 });
             }
+        });
+        $("#btnEliminar").click(function(event) {
+            $.ajax({
+                url: '../../models/cliente/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
+                beforeSend: function() {
+                    transicion("Procesando Espere....");
+                },
+                success: function(response){
+                    if(response==1){
+                        $('#modalEliminar').modal('hide');
+                        $('#btnEliminar').attr({disabled: 'true'});
+                        transicionSalir();
+                        mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','ELIMINAR DATOS');
+                        setTimeout(function(){
+                            window.location.href='<?php echo ROOT_CONTROLLER ?>cliente/index.php';
+                        }, 3000);
+                    }else{
+                        transicionSalir();
+                        mensajes_alerta('ERROR AL ELIMINAR!! '+response,'error','ELIMINAR DATOS');
+                    }
+                }
+            });
         });
     });
 </script>

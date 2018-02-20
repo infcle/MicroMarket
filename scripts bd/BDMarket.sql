@@ -480,9 +480,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Recibo_cliente`(in cliente int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Recibo_cliente`(in id_r int)
 BEGIN
-select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_cliente=cliente;
+select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_cliente=id_r;
 END */$$
 DELIMITER ;
 

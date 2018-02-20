@@ -73,7 +73,7 @@
                 beforeSend: function() {
                     transicion("Procesando Espere....");
                 },
-                success: function(response){alert("ok");
+                success: function(response){
                     if(response==1){
                         $('#modalEliminar').modal('hide');
                         $('#btnEliminar').attr({disabled: 'true'});
@@ -119,6 +119,47 @@
                         }else{
                             transicionSalir();
                             mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                        }
+                    }
+                });
+            }
+        });
+        $("#frmRegistrar").validate({
+            debug:true,
+            rules:{
+                nombre:{
+                    required:true,
+                    minlength: 3,
+                    maxlength:30,
+                }
+            },
+            messages:{
+                nombre:{
+                    required:"Este es Campo Obligatorio.",
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/seccion/registro_model.php',
+                    type: 'post',
+                    data: $("#frmRegistrar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#btnRegistrar').attr({
+                                disabled: 'true'
+                            });
+                            $('#modal_Registrar').modal('hide');
+                            transicionSalir();
+                            mensajes_alerta('DATOS GUARDADOS EXITOSAMENTE !! ','success','GUARDAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR ALA SECCION  verifique los datos!! '+response,'error','GUARDAR DATOS');
                         }
                     }
                 });

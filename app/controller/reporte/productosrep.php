@@ -119,7 +119,7 @@ if (!empty($hidetop)){
     $sql = "call lista_productos()";
     //echo $sql;
     $res=$con->query($sql);
-    $conca = ""; 
+    $conca = "";
 
     $iniY = 30;
     $curY = $tab_top + 12;

@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
-                                    <button type="button" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button>
+                                    <!-- <button type="button" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button> -->
                                 </div>
                             </div>
                         </form>

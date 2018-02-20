@@ -86,11 +86,10 @@ $(document).ready(function() {
         rules:{
             name:{
                 required:true,
-                minlength: 4,
-            },
-
+                minlength: 4
+            }
         },
-        submitHandler: function (form) {
+        submitHandler: function (form) {alert("ssss");
             $.ajax({
                 url: '../../models/seccion/editar_model.php',
                 type: 'post',

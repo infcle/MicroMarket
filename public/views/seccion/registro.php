@@ -13,7 +13,12 @@
                                 <input class=" form-control" id="nombre" name="nombre" type="text"  />
                             </div>
                         </div>
-                      
+                        <div class="form-group ">
+                            <label for="user" class="control-label col-lg-2">Limite de Credito(Obligatorio)</label>
+                            <div class="col-lg-6">
+                                <input class="form-control " id="limite" type="number" name="limite" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button class="btn btn-primary" type="submit" id="btnRegistrar">Registrar</button>

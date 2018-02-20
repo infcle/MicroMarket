@@ -190,5 +190,22 @@
 					'configuracion_s'=>'',
 					'configuracion_l'=>''
 				),
+		'PERFIL'=>array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'reportes'=>'',
+					'reportes_u'=>'',
+					'cliente'=>'',
+					'configuracion'=>'',
+					'configuracion_c'=>'',
+					'configuracion_s'=>'',
+					'configuracion_l'=>''
+				),
 	);
 ?>

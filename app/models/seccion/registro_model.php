@@ -5,11 +5,10 @@
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	$nombre = trim($_POST["nombre"]);
-	$limite = trim($_POST["limite"]);
-	$subsidio=trim($_POST["subsidio"]);
+	$limite = 0;
 	$fechaRegistro = date('Y-m-d H:i:s');
 
-	$sql = "INSERT INTO seccion(nombre, limite,id_categoria, fecha_registro) VALUES('{$nombre}', {$limite},{$subsidio},'{$fechaRegistro}')";
+	$sql = "INSERT INTO seccion(nombre, limite, fecha_registro) VALUES('{$nombre}', {$limite},'{$fechaRegistro}')";
 
 	if (!$con->query($sql)) {
 		echo "Falló la insercion: (" . $con->errno . ") " . $con->error;

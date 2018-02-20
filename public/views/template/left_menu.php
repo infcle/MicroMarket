@@ -43,15 +43,15 @@
                     <li class="<?php echo $menu_a['registro_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php"> Registro de producto</a></li>
                 </ul>
             </li>
-            <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
+            <!-- <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="#"> Reporte 1</a></li>
                     <li><a href="#"> Reporte 2</a></li>
                     <li><a href="#"> Reporte 3</a></li>
                 </ul>
-            </li>
+            </li> -->
             <li class="<?php echo $menu_a['cliente']; ?>">
-                <a href="#"><i class="fa fa-tags"></i> <span>Clientes</span></a>
+                <a href="<?php echo ROOT_CONTROLLER; ?>cliente/"><i class="fa fa-tags"></i> <span>Clientes</span></a>
             </li>
             <li class="menu-list <?php echo $menu_a['configuracion']; ?>"><a href=""><i class="fa fa-cog"></i> <span>Configuraciónes</span></a>
                 <ul class="sub-menu-list">

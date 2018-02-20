@@ -7,10 +7,10 @@
             </div>
             <div class="modal-body">
                 <form role="form" id="frmEditar" name="frmEditar">
-                    <input type="text" name="id_producto" id="id_producto" class="form-control" value="">
+                    <input type="hidden" name="id_producto" id="id_producto" class="form-control" value="">
                     <div class="form-group">
                         <label for="Nombre">Numero de PLU</label>
-                        <input class=" form-control" id="plu" name="plu" type="text" required autofocus="true" />
+                        <input class=" form-control" id="plu" name="plu" type="text" required autofocus="true" disabled="true" />
                     </div>
                     <div class="form-group">
                         <label for="Nombre">Nuevo Nombre del producto</label>

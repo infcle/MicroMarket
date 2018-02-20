@@ -91,6 +91,73 @@
         $('#tbProductos').dataTable({
            oSearching: false,
         });
+         
+        $('#frmEditar').validate({
+            debug:true,
+              rules:{
+          nombre:{
+            required:true,
+            minlength: 3,
+            maxlength:25
+          },
+          
+          precio:{
+            required:true,
+            range:[0.1,999.99]
+          },
+          tipoVenta: {
+            required: true
+          },
+          precio: {
+            required:true,
+            minlength:1,
+            maxlength:4,
+            range:[0.1,999.000]
+          },
+          
+          
+          seccion:{
+            required:true
+          }
+        },
+        messages:{
+          nombre:{
+            required:"Este es Campo Obligatorio."
+          },
+          
+          precio:{
+            required:"Este es Campo Obligatorio."
+          },
+         
+        },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/producto/editar_model.php',
+                    type: 'post',
+                    data: $("#frmEditar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modalEditar').modal('hide');
+                            $('#btnEditar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>producto/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                        }
+                    }
+                });
+            }
+        });
+
     });
 
 

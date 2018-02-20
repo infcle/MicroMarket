@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <form role="form" id="frmEditar" name="frmEditar">
-                      <input type="hidden" name="id_seccion" id="id_seccion" class="form-control" value="">
+                      <input type="text" name="id_seccion_modificar" id="id_seccion_modificar" class="form-control" value="">
                     <div class="form-group">
                         <label for="Nombre">Nuevo Nombre de Seccion</label>
                         <input class=" form-control" id="name" name="name" minlength="7 " type="text" required autofocus="true" />

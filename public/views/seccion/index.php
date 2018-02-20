@@ -56,27 +56,24 @@
             data: {id_seccion: id},
             success: function(datos){
                 $("#name").val(datos['seccion']['nombre']);
-                $("#id_seccion").val(datos['seccion']['id_seccion']);
+                $("#id_seccion_modificar").val(datos['seccion']['id_seccion']);
                 
-                //console.log(datos['usuario']['name']);
+                
             }
         });
     }
 
-    $(document).ready(function() {
-          $('#frmEditar').validate({
+       $(document).ready(function() {
+            $('#frmEditar').validate({
             debug:true,
             rules:{
                 name:{
                     required:true,
-                    minlength: 7,
+                    minlength: 4,
                 },
               
-              
             },
-           
-                
-            },
+          
             submitHandler: function (form) {
                 $.ajax({
                     url: '../../models/seccion/editar_model.php',
@@ -104,6 +101,12 @@
                 });
             }
         });
-        
-    });
+       });
+
+      
+
+
+    
+
+
 </script>

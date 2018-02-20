@@ -21,9 +21,9 @@
                       <label for="nombre" >Tipo de venta </label>
                       
                           <select  name="tipoVenta" id="tipoVenta" class="form-control">
-                            <option value="" selected="selected">selecione una opcion</option>
-                            <option value="1" >1.CANTIDAD</option>
-                            <option value="2" >2.PESO</option>
+                            <option value="" ></option>
+                            <option value="1" ></option>
+                            <option value="2" ></option>
                           </select>
                         
                       

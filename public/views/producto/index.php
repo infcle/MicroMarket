@@ -71,6 +71,10 @@
             data: {id_producto: id},
             success: function(datos){
                 $("#id_producto").val(datos['producto']['id_prod']);
+                $("#plu").val(datos['producto']['nro_plu']);
+                $("#nombre").val(datos['producto']['nombre']);
+                $("#precio").val(datos['producto']['precio']);
+
                 
             }
         });

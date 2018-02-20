@@ -8,11 +8,17 @@
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
 	//Variables para enviar a la plantilla
-	$titulo="Usuarios";
+	$titulo="Productos PLU";
 	$contenido="producto/index.php";
 	$subTitulo="Producto o PLU";
 	$menu_a= $menus['P_LISTA'];
-	if (!($productos = $con->query("SELECT * FROM producto"))) {
+	$sql="SELECT p.id_prod,p.nro_plu
+			, p.nombre as nomProducto
+			, CASE p.tipo WHEN 1 THEN 'Cantidad' WHEN 2 THEN 'Peso' END AS tipo
+			, p.precio, p.cod_plu, s.nombre as nomSeccion
+		FROM producto p, seccion s
+		WHERE p.idseccion = s.id_seccion";
+	if (!($productos = $con->query($sql))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
 

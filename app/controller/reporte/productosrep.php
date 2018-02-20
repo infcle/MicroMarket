@@ -83,13 +83,14 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 $hidetop = 50; 
 $tab_top = 50;
 $tab_height = 160;
+$pdf->SetFillColor(255, 255, 127);
 
 //$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
 $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
 
 if (!empty($hidetop)){    
     $pdf->SetXY($posxini + 2, $tab_top+3);
-    $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
+    $pdf->MultiCell($posxnro-$posxini-1,7, "Nro PLU",'','C',0, 0, '', '', true);
     $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
     
     $pdf->SetXY($posxnro-1, $tab_top+3);
@@ -132,10 +133,10 @@ if (!empty($hidetop)){
         $pdf->MultiCell($posxnom-$posxnro-1, 1,$fila['nombreuno'] , 0, 'L',0);
 
         $pdf->SetXY($posxnom, $curY);
-        if($fila['nro_plu'] == 1){
+        if($fila['tipo'] == 1){
             $pdf->MultiCell($posxtip-$posxnom-1, 1,"Cantidad", 0, 'C',0);
         }
-        if($fila['nro_plu'] == 2){
+        if($fila['tipo'] == 2){
             $pdf->MultiCell($posxtip-$posxnom-1, 1,"Peso" , 0, 'C',0);
         }    
 
@@ -149,9 +150,48 @@ if (!empty($hidetop)){
         $pdf->MultiCell($posxfin-$posxplu-1, 1,$fila['nombredos'] , 0, 'L',0);
 
         $nexY = $pdf->GetY();
-        $curY = $nexY + 4;
+        $curY = $nexY + 1;
+        $pdf->line($posxini+4, $curY, $posxfin-5, $curY);
+        $curY = $nexY + 2;
+        $nexY = $curY;
 
-        //$conca .= $fila['nro_plu']."/".$fila['nombreuno'].'/'.$fila['nombredos'].'<br>';
+        if ($nexY > 245)
+        {
+            
+            $pdf->AddPage();
+            $curY = $tab_top + 12;
+            $nexY = 30;
+            if (!empty($hidetop)){ 
+                $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');   
+                $pdf->SetXY($posxini + 2, $tab_top+3);
+                $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
+                $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
+                
+                $pdf->SetXY($posxnro-1, $tab_top+3);
+                $pdf->MultiCell($posxnom-$posxnro-1,2, "Nombre Producto",'','C');
+                $pdf->line($posxnom-1, $tab_top, $posxnom-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxnom-1, $tab_top+1);
+                $pdf->MultiCell($posxtip-$posxnom-1,2, "Tipo de Venta",'','C');
+                $pdf->line($posxtip-1, $tab_top, $posxtip-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxtip-1, $tab_top+3);
+                $pdf->MultiCell($posxpre-$posxtip-1,2, "Precio",'','C');
+                $pdf->line($posxpre-1, $tab_top, $posxpre-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxpre-1, $tab_top+3);
+                $pdf->MultiCell($posxplu-$posxpre-1,2, "Codigo PLU",'','C');
+                $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxplu-1, $tab_top+3);
+                $pdf->MultiCell($posxfin-$posxplu-1,2, "Acciones",'','C');
+                //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
+                $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
+            }
+            
+        }
+
+        
     }
 // ---------------------------------------------------------
 

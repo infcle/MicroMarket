@@ -57,8 +57,6 @@
                     <option value="<?php echo $seccion['id_seccion'] ?>"><?php echo $seccion['nombre']; ?></option>
                     <?php endforeach ?>
                   </select>
-                  <div class="col-md-12 form-group" id="limite_<?php echo $id_categoria; ?>">
-                  </div>
                 </div>
               </div>
             </div>

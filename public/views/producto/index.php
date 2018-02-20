@@ -10,7 +10,7 @@
             </header>
             <div class="panel-body">
                 <div class="adv-table">
-                    <table  class="display table table-bordered table-striped" id="dynamic-table">
+                    <table  class="display table table-bordered table-striped" id="tbProductos">
                         <thead>
                             <tr>
                                 <th>Nro PLU</th>
@@ -18,18 +18,25 @@
                                 <th>tipo venta</th>
                                 <th>Precio</th>
                                 <th>Codigo PLU</th>
+                                <th>Seccion</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($productos as $producto): ?>
                                 <tr class="gradeX">
-                                    <td><?php echo $producto['nro_plu']; ?></td>
-                                    <td><?php echo $producto['nombre']; ?></td>
+                                    <td class="text-right"><?php echo $producto['nro_plu']; ?></td>
+                                    <td><?php echo $producto['nomProducto']; ?></td>
                                     <td><?php echo $producto['tipo']; ?></td>
-                                    <td><?php echo $producto['precio']; ?></td>
-                                    <td><?php echo $producto['cod_plu']; ?></td>
-                                    <td ></td>
+                                    <td class="text-right"><?php echo $producto['precio']; ?></td>
+                                    <td class="text-right"><?php echo $producto['cod_plu']; ?></td>
+                                    <td><?php echo $producto['nomSeccion']; ?></td>
+                                    <td>
+                                        <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-edit" ></span>
+                                        </a>
+                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -37,8 +44,10 @@
                             <tr>
                                 <th>Nro PLU</th>
                                 <th>Nombre producto</th>
+                                <th>tipo venta</th>
                                 <th>Precio</th>
                                 <th>Codigo PLU</th>
+                                <th>Seccion</th>
                                 <th class="hidden-phone">Acciones</th>
                             </tr>
                         </tfoot>
@@ -48,3 +57,11 @@
         </section>
     </div>
 </div>
+<?php require_once 'modal_editar.php'; ?>
+<script>
+    $(document).ready(function() {
+        $('#tbProductos').dataTable({
+           oSearching: false,
+        });
+    });
+</script>

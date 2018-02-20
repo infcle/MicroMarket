@@ -12,7 +12,7 @@
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
 	$fila = $resultado->fetch_row();
-	$sql="SELECT * FROM SECCION where estado = 1 and id_categoria=2";
+	$sql="SELECT * FROM SECCION where estado = 1 ";
 	if (!($secciones = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

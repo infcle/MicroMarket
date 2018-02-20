@@ -28,3 +28,5 @@
 <link rel="stylesheet" href="<?php echo ROOT; ?>resources/assets/css/estilo.css">
 <link rel="stylesheet" href="<?php echo ROOT; ?>resources/assets/css/estilo1.css">
 
+<!-- estilo del select choosen -->
+<link rel="stylesheet" href="<?php echo ROOT; ?>resources/assets/css/chosen.min.css">

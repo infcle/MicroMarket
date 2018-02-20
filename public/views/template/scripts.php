@@ -33,6 +33,7 @@
 <script src="<?php echo ROOT; ?>resources/assets/js/funciones.js"></script>
 <!-- reloj de sistema -->
 <script src="<?php echo ROOT; ?>resources/assets/js/script.js" type="text/javascript"></script>
-
 <script src="<?php echo ROOT; ?>resources/assets/js/script1.js" type="text/javascript"></script>
 
+<!-- script chosen -->
+<script src="<?php echo ROOT; ?>resources/assets/js/chosen.jquery.min.js" type="text/javascript"></script>

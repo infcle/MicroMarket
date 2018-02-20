@@ -1,8 +1,7 @@
 <?php
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
-	require_once ("../../config/route.php");
-	
+
 	if(isset($_REQUEST['id'])){
 		$sql="SELECT * FROM seccion WHERE id_categoria={$_REQUEST['id']}";
 	}else{

@@ -17,11 +17,13 @@
 			, CASE p.tipo WHEN 1 THEN 'Cantidad' WHEN 2 THEN 'Peso' END AS tipo
 			, p.precio, p.cod_plu, s.nombre as nomSeccion
 		FROM producto p, seccion s
-		WHERE p.idseccion = s.id_seccion";
+		WHERE p.idseccion = s.id_seccion and p.estado=1";
 	if (!($productos = $con->query($sql))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
-
+	if (!($secciones = $con->query("SELECT * FROM seccion where estado=1"))) {
+    	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
+	}
 	$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

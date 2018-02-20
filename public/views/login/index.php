@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<meta name="description" content="Sistema de ventas">
 	<meta name="Haki-Ari" content="Desarrollo de software">
-	<link rel="shortcut icon" href="<?php echo ROOT; ?>resources/assets/images/logo_icon.png" type="image/png">
+	<link rel="shortcut icon" href="<?php echo ROOT; ?>resources/assets/images/fondo.png" type="image/png">
 
     <title><?php echo $titulo; ?></title>
 
@@ -17,9 +17,9 @@
 
 <div class="container">
 
-    <form class="form-signin" action="" name="frmlogin" id="frmlogin" method="post">        
+    <form class="form-signin" action="" name="frmlogin" id="frmlogin" method="post">
         <div class="form-signin-heading text-center">
-            <img src="<?php echo ROOT; ?>resources/assets/images/loguito.png" alt=""/>
+            <img src="<?php echo ROOT; ?>resources/assets/images/logopas.png" alt=""/>
         </div>
         <div class="login-wrap">
             <div class="form-group ">

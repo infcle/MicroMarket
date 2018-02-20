@@ -115,7 +115,6 @@ if (!empty($hidetop)){
     $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
 }
 
-
     //$sql = "SELECT * FROM seccion WHERE 1=1";
     $sql = "call lista_productos()";
     //echo $sql;

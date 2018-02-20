@@ -68,6 +68,7 @@
             dataType: "json",
             data: {id_producto: id},
             success: function(datos){
+                console.log(datos);
                 $("#id_producto").val(datos['producto']['id_prod']);
                 $("#plu").val(datos['producto']['nro_plu']);
                 $("#nombre").val(datos['producto']['nombre']);
@@ -77,7 +78,12 @@
                 }else{
                     $("#tipoVenta").html('<option value=1>Cantidad</option><option value=2 selected>Peso</option>');
                 }
-
+                $("#seccion option").each(function() {
+                    if($(this).attr('value') == datos['producto']['idseccion']){
+                        //alert('value: '+$(this).attr('value'));
+                        $(this).attr('selected', 'true');
+                    }
+                });
             }
         });
     }

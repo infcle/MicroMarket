@@ -3,6 +3,7 @@
 	require_once ("../../config/conexion.php");
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
+	$nroPlu=trim($_REQUEST["plu"]);
 	$id = trim($_REQUEST["id_producto"]);
 	$nombre = trim($_POST["nombre"]);
 	$precio = trim($_POST["precio"]);

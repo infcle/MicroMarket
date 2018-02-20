@@ -17,7 +17,7 @@
 			, CASE p.tipo WHEN 1 THEN 'Cantidad' WHEN 2 THEN 'Peso' END AS tipo
 			, p.precio, p.cod_plu, s.nombre as nomSeccion
 		FROM producto p, seccion s
-		WHERE p.idseccion = s.id_seccion p.estado=1";
+		WHERE p.idseccion = s.id_seccion and p.estado=1";
 	if (!($productos = $con->query($sql))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

@@ -3,7 +3,7 @@
 	require_once ("../../config/conexion.php");
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
-	$id = trim($_REQUEST["id_seccion"]);
+	$id = trim($_REQUEST["id_seccion_modificar"]);
 	$nombre = trim($_REQUEST["name"]);
 
 	$sql = "UPDATE seccion set nombre='{$nombre}' where id_seccion={$id}";

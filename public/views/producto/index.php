@@ -32,10 +32,8 @@
                                     <td class="text-right"><?php echo $producto['cod_plu']; ?></td>
                                     <td><?php echo $producto['nomSeccion']; ?></td>
                                     <td>
-                                       
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-edit" ></span>
                                         </a>
-
                                         <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
                                         </a>
                                     </td>
@@ -74,8 +72,12 @@
                 $("#plu").val(datos['producto']['nro_plu']);
                 $("#nombre").val(datos['producto']['nombre']);
                 $("#precio").val(datos['producto']['precio']);
+                if(datos['producto']['tipo']==1){
+                    $("#tipoVenta").html('<option value=1 selected>Cantidad</option><option value=2>Peso</option>');
+                }else{
+                    $("#tipoVenta").html('<option value=1>Cantidad</option><option value=2 selected>Peso</option>');
+                }
 
-                
             }
         });
     }

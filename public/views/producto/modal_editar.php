@@ -19,24 +19,21 @@
 
                     <div class="form-group">
                       <label for="nombre" >Tipo de venta </label>
-                      
-                          <select  name="tipoVenta" id="tipoVenta" class="form-control">
-                            <option value="" ></option>
-                            <option value="1" ></option>
-                            <option value="2" ></option>
-                          </select>
-                        
-                      
+                      <select  name="tipoVenta" id="tipoVenta" name="tipoVenta" class="form-control">
+                      </select>
                     </div>
-
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="Nombre">precio del producto</label>
                         <input class=" form-control" id="precio" name="precio"  type="number" required autofocus="true" />
                     </div>
 
                     <div class="form-group">
-                        <label for="Nombre">seccion producto</label>
-                        <input class=" form-control" id="seccion" name="seccion"  type="text" required autofocus="true" />
+                        <select name="seccion" id="seccion" class="seccion_class form-control" required="required">
+                            <option value="">Seleccione una seccion</option>
+                            <?php foreach ($secciones as $seccion): ?>
+                            <option value="<?php echo $seccion['id_seccion'] ?>"><?php echo $seccion['nombre']; ?></option>
+                            <?php endforeach ?>
+                          </select>
                     </div>
 
                     <div class=" modal-footer">

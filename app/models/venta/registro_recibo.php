@@ -83,12 +83,13 @@
 		    	$cont++;
 		    }
 		}
-		if($cont==$long)
+		if($cont==$long){
 			echo 1;
+			require_once '../../controller/reporte/recibo.php';
+		}
 		else
 			echo 0;
 	}else {
 		echo "Falló la insercion: Recibo (" . $con->errno . ") " . $con->error;exit();
 	}
-		
 ?>

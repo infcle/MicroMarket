@@ -1,6 +1,5 @@
 <?php
 	require_once '../../config/route.php';
-
 	session_start();
 	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
         header("location: ".ROOT_CONTROLLER.'login/');
@@ -11,9 +10,9 @@
 	//Variables para enviar a la plantilla
 	$titulo="Cliente";
 	$contenido="cliente/index.php";
-	$sub_directory="";
+	$subTitulo="Clientes";
 	$menu_a= $menus['CLIENTE'];
-	if (!($usuarios = $con->query("SELECT * FROM usuario_login"))) {
+	if (!($clientes = $con->query("SELECT * FROM cliente where estado=1"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
 

@@ -68,7 +68,7 @@
 	if($con->query($sqlrecibo)){
 		$cont=0;
 		for ($i = 0; $i < $long; $i++) {
-			$sqldetalle="INSERT INTO producto_etiquetado(cod_barras,preciototal, peso_cantidad, id_prod, id_compra) values({$codbarras[$i]},{$precio[$i]}, {$cantpeso[$i]}, {$id_prod[$i]}, {$nroCompra})";
+			$sqldetalle="INSERT INTO producto_etiquetado(cod_barras,preciototal, peso_cantidad, id_prod, id_compra) values({$codbarras[$i]},{$subtotal[$i]}, {$cantpeso[$i]}, {$id_prod[$i]}, {$nroCompra})";
 			/*echo "<br>============================<br>";
 		    echo "IdProducto-->".$id_prod[$i]."<br>";
 		    echo "Producto-->".$producto[$i]."<br>";
@@ -83,12 +83,13 @@
 		    	$cont++;
 		    }
 		}
-		if($cont==$long)
+		if($cont==$long){
 			echo 1;
+			require_once '../../controller/reporte/recibo.php';
+		}
 		else
 			echo 0;
 	}else {
 		echo "Falló la insercion: Recibo (" . $con->errno . ") " . $con->error;exit();
 	}
-		
 ?>

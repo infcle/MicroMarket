@@ -26,9 +26,8 @@
                                     <td><?php echo $user['estado']; ?></td>
                                     <td class="text-center">
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $user['id_usuario'] ?>)">
-                                            <span class="fa fa-edit" ></span>
-                                        </a>
-                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                            <span class="fa fa-edit" ></span></a>
+                                        <a class="btn btn-danger" href="#modalEliminar" role="button" data-toggle="modal" data-placement="top" title="Eliminar" onclick="eliminar_datos(<?php echo $user['id_usuario'] ?>)">
                                             <span class="fa fa-trash-o"></span>
                                         </a>
                                     </td>
@@ -47,11 +46,12 @@
                 </div>
             </div>
             <?php require_once 'modal_editar.php'; ?>
+            <?php require_once 'modal_eliminar.php'; ?>
         </section>
     </div>
 </div>
 
-<script>
+ <script>
     function obtener_datos(id){
         $.ajax({
             url: '../../models/user/datos_usuarios.php',
@@ -66,7 +66,28 @@
             }
         });
     }
+    function eliminar_datos(id){
+        $("#id_user").val(id);
+    }
     $(document).ready(function() {
+        $("#btnEliminar").click(function(event) {
+            $.ajax({
+                url: '../../models/user/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
+                success: function(datos){
+                    ('#modalEliminar').modal('hide');
+                    $('#btnEliminar').attr({
+                        disabled: 'true'
+                    });
+                    transicionSalir();
+                    mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                    setTimeout(function(){
+                        window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                    }, 3000);
+                }
+            });
+        });
         $('#frmEditar').validate({
             debug:true,
             rules:{
@@ -109,42 +130,42 @@
                     equalTo :"Las contraseñas no coinciden."
                 }
             },
-            submitHandler: function (form) {alert('exito');
-                    $.ajax({
-                        url: '../../models/user/editar_model.php',
-                        type: 'post',
-                        data: $("#frmEditar").serialize(),
-                        beforeSend: function() {
-                            transicion("Procesando Espere....");
-                        },
-                        success: function(response) {
-                            if(response==1){
-                                $('#modalEditar').modal('hide');
-                                $('#btnEditar').attr({
-                                    disabled: 'true'
-                                });
-                                transicionSalir();
-                                mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                                setTimeout(function(){
-                                    window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
-                                }, 3000);
-                            }else{
-                                transicionSalir();
-                                mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
-                            }
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/user/editar_model.php',
+                    type: 'post',
+                    data: $("#frmEditar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modalEditar').modal('hide');
+                            $('#btnEditar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>user/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
                         }
-                    });
+                    }
+                });
             }
         });
 
         $('#btnReset').click(function(event) {
-            $$.ajax({
+            $.ajax({
                 url: '../../models/user/reset_model.php',
                 type: 'post',
                 data: {
                     id: function() {
                             return $("#inputId").val();
-                        }
+                        }                    
                 },
                 beforeSend: function() {
                     transicion("Procesando Espere....");

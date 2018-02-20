@@ -13,7 +13,7 @@
             </header>
             <div class="panel-body">
                 <div class="adv-table" >
-                    <table  class="display table table-bordered table-striped" id="tdSeccione">
+                    <table  class="display table table-bordered table-striped" id="tbSeccion">
                         <thead>
                             <tr>
                                 <th>codigo</th>
@@ -43,68 +43,42 @@
         <?php require_once 'modal_registrar.php'; ?>
         <?php require_once 'modal_eliminar.php'; ?>
         <?php require_once 'modal_editar.php'; ?>
-
     </section>
 </div>
 </div>
 <script>
-   function obtener_datos(id){
-    $.ajax({
-        url: '../../models/seccion/datos_seccion.php',
-        type: 'POST',
-        dataType: "json",
-        data: {id_seccion: id},
-        success: function(datos){
-            $("#name").val(datos['seccion']['nombre']);
-            $("#id_seccion_modificar").val(datos['seccion']['id_seccion']);
-        }
-    });
-}
-function eliminar_datos(id){
-    $("#id_eliminar").val(id);
-}
-
-$(document).ready(function() {
-    $("#btnEliminar").click(function(event) {
+    function obtener_datos(id){
         $.ajax({
-            url: '../../models/seccion/eliminar_model.php',
+            url: '../../models/seccion/datos_seccion.php',
             type: 'POST',
-            data: $("#frmEliminar").serialize(),
+            dataType: "json",
+            data: {id_seccion: id},
             success: function(datos){
-                $('#modalEliminar').modal('hide');
-                $('#btnEliminar').attr({disabled: 'true'});
-                transicionSalir();
-                mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
-                setTimeout(function(){
-                    window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
-                }, 3000);
+                $("#name").val(datos['seccion']['nombre']);
+                $("#id_seccion_modificar").val(datos['seccion']['id_seccion']);
             }
         });
-    });
-    $('#frmEditar').validate({
-        debug:true,
-        rules:{
-            name:{
-                required:true,
-                minlength: 4
-            }
-        },
-        submitHandler: function (form) {alert("ssss");
+    }
+    function eliminar_datos(id){
+        $("#id_eliminar").val(id);
+    }
+
+    $(document).ready(function() {
+        $('#tbSeccion').dataTable();
+        $("#btnEliminar").click(function(event) {
             $.ajax({
-                url: '../../models/seccion/editar_model.php',
-                type: 'post',
-                data: $("#frmEditar").serialize(),
+                url: '../../models/seccion/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
                 beforeSend: function() {
                     transicion("Procesando Espere....");
                 },
-                success: function(response) {
+                success: function(response){alert("ok");
                     if(response==1){
-                        $('#modalEditar').modal('hide');
-                        $('#btnEditar').attr({
-                            disabled: 'true'
-                        });
+                        $('#modalEliminar').modal('hide');
+                        $('#btnEliminar').attr({disabled: 'true'});
                         transicionSalir();
-                        mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                        mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
                         setTimeout(function(){
                             window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
                         }, 3000);
@@ -114,7 +88,41 @@ $(document).ready(function() {
                     }
                 }
             });
-        }
+        });
+        $('#frmEditar').validate({
+            debug:true,
+            rules:{
+                name:{
+                    required:true,
+                    minlength: 4
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/seccion/editar_model.php',
+                    type: 'post',
+                    data: $("#frmEditar").serialize(),
+                    beforeSend: function() {
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response) {
+                        if(response==1){
+                            $('#modalEditar').modal('hide');
+                            $('#btnEditar').attr({
+                                disabled: 'true'
+                            });
+                            transicionSalir();
+                            mensajes_alerta('DATOS EDITADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            setTimeout(function(){
+                                window.location.href='<?php echo ROOT_CONTROLLER ?>seccion/index.php';
+                            }, 3000);
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                        }
+                    }
+                });
+            }
+        });
     });
-});
 </script>

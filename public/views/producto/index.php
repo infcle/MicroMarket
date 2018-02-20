@@ -4,7 +4,7 @@
             <header class="panel-heading">
                 Lista de productos
                 <span class="tools pull-right">
-                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                    <a href="#modalImprimir" class="btn  fa fa-print" data-toggle="modal"></a>
                     <a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php" class="fa fa-plus"></a>
                  </span>
             </header>
@@ -59,6 +59,7 @@
 </div>
 <?php require_once 'modal_editar.php'; ?>
 <?php require_once 'modal_eliminar.php'; ?>
+<?php require_once 'modal_imprimir.php'; ?>
 <script>
     
     function obtener_datos(id){

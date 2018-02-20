@@ -32,8 +32,10 @@
                                     <td class="text-right"><?php echo $producto['cod_plu']; ?></td>
                                     <td><?php echo $producto['nomSeccion']; ?></td>
                                     <td>
+                                       
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-edit" ></span>
                                         </a>
+
                                         <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
                                         </a>
                                     </td>
@@ -58,10 +60,27 @@
     </div>
 </div>
 <?php require_once 'modal_editar.php'; ?>
+<?php require_once 'modal_eliminar.php'; ?>
 <script>
+    
+    function obtener_datos(id){
+        $.ajax({
+            url: '../../models/producto/datos_producto.php',
+            type: 'POST',
+            dataType: "json",
+            data: {id_producto: id},
+            success: function(datos){
+                $("#id_producto").val(datos['producto']['id_prod']);
+                
+            }
+        });
+    }
+
     $(document).ready(function() {
         $('#tbProductos').dataTable({
            oSearching: false,
         });
     });
+
+
 </script>

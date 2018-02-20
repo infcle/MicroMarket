@@ -34,7 +34,7 @@
                                     <td>
                                         <a class="btn btn-success" href="#modalEditar" role="button" data-placement="top" title="Editar" data-toggle="modal" onclick="obtener_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-edit" ></span>
                                         </a>
-                                        <a class="btn btn-danger" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Eliminar"><span class="fa fa-trash-o"></span>
+                                        <a class="btn btn-danger" href="#modalEliminar" role="button" data-toggle="modal" data-placement="top" title="Eliminar" onclick="eliminar_datos(<?php echo $producto['id_prod'] ?>)"><span class="fa fa-trash-o" ></span>
                                         </a>
                                     </td>
                                 </tr>
@@ -86,6 +86,13 @@
             }
         });
     }
+
+
+     function eliminar_datos(id){
+        $("#id_eliminar").val(id);
+    }
+
+
 
     $(document).ready(function() {
         $('#tbProductos').dataTable({
@@ -159,6 +166,31 @@
         });
 
     });
+
+    $("#btnEliminar").click(function(event) {
+            $.ajax({
+                url: '../../models/producto/eliminar_model.php',
+                type: 'POST',
+                data: $("#frmEliminar").serialize(),
+                beforeSend: function() {
+                    transicion("Procesando Espere....");
+                },
+                success: function(response){
+                    if(response==1){
+                        $('#modalEliminar').modal('hide');
+                        $('#btnEliminar').attr({disabled: 'true'});
+                        transicionSalir();
+                        mensajes_alerta('DATOS ELIMINADOS ELIMINADOS EXITOSAMENTE !! ','success','EDITAR DATOS');
+                        setTimeout(function(){
+                            window.location.href='<?php echo ROOT_CONTROLLER ?>producto/index.php';
+                        }, 3000);
+                    }else{
+                        transicionSalir();
+                        mensajes_alerta('ERROR AL EDITAR EL USUARIO verifique los datos!! '+response,'error','EDITAR DATOS');
+                    }
+                }
+            });
+        });
 
 
 </script>

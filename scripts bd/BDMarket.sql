@@ -294,7 +294,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_productos`()
 BEGIN
-select p.nro_plu, p.nombre as nombreuno ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre as nombredos  from producto p, seccion s where idseccion=id_seccion; 
+select p.nro_plu, p.nombre as nombreuno ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre as nombredos  from producto p, seccion s where idseccion=id_seccion order by p.nro_plu; 
 END */$$
 DELIMITER ;
 
@@ -482,7 +482,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Recibo_cliente`(in id_r int)
 BEGIN
-select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_cliente=id_r;
+select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_compra=id_r;
 END */$$
 DELIMITER ;
 

@@ -110,7 +110,7 @@ if (!empty($hidetop)){
     $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxplu-1, $tab_top+3);
-    $pdf->MultiCell($posxfin-$posxplu-1,2, "Acciones",'','C');
+    $pdf->MultiCell($posxfin-$posxplu-1,2, "Seccion",'','C');
     //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
     $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
 }

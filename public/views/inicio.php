@@ -3,18 +3,17 @@
         <!--statistics start-->
         <div class="row state-overview">
             <div class="col-md-6 col-xs-12 col-sm-6">
-                <div class="panel purple">
+                <div class="panel purple" onclick="dirigir('ventas/')">
                     <div class="symbol">
                         <i class="fa fa-gavel"></i>
                     </div>
                     <div class="state-value">
-                        
-                        <div class="title" ><H3>VENTAS</H3></div>
+                        <div class="title" onclick="dirigir('ventas/')"><H3>VENTAS</H3></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-xs-12 col-sm-6">
-                <div class="panel red">
+                <div class="panel red" onclick="dirigir('producto/')">
                     <div class="symbol">
                         <i class="fa fa-tags"></i>
                     </div>
@@ -31,7 +30,6 @@
                         <i class="fa fa-money"></i>
                     </div>
                     <div class="state-value">
-                        
                         <div class="title"><H3>REPORTES</H3></div>
                     </div>
                 </div>
@@ -51,7 +49,6 @@
     </div>
     <div class="col-md-6">
         <!--more statistics box start-->
-        
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -79,11 +76,13 @@
                               </div>
                         </div>
                     </div>
-                   
-               
             </div>
         </div>
         <!--more statistics box end-->
     </div>
 </div>
-
+<script>
+    function dirigir(ruta){
+        window.location.href='<?php echo ROOT_CONTROLLER; ?>'+ruta;
+    }
+</script>

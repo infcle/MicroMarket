@@ -6,12 +6,6 @@
 
 <title><?php echo $titulo ?></title>
 
-<!--icheck-->
-<link href="<?php echo ROOT; ?>resources/assets/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
-<link href="<?php echo ROOT; ?>resources/assets/js/iCheck/skins/square/square.css" rel="stylesheet">
-<link href="<?php echo ROOT; ?>resources/assets/js/iCheck/skins/square/red.css" rel="stylesheet">
-<link href="<?php echo ROOT; ?>resources/assets/js/iCheck/skins/square/blue.css" rel="stylesheet">
-
 <!--common-->
 <link href="<?php echo ROOT; ?>resources/assets/css/style.css" rel="stylesheet">
 <link href="<?php echo ROOT; ?>resources/assets/css/style-responsive.css" rel="stylesheet">

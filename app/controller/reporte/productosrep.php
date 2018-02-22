@@ -18,13 +18,13 @@ $pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
 
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, '', 'Proveedora de Alimentos y Servicios', array(0,64,255), array(0,64,128));
+//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, '', 'Proveedora de Alimentos y Servicios', array(0,64,255), array(0,64,128));
 $pdf->setFooterData(array(0,64,0), array(0,64,128));
 
 // set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+//$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
 // set default monospaced fontñ
@@ -32,7 +32,7 @@ $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+//$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
 // set auto page breaks
@@ -77,13 +77,16 @@ $pdf->AddPage();
 // set text shadow effect
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
+
 // Set some content to print
 
 /* La linea rectangular de pagina vertical */
-$hidetop = 50; 
-$tab_top = 50;
+$hidetop = 40; 
+$tab_top = 40;
 $tab_height = 160;
 $pdf->SetFillColor(255, 255, 127);
+
+cabezeraReporte($pdf);
 
 //$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
 $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
@@ -194,9 +197,24 @@ if (!empty($hidetop)){
     }
 // ---------------------------------------------------------
 
+function cabezeraReporte($pdf){
+
+    $pdf->SetXY(20, 10);
+    $pdf->Image('../../../resources/assets/images/logopas.png', '', '', 30, 30, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+    
+    $posxini = PDF_MARGIN_LEFT+1;
+    $posxfin = 200;
+    
+    $pdf->SetXY(20,27);
+    $pdf->MultiCell($posxfin-$posxini,7, "REPORTE DE PRODUCTOS",'','C',0, 0, '', '', true);
+
+    $pdf->SetXY(20,33);
+    $pdf->MultiCell($posxfin-$posxini,7, "Fecha: ".date("Y-m-d H:i:s"),'','C',0, 0, '', '', true);
+}
+
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('example_001.pdf', 'I');
+$pdf->Output('ReporteProductos.pdf', 'I');
 
 //============================================================+
 // END OF FILE

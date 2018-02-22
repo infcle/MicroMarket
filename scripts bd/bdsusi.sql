@@ -1,9 +1,8 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.1.53-community-log : Database - marketbd
+MySQL - 10.1.8-MariaDB : Database - marketbd
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -34,13 +33,14 @@ CREATE TABLE `cliente` (
 /*Data for the table `cliente` */
 
 /*Table structure for table `compra_r` */
-#quitando auto incrementado ... no funciona con alter table x la relacion
+
 DROP TABLE IF EXISTS `compra_r`;
 
 CREATE TABLE `compra_r` (
   `id_compra` bigint(20) NOT NULL,
   `nro_recibo` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
   `total` float NOT NULL,
+  `total_literal` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `fecha` datetime NOT NULL,
   `id_cliente` bigint(20) NOT NULL,
   `id_usuario` bigint(20) NOT NULL,
@@ -109,14 +109,14 @@ DROP TABLE IF EXISTS `seccion`;
 CREATE TABLE `seccion` (
   `id_seccion` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `limite` int(11) NOT NULL,
+  `limite` int(11) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_categoria` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_seccion`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `seccion` */
 
@@ -141,7 +141,21 @@ CREATE TABLE `usuario_login` (
 
 /*Data for the table `usuario_login` */
 
-insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$I18B6QvoVkPXvkgGTCdqNOx34WRsatkevdUvKbvfihfLizu/GmuTO',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
+insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$c0QDuf6a6KKxgnSmHDxdmePMewXYdw0FNFeg0EYn/XbZJdg5dL9nu',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
+
+/* Procedure structure for procedure `detalle_venta` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `detalle_venta` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `detalle_venta`(in id int)
+BEGIN
+select p.nro_plu, p.nombre, p.precio, pe.peso_cantidad, pe.preciototal  
+		from producto p, producto_etiquetado pe, compra_r c 
+				where p.id_prod=pe.id_prod and pe.id_compra= c.id_compra and pe.id_compra=id;
+END */$$
+DELIMITER ;
 
 /* Procedure structure for procedure `eliminarCliente` */
 
@@ -279,8 +293,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_productos`()
 BEGIN
-
-select nro_plu,p.nombre, s.nombre from producto as p , tiene as t , seccion as s where id_producto=id_prod and s.id_seccion=t.id_seccion order by t.id_producto;
+select p.nro_plu, p.nombre as nombreuno ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre as nombredos  from producto p, seccion s where idseccion=id_seccion order by p.nro_plu; 
 END */$$
 DELIMITER ;
 
@@ -457,6 +470,18 @@ DELIMITER $$
 in cat bigint)
 BEGIN
 select * from producto where id_cat=cat;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `Recibo_cliente` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `Recibo_cliente` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Recibo_cliente`(in id_r int)
+BEGIN
+select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total from compra_r r, cliente c where c.id_cliente=r.id_cliente and r.id_compra=id_r;
 END */$$
 DELIMITER ;
 

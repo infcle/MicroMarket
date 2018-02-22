@@ -2,7 +2,7 @@
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.validate.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/languajes/messages_es.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/jquery.stepy.js"></script>
+
 <script src="<?php echo ROOT; ?>resources/assets/js/bootstrap.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/modernizr.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.nicescroll.js"></script>

@@ -8,16 +8,6 @@
 <script src="<?php echo ROOT; ?>resources/assets/js/modernizr.min.js"></script>
 <script src="<?php echo ROOT; ?>resources/assets/js/jquery.nicescroll.js"></script>
 
-<!--icheck -->
-<script src="<?php echo ROOT; ?>resources/assets/js/iCheck/jquery.icheck.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/icheck-init.js"></script>
-
-<!--Calendar-->
-<script src="<?php echo ROOT; ?>resources/assets/js/calendar/clndr.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/calendar/evnt.calendar.init.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/calendar/moment-2.2.1.js"></script>
-<script src="<?php echo ROOT; ?>resources/assets/js/underscore-min.js"></script>
-
 <!--dynamic table-->
 <script type="text/javascript" language="javascript" src="<?php echo ROOT; ?>resources/assets/js/advanced-datatable/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?php echo ROOT; ?>resources/assets/js/data-tables/DT_bootstrap.js"></script>

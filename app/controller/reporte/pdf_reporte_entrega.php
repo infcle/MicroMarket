@@ -52,14 +52,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 //Declaramos las columnas
 $posxini = PDF_MARGIN_LEFT+1;
 $posxnro = 40;
-$posxnom = 90;
-$posxtip = 110;
-$posxpre = 140;
-$posxplu = 170;
+$posxci = 90;
+$posxben = 160;
 $posxfin = 200;
-
-
-
 // ---------------------------------------------------------
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
@@ -90,27 +85,20 @@ $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
 
 if (!empty($hidetop)){    
     $pdf->SetXY($posxini + 2, $tab_top+3);
-    $pdf->MultiCell($posxnro-$posxini-1,7, "Nro PLU",'','C',0, 0, '', '', true);
+    $pdf->MultiCell($posxnro-$posxini-1,7, "Nro Recibo",'','C',0, 0, '', '', true);
     $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
     
     $pdf->SetXY($posxnro-1, $tab_top+3);
-    $pdf->MultiCell($posxnom-$posxnro-1,2, "Nombre Producto",'','C');
-    $pdf->line($posxnom-1, $tab_top, $posxnom-1, $tab_top + $tab_height+ 50);
+    $pdf->MultiCell($posxci-$posxnro-1,2, "CI",'','C');
+    $pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
 
-    $pdf->SetXY($posxnom-1, $tab_top+1);
-    $pdf->MultiCell($posxtip-$posxnom-1,2, "Tipo de Venta",'','C');
-    $pdf->line($posxtip-1, $tab_top, $posxtip-1, $tab_top + $tab_height+ 50);
+    $pdf->SetXY($posxci-1, $tab_top+1);
+    $pdf->MultiCell($posxben-$posxci-1,2, "Beneficiario",'','C');
+    $pdf->line($posxben-1, $tab_top, $posxben-1, $tab_top + $tab_height+ 50);
 
-    $pdf->SetXY($posxtip-1, $tab_top+3);
-    $pdf->MultiCell($posxpre-$posxtip-1,2, "Precio",'','C');
-    $pdf->line($posxpre-1, $tab_top, $posxpre-1, $tab_top + $tab_height+ 50);
-
-    $pdf->SetXY($posxpre-1, $tab_top+3);
-    $pdf->MultiCell($posxplu-$posxpre-1,2, "Codigo PLU",'','C');
-    $pdf->line($posxplu-1, $tab_top, $posxplu-1, $tab_top + $tab_height+ 50);
-
-    $pdf->SetXY($posxplu-1, $tab_top+3);
-    $pdf->MultiCell($posxfin-$posxplu-1,2, "Seccion",'','C');
+    $pdf->SetXY($posxben-1, $tab_top+3);
+    $pdf->MultiCell($posxfin-$posxben-1,2, "Venta Total",'','C');
+     
     //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
     $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
 }

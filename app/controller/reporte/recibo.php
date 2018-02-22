@@ -60,6 +60,7 @@ $nombre_impresora = "impresoraRecibo";
 $connector = new WindowsPrintConnector($nombre_impresora);
 $printer = new Printer($connector);
 
+$nroRecibo = $nroCompra;
 
 /*
 	Vamos a imprimir un logotipo
@@ -95,6 +96,7 @@ $printer->text("Comprobante de entrega de Subsidios". "\n");
 $printer->text("Nro Telefono : ". "\n");
 $printer->text("Oruro - Bolivia". "\n");
 $printer->text("--------------------------------------------". "\n");
+$printer->text("Nro de Recibo : ".$nroRecibo. "\n");
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
 //Consultamos los Datos del Cliente

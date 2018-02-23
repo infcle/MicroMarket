@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 10.1.8-MariaDB : Database - marketbd
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 

@@ -17,6 +17,6 @@
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
 	//var_dump($usuarios->fetch_assoc());
-	$pie_class="si";//Variable donde se poneun pie de pagina estatic
+	//$pie_class="si";//Variable donde se poneun pie de pagina estatic
 	require_once ('../../../public/views/plantilla.php');
 ?>

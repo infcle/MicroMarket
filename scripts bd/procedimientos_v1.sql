@@ -253,3 +253,18 @@ select p.nro_plu, p.nombre, p.precio, pe.peso_cantidad, pe.preciototal
 END
 //
 DELIMITER ; 
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reporte_dia_cabesera`(
+in fecha_v date,
+in ci_v varchar(20)
+)
+BEGIN
+select r.nro_recibo, r.fecha , c.nombre , c.ci, r.total 
+	from compra_r r, cliente c 
+		where   c.id_cliente=r.id_cliente  and r.fecha=fecha_v and ci=ci_v;
+END
+DELIMITER ;
+call reporte_dia_cabesera('2018-02-12','6895593');
+#la consulta esta bien pero hay un error cuando llamo al procedimieto indica q el ci es implicito y no entiendo el porque:::

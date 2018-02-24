@@ -48,9 +48,9 @@
             </li>
             <?php endif; ?>
             <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
-            <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
+            <li class="menu-list <?php echo $menu_a['reportes']; ?>"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>reporte/"> Reporte de entregas</a></li>
+                    <li class="<?php echo $menu_a['reportes_u']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>reporte/"> Reporte de entregas</a></li>
                 </ul>
             </li>
             <?php endif; ?>

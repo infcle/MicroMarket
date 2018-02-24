@@ -111,7 +111,7 @@
 		}
 		if($cont==$long){
 			echo 1;
-			require_once '../../controller/reporte/recibo.php';
+			//require_once '../../controller/reporte/recibo.php';
 		}
 		else
 			echo 0;

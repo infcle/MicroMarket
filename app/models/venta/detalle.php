@@ -22,7 +22,7 @@
 		if($resultado->num_rows>0){
 			$jsondata['estado']='correcto';
 		}else {
-			$jsondata['estado']='No existen datos';
+			$jsondata['estado']='No';
 		}
 		//echo "<pre>";print_r ($resultado);echo "</pre>";
 		$precio=1;

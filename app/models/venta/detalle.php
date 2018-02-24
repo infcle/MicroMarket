@@ -22,7 +22,7 @@
 		if($resultado->num_rows>0){
 			$jsondata['estado']='correcto';
 		}else {
-			$jsondata['estado']='No existen datos';
+			$jsondata['estado']='No';
 		}
 		//echo "<pre>";print_r ($resultado);echo "</pre>";
 		$precio=1;
@@ -31,7 +31,7 @@
 			$precio=$fila['precio'];
 		}
 		$precioT = $precio*$peso;
-		$jsondata['precioTotal']=$precioT;
+		$jsondata['precioTotal']=round($precioT,2);
 		$jsondata['peso']=$peso;
 	}else{
 		$jsondata['estado']="Falló consulta: (" . $con->errno . ") " . $con->error;

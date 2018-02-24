@@ -64,7 +64,33 @@
 	$id_user=$_SESSION['id_user'];
 	$long=count($id_prod);
 	$fecha=date('Y-m-d H:i:s');
-	$sqlrecibo="INSERT INTO compra_r(id_compra,nro_recibo, total, fecha, id_cliente, id_usuario) values({$nroCompra}, {$nroCompra}, {$prec_total},'{$fecha}',{$id_cliente},{$id_user})";
+	$totalLiteral="";
+	$prec_total=round($prec_total,2);
+	$totalEntero=explode(".", $prec_total);
+	$sqlLiteral="call Numeros_a_Letras({$totalEntero[0]})";
+	if(!($resultado=$con->query($sqlLiteral))){
+		echo "Falló la insercion detalle: (" . $con->errno . ") " . $con->error;exit();
+	}
+	//echo "<pre>";print_r ($resultado);echo "</pre>";
+	$fila = $resultado->fetch_array(MYSQLI_NUM);
+	//echo "<pre>";print_r ($fila);echo "</pre>";die();
+	if(count($totalEntero)==2){
+		if(strlen($totalEntero[1])==1){
+			$decimal=$totalEntero[1]*10;
+			$totalLiteral=$fila[0].' con '.$decimal.' 100 Bs.';
+		}else{
+			$totalLiteral=$fila[0].' con '.$totalEntero[1].'/100 Bs.';
+		}
+	}else{
+		$totalLiteral=$fila[0].' con 00/100 Bs.';
+	}
+	$con->close();
+	$con= new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if($con->connect_errno){
+        die("imposible conectarse: (".$con->connect_errno.") ".$con->connect_error);
+    }
+	//echo $totalLiteral;die();
+	$sqlrecibo="INSERT INTO compra_r(id_compra,nro_recibo, total,total_literal, fecha, id_cliente, id_usuario) values({$nroCompra}, {$nroCompra}, {$prec_total},'{$totalLiteral}','{$fecha}',{$id_cliente},{$id_user})";
 	if($con->query($sqlrecibo)){
 		$cont=0;
 		for ($i = 0; $i < $long; $i++) {

@@ -82,8 +82,8 @@
                                             <input type="number" name="prec_total" id="prec_total" class="text-right" value="0" readonly="">
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" id="btnEnviar">Realizar venta</button>
-                                    <!-- <button type="button" class="btn btn-primary" id="btnEnviar" onclick="imprime()">Imprimir</button> -->
+                                    <button type="submit" class="btn btn-primary" id="btnEnviar">Concluir venta</button>
+                                    <button type="submit" class="btn btn-success" id="btnEnviar" onclick="imprime()">Imprimir recibo</button>
                                 </div>
                             </div>
                         </form>
@@ -97,12 +97,32 @@
 <?php require_once 'modal_ventas.php'; ?>
 <script type="text/javascript">
     function imprime(){
-        $.ajax({
-            url: '../reporte/recibo.php',
-            type: 'post',
-            data: {param1: 'value1'},
-            success: function(response){
-                mensajes_alerta('DATOS REGISTRADOS EXITOSAMENTE !! '+response,'success','EDITAR DATOS');
+        $('#frmVenta').validate({
+            debug:true,
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '../../models/venta/registro_recibo.php',
+                    type: 'post',
+                    data: $("#frmVenta").serialize(),
+                    beforeSend: function() {
+                        $('#btnEnviar').attr('disabled', 'true');
+                        $('#btnimprimir').attr('disbled', 'true');
+                        transicion("Procesando Espere....");
+                    },
+                    success: function(response){
+                        $('#btnEnviar').removeAttr('disabled');
+                        $('#btnimprimir').removeAttr('disbled');
+                        if(response==1){
+                            transicionSalir();
+                            mensajes_alerta('VENTA REALIZADA EXITOSAMENTE !! ','success','EDITAR DATOS');
+                            $('#miDetalle').empty();
+                            $('#prec_total').val('0');
+                        }else{
+                            transicionSalir();
+                            mensajes_alerta('ERROR AL REGISTRAR LA VENTA verifique los datos!! '+response,'error','REGISTRAR DATOS');
+                        }
+                    }
+                });
             }
         });
     }
@@ -187,11 +207,14 @@
                         type: 'post',
                         data: $("#frmVenta").serialize(),
                         beforeSend: function() {
+                            $('#btnEnviar').attr('disabled', 'true');
+                            $('#btnimprimir').attr('disbled', 'true');
                             transicion("Procesando Espere....");
                         },
                         success: function(response){
                             if(response==1){
-                                $('#btnEnviar').attr({disabled: 'true'});
+                                $('#btnEnviar').attr('disabled', 'true');
+                                $('#btnimprimir').attr('disbled', 'true');
                                 transicionSalir();
                                 mensajes_alerta('VENTA REALIZADA EXITOSAMENTE !! ','success','EDITAR DATOS');
                                 setTimeout(function(){
@@ -274,14 +297,19 @@
                     transicion("Obteniendo Datos....");
                 },
                 success: function(datos){
-                    var total=$('#prec_total').val();
-                    var detalle=datos['detalle'];
-                    //console.log(datos['detalle']);
                     transicionSalir();
-                    $('#cod_barra').val('');
-                    $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
+                    if(datos['estado']=='correcto'){
+                        var total=$('#prec_total').val();
+                        var detalle=datos['detalle'];
+                        //console.log(datos['detalle']);
+                        $('#cod_barra').val('');
+                        $('#miDetalle').append('<tr><td><input type="hidden" name="id_prod[]" value="'+detalle['id_prod']+'"><input type="text" class="text-center" readonly name="producto[]" id="producto[]" value="'+detalle['nombre']+'"></td><td><input type="text" name="precio[]" class ="text-right col-md-12" value="'+detalle['precio']+'" readonly></td><td><input type="text" name="cantpeso[]" class="text-right col-md-12" value="'+datos['peso']+'" readonly></td><td><input type="text" name="subtotal[]" class ="text-right col-md-12" value="'+datos['precioTotal']+'" readonly> <input type="hidden" name="codbarras[]" value="'+codigo+'"></td><td><button type="button" class="btn btn-danger eliminar" onclick="resta('+datos['precioTotal']+')"><span class="fa fa-trash-o"></span></button></td></tr>');
 
-                    $('#prec_total').val(redondeo2decimales(total*1+datos['precioTotal']));
+                        $('#prec_total').val(redondeo2decimales(total*1+datos['precioTotal']));
+                    }else if (datos['estado']=='No') {
+                        mensajes_alerta('No se encuentra el producto verifique','warning','ADVERTENCIA');
+                        $('#cod_barra').val('');
+                    }
                 }
             });
         }

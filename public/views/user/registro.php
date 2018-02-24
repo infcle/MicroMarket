@@ -20,6 +20,16 @@
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label for="Rol" class="control-label col-lg-2">Rol (Obligatorio)</label>
+                            <div class="col-lg-8">
+                                <select name="rol" name='rol' class="form-control" required="true">
+                                    <option value="">SELECCIONE UN ROL</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Cajero</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
                             <label for="password" class="control-label col-lg-2">Contraseña (obligatorio)</label>
                             <div class="col-lg-8">
                                 <input class="form-control " id="password" type="password" name="password" required />

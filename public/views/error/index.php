@@ -1,3 +1,3 @@
 <?php 
-	header("location: 404.html");
+	header("location: 500.php");
 ?>

@@ -12,6 +12,7 @@
                     </div>
                 </div>
             </div>
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <div class="col-md-6 col-xs-12 col-sm-6">
                 <div class="panel red" onclick="dirigir('producto/')">
                     <div class="symbol">
@@ -22,8 +23,10 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
         <div class="row state-overview">
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <div class="col-md-6 col-xs-12 col-sm-6">
                 <div class="panel blue">
                     <div class="symbol">
@@ -34,8 +37,9 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
             <div class="col-md-6 col-xs-12 col-sm-6">
-                <div class="panel green">
+                <div class="panel green" onclick="dirigir('cliente/')">
                     <div class="symbol">
                         <i class="fa fa-eye"></i>
                     </div>
@@ -50,9 +54,7 @@
     <div class="col-md-6">
         <!--more statistics box start-->
                 <div class="row">
-
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
                           <div class="contenedor reloj1 " >
                               <div class="widget">
                                 <div class="fecha">

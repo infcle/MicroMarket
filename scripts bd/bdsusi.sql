@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 10.1.8-MariaDB : Database - marketbd
+MySQL - 5.7.19 : Database - marketbd
 *********************************************************************
 */
 
@@ -32,6 +32,10 @@ CREATE TABLE `cliente` (
 
 /*Data for the table `cliente` */
 
+LOCK TABLES `cliente` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `compra_r` */
 
 DROP TABLE IF EXISTS `compra_r`;
@@ -52,6 +56,10 @@ CREATE TABLE `compra_r` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `compra_r` */
+
+LOCK TABLES `compra_r` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `producto` */
 
@@ -79,7 +87,11 @@ CREATE TABLE `producto` (
 
 /*Data for the table `producto` */
 
+LOCK TABLES `producto` WRITE;
+
 insert  into `producto`(`id_prod`,`nro_plu`,`nombre`,`tipo`,`precio`,`cod_plu`,`estado`,`fecha_registro`,`fecha_actualizacion`,`id_limite`,`idseccion`) values (1,1,'filete',2,58,'2001',1,'2018-02-15 15:32:58','2018-02-15 15:32:58',1,1),(2,2,'pulpa',2,48,'2002',1,'2018-02-15 15:35:49','2018-02-15 15:35:49',1,1),(3,3,'cabeza de lomo',2,48,'2003',1,'2018-02-15 15:38:44','2018-02-15 15:38:44',1,1),(4,4,'peceto',2,48,'2004',1,'2018-02-15 15:39:33','2018-02-15 15:39:33',1,1),(5,5,'molida',2,40,'2005',1,'2018-02-15 15:44:42','2018-02-15 15:44:42',1,1),(6,6,'lapim',2,39,'2006',1,'2018-02-15 15:48:01','2018-02-15 15:48:01',1,1),(7,7,'chuleta',2,39,'2007',1,'2018-02-15 15:48:56','2018-02-15 15:48:56',1,1),(8,8,'witu',2,36,'2008',1,'2018-02-15 15:50:17','2018-02-15 15:50:17',1,1),(9,9,'churrasco',2,36,'2009',1,'2018-02-15 15:51:40','2018-02-15 15:51:40',1,1),(10,10,'cadera',2,36,'2010',1,'2018-02-15 15:52:40','2018-02-15 15:52:40',1,1),(11,11,'paleta',2,36,'2011',1,'2018-02-15 15:53:19','2018-02-15 15:53:19',1,1),(12,12,'pecho',2,30,'2012',1,'2018-02-15 15:54:14','2018-02-15 15:54:14',1,1),(13,13,'jiba',2,30,'2013',1,'2018-02-15 15:56:04','2018-02-15 15:56:04',1,1),(14,14,'aujilla',2,30,'2014',1,'2018-02-15 15:56:44','2018-02-15 15:56:44',1,1),(15,15,'tira/costilla',2,28,'2015',1,'2018-02-15 15:57:45','2018-02-15 15:57:45',1,1),(16,16,'ozubuco',2,28,'2016',1,'2018-02-15 16:03:42','2018-02-15 16:03:42',1,1),(17,17,'canastillas',2,18,'2017',1,'2018-02-15 16:04:35','2018-02-15 16:04:35',1,1),(18,18,'chorizo',2,45,'2018',1,'2018-02-15 16:05:19','2018-02-15 16:05:19',1,1),(19,19,'corazon',2,32,'2019',1,'2018-02-15 16:15:10','2018-02-15 16:15:10',1,1),(20,20,'higado',2,24,'2020',1,'2018-02-15 16:16:02','2018-02-15 16:16:02',1,1),(21,21,'panza cocida',2,32,'2021',1,'2018-02-15 16:16:41','2018-02-15 16:16:41',1,1),(22,22,'pollo',2,16.5,'2022',1,'2018-02-15 16:17:35','2018-02-15 16:17:35',2,1),(23,23,'pescado_trucha',2,45,'2023',1,'2018-02-15 16:19:32','2018-02-15 16:19:32',2,1),(24,24,'pescado_pacu',2,50,'2024',1,'2018-02-15 16:20:35','2018-02-15 16:20:35',2,1),(25,25,'pescado_surubi',2,50,'2025',1,'2018-02-15 16:30:41','2018-02-15 16:30:41',2,1),(26,26,'huevo25',1,0.83,'1026',1,'2018-02-15 16:32:56','2018-02-15 16:32:56',3,1),(27,27,'huevo22',1,0.73,'1027',1,'2018-02-15 16:34:11','2018-02-15 16:34:11',3,1),(28,28,'Zanahoria',2,4,'2028',1,'2018-02-15 16:37:26','2018-02-15 16:37:26',NULL,3),(29,29,'Aba',2,8,'2029',1,'2018-02-15 16:42:31','2018-02-15 16:42:31',NULL,3),(30,30,'Espinaca',2,10,'2030',1,'2018-02-15 16:43:32','2018-02-15 16:43:32',NULL,3),(31,31,'Zapallo',2,6,'2031',1,'2018-02-15 16:44:37','2018-02-15 16:44:37',NULL,3),(32,32,'cebolla con cola',2,4.5,'2032',1,'2018-02-15 16:45:32','2018-02-15 16:45:32',NULL,3),(33,33,'cebolla con cabeza',2,6,'2033',1,'2018-02-15 16:46:03','2018-02-15 16:46:03',NULL,3),(34,34,'Tomate',2,9,'2034',1,'2018-02-15 17:14:04','2018-02-15 17:14:04',NULL,3),(35,35,'arberja',2,15,'2035',1,'2018-02-15 17:15:40','2018-02-15 17:15:40',NULL,3),(36,36,'Vaina',2,9,'2036',1,'2018-02-15 17:16:18','2018-02-15 17:16:18',NULL,3),(37,37,'locoto',2,14,'2037',1,'2018-02-15 17:16:52','2018-02-15 17:16:52',NULL,3),(38,38,'brocoli',1,10,'1038',1,'2018-02-15 17:17:26','2018-02-15 17:17:26',NULL,3),(39,39,'Apio',1,3,'1039',1,'2018-02-15 17:17:52','2018-02-15 17:17:52',NULL,3),(40,40,'pepino',1,2,'1040',1,'2018-02-15 17:18:31','2018-02-15 17:18:31',NULL,3),(41,41,'repollo',1,4,'1041',1,'2018-02-15 17:19:15','2018-02-15 17:19:15',NULL,3),(42,42,'postre',1,1.5,'1042',1,'2018-02-15 17:20:22','2018-02-15 17:20:22',NULL,3),(43,43,'durazno',2,15,'2043',1,'2018-02-15 17:21:21','2018-02-15 17:21:21',NULL,2),(44,44,'uva',2,15,'2044',1,'2018-02-15 17:22:08','2018-02-15 17:22:08',NULL,2),(45,45,'naranja',1,0.6,'1045',1,'2018-02-15 17:23:07','2018-02-15 17:23:07',NULL,2),(46,46,'mandarina',1,0.45,'1046',1,'2018-02-15 17:23:45','2018-02-15 17:23:45',NULL,2),(47,47,'papaya',1,10,'1047',1,'2018-02-15 17:24:24','2018-02-15 17:24:24',NULL,2),(48,48,'mango',1,0.8,'1048',1,'2018-02-15 17:25:06','2018-02-15 17:25:06',NULL,2),(49,49,'piÃ±a',1,10,'1049',1,'2018-02-15 17:25:38','2018-02-15 17:25:38',NULL,2),(50,50,'platano',1,0.75,'1050',1,'2018-02-15 17:53:53','2018-02-15 17:53:53',NULL,2),(51,51,'manzana',1,2,'1051',1,'2018-02-15 17:54:22','2018-02-15 17:54:22',NULL,2),(52,52,'sandia',1,15,'1052',1,'2018-02-15 17:55:13','2018-02-15 17:55:13',NULL,2),(53,53,'tuna',1,1.5,'1053',1,'2018-02-15 17:55:45','2018-02-15 17:55:45',NULL,2),(54,54,'papa grande',2,6.5,'2054',1,'2018-02-15 17:56:28','2018-02-15 17:56:28',NULL,4),(55,55,'papa pequeÃ±a',2,5,'2055',1,'2018-02-15 17:56:55','2018-02-15 17:56:55',NULL,4),(56,56,'camote',2,11.5,'2056',1,'2018-02-15 17:57:19','2018-02-15 17:57:19',NULL,4),(57,57,'yuca',2,8.5,'2057',1,'2018-02-15 17:57:49','2018-02-15 17:57:49',NULL,4),(61,58,'producto de prueba',1,22,'1058',1,'2018-02-22 18:59:40','2018-02-22 18:59:40',NULL,3);
+
+UNLOCK TABLES;
 
 /*Table structure for table `producto_etiquetado` */
 
@@ -102,6 +114,10 @@ CREATE TABLE `producto_etiquetado` (
 
 /*Data for the table `producto_etiquetado` */
 
+LOCK TABLES `producto_etiquetado` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `seccion` */
 
 DROP TABLE IF EXISTS `seccion`;
@@ -120,7 +136,11 @@ CREATE TABLE `seccion` (
 
 /*Data for the table `seccion` */
 
+LOCK TABLES `seccion` WRITE;
+
 insert  into `seccion`(`id_seccion`,`nombre`,`limite`,`estado`,`fecha_registro`,`fecha_actualizacion`,`id_categoria`) values (1,'Carnes y derivados',550,1,'2018-02-10 12:44:12','2018-02-10 12:44:12',2),(2,'Frutas',60,1,'2018-02-10 12:44:31','2018-02-10 12:44:31',2),(3,'Verduras',60,1,'2018-02-10 12:44:48','2018-02-10 12:44:48',2),(4,'Leguminos, raices y tuberculos',80,1,'2018-02-10 12:45:36','2018-02-10 12:45:36',2);
+
+UNLOCK TABLES;
 
 /*Table structure for table `usuario_login` */
 
@@ -132,7 +152,7 @@ CREATE TABLE `usuario_login` (
   `usuario` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `contrasenia` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '1',
-  `tipo` int(11) NOT NULL DEFAULT '2',
+  `tipo` int(11) NOT NULL DEFAULT '2' COMMENT '0,1 administrador 2 cajero',
   `fecha_registro` datetime NOT NULL,
   `fecha_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_usuario`),
@@ -141,7 +161,11 @@ CREATE TABLE `usuario_login` (
 
 /*Data for the table `usuario_login` */
 
+LOCK TABLES `usuario_login` WRITE;
+
 insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`estado`,`tipo`,`fecha_registro`,`fecha_actualizacion`) values (1,'Haki Ari','admin','$2y$10$c0QDuf6a6KKxgnSmHDxdmePMewXYdw0FNFeg0EYn/XbZJdg5dL9nu',1,0,'2018-02-01 02:26:10','2018-02-07 10:11:35');
+
+UNLOCK TABLES;
 
 /* Procedure structure for procedure `detalle_venta` */
 

@@ -29,33 +29,41 @@
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
             <li class="<?php echo $menu_a['inicio']; ?>"><a href="<?php echo ROOT; ?>"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <li class="menu-list <?php echo $menu_a['usuario']; ?>"><a href=""><i class="fa fa-users"></i> <span>Usuarios</span></a>
                 <ul class="sub-menu-list">
                     <li class="<?php echo $menu_a['lista_u']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>user/"> Lista de usuarios</a></li>
                     <li class="<?php echo $menu_a['registro_u']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>user/registro.php"> Registro de usuarios</a></li>
                 </ul>
             </li>
+            <?php endif; ?>
             <li class="<?php echo $menu_a['ventas']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>ventas/"><i class="fa fa-shopping-cart"></i> <span>Ventas</span></a>
             </li>
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <li class="menu-list <?php echo $menu_a['producto']; ?>"><a href="#"><i class="fa fa-book"></i> <span>Producto o PLU</span></a>
                 <ul class="sub-menu-list">
                     <li class="<?php echo $menu_a['lista_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/"> Listado</a></li>
                     <li class="<?php echo $menu_a['registro_p']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>producto/registro.php"> Registro de producto</a></li>
                 </ul>
             </li>
+            <?php endif; ?>
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
                 <ul class="sub-menu-list">
                     <li><a href="<?php echo ROOT_CONTROLLER; ?>reporte/pdf_reporte_entrega.php"> Reporte de entregas</a></li>
                 </ul>
             </li>
+            <?php endif; ?>
             <li class="<?php echo $menu_a['cliente']; ?>">
                 <a href="<?php echo ROOT_CONTROLLER; ?>cliente/"><i class="fa fa-tags"></i> <span>Clientes</span></a>
             </li>
+            <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <li class="menu-list <?php echo $menu_a['configuracion']; ?>"><a href=""><i class="fa fa-cog"></i> <span>Configuraciónes</span></a>
                 <ul class="sub-menu-list">
                     <li class="<?php echo $menu_a['configuracion_s']; ?>"><a href="<?php echo ROOT_CONTROLLER; ?>seccion/"> Seccion</a></li>
                 </ul>
             </li>
+            <?php endif; ?>
             <li><a href="<?php echo ROOT_CONTROLLER; ?>login/index.php?logout"><i class="fa fa-sign-in"></i> <span>Salir</span></a></li>
         </ul>
         <!--sidebar nav end-->

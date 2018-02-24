@@ -31,7 +31,7 @@
 			$precio=$fila['precio'];
 		}
 		$precioT = $precio*$peso;
-		$jsondata['precioTotal']=$precioT;
+		$jsondata['precioTotal']=round($precioT,2);
 		$jsondata['peso']=$peso;
 	}else{
 		$jsondata['estado']="Falló consulta: (" . $con->errno . ") " . $con->error;

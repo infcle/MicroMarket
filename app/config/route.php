@@ -207,5 +207,22 @@
 					'configuracion_s'=>'',
 					'configuracion_l'=>''
 				),
+		'REPORTE_U'=>array(
+					'inicio'=>'',
+					'usuario'=>'',
+					'lista_u'=>'',
+					'registro_u'=>'',
+					'ventas'=>'',
+					'producto'=>'',
+					'lista_p'=>'',
+					'registro_p'=>'',
+					'reportes'=>'nav-active',
+					'reportes_u'=>'active',
+					'cliente'=>'',
+					'configuracion'=>'',
+					'configuracion_c'=>'',
+					'configuracion_s'=>'',
+					'configuracion_l'=>''
+				),
 	);
 ?>

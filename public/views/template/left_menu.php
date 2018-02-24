@@ -50,7 +50,7 @@
             <?php if($_SESSION['rol']==1 || $_SESSION['rol']==0): ?>
             <li class="menu-list"><a href=""><i class="fa fa-copy"></i> <span>Reportes</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="<?php echo ROOT_CONTROLLER; ?>reporte/pdf_reporte_entrega.php"> Reporte de entregas</a></li>
+                    <li><a href="<?php echo ROOT_CONTROLLER; ?>reporte/"> Reporte de entregas</a></li>
                 </ul>
             </li>
             <?php endif; ?>

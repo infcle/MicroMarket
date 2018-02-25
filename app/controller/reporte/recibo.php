@@ -90,7 +90,8 @@ try{
 	Ahora vamos a imprimir un encabezado
 */
 $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-$printer->text("Proveedora de alimentos a su Servicio". "\n");
+$printer->text("Proveedora de alimentos". "\n");
+$printer->text("ASUSERVICIO". "\n");
 $printer -> selectPrintMode();
 $printer->text("Comprobante de entrega de Subsidios". "\n");
 $printer->text("Nro Telefono : ". "\n");
@@ -106,10 +107,12 @@ try{
 }catch(Exception $e){/*No hacemos nada si hay error*/}
 
 $total = 0;
+$total_literal = "";
 foreach ($resCliente as $value) {
 	$printer->text("Benificiaria : ".$value['nombre']. "\n");
 	$printer->text("CI : ".$value['ci']. "\n");
 	$total = $value['total'];
+	$total_literal = $value['total_literal'];
 }
 
 $printer->text("--------------------------------------------". "\n");
@@ -201,6 +204,7 @@ class item
 */
 $printer->text("----------------------\n");
 $printer->text("TOTAL: Bs". $total ."\n");
+$printer->text("". $total_literal ."\n");
 
 
 /*

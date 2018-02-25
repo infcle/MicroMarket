@@ -94,7 +94,9 @@ $printer->text("Proveedora de alimentos". "\n");
 $printer->text("ASUSERVICIO". "\n");
 $printer -> selectPrintMode();
 $printer->text("Comprobante de entrega de Subsidios". "\n");
-$printer->text("Nro Telefono : ". "\n");
+$printer->text("Dir. Av. villaroel y Borsola". "\n");
+$printer->text("Urb. Pedro Ferrani lado aeropuerto". "\n");
+$printer->text("Nro Celular : 71488650-72257585". "\n");
 $printer->text("Oruro - Bolivia". "\n");
 $printer->text("--------------------------------------------". "\n");
 $printer->text("Nro de Recibo : ".$nroRecibo. "\n");
@@ -204,7 +206,7 @@ class item
 */
 $printer->text("----------------------\n");
 $printer->text("TOTAL: Bs". $total ."\n");
-$printer->text("". $total_literal ."\n");
+$printer->text("SON ". $total_literal ."\n");
 
 
 /*

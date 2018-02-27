@@ -12,6 +12,7 @@
 	$contenido="user/index.php";
 	$subTitulo="Usuario";
 	$menu_a= $menus['U_LISTA'];
+	
 	if (!($usuarios = $con->query("SELECT * FROM usuario_login where estado = 1 and id_usuario<>{$_SESSION['id_user']} and tipo<>0"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

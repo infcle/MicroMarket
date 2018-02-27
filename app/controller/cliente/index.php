@@ -12,6 +12,7 @@
 	$contenido="cliente/index.php";
 	$subTitulo="Clientes";
 	$menu_a= $menus['CLIENTE'];
+	#call lista_clientes  procedimiento
 	if (!($clientes = $con->query("SELECT * FROM cliente where estado=1"))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

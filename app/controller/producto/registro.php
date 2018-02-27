@@ -7,6 +7,7 @@
 	}
 	require_once ("../../config/db.php");
 	require_once ("../../config/conexion.php");
+	#call genera_plu();
 	$sql="SELECT IFNULL(MAX(nro_plu),0)+1  AS numero FROM producto";
 	if (!($resultado = $con->query($sql))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;

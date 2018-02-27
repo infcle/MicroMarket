@@ -12,12 +12,8 @@
 	$contenido="producto/index.php";
 	$subTitulo="Producto o PLU";
 	$menu_a= $menus['P_LISTA'];
-	$sql="SELECT p.id_prod,p.nro_plu
-			, p.nombre as nomProducto
-			, CASE p.tipo WHEN 1 THEN 'Cantidad' WHEN 2 THEN 'Peso' END AS tipo
-			, p.precio, p.cod_plu, s.nombre as nomSeccion
-		FROM producto p, seccion s
-		WHERE p.idseccion = s.id_seccion and p.estado=1";
+	#procedimiento cantidad peso
+	$sql="call cantidad_peso";
 	if (!($productos = $con->query($sql))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}

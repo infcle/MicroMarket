@@ -12,6 +12,7 @@
 	$contenido="seccion/index.php";
 	$menu_a= $menus['C_SECCION'];
 	$subTitulo="Seccion";
+	#call listar_seccion
 	if (!($secciones = $con->query("SELECT * FROM seccion where estado=1"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}

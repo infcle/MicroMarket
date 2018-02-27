@@ -4,6 +4,7 @@
 	require_once ("../../config/route.php"); 
 	
 	$ci=$_REQUEST['id'];
+	#call buscar_cliente... si neciesitas q t devuelva no si hay q aunmetar el if n procedimiento m informas
 	$sql = $con->query("SELECT * FROM cliente WHERE ci='{$ci}'");
 	$contar =$sql->num_rows;
     if($contar == 0){

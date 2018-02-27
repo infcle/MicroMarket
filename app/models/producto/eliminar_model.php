@@ -4,7 +4,7 @@
 
 	//echo "<pre>";print_r ($_REQUEST);echo "</pre>";
 	$id = trim($_REQUEST["id_eliminar"]);
-
+	#call eliminarProducto
 	$sql = "UPDATE producto set estado=0 where id_prod={$id}";
 
 	if (!$con->query($sql)) {

@@ -10,7 +10,7 @@
 	$tipo = trim($_POST["tipoVenta"]);
 	$codPlu=($tipo*1000)+$nroPlu;
 	$idSeccion=$_REQUEST['seccion'];
-
+	#call modificar_producto
 	$sql = "UPDATE producto set nombre='{$nombre}', precio={$precio}, tipo={$tipo}, cod_plu={$codPlu}, idSeccion={$idSeccion} where id_prod={$id}";
 
 	if (!$con->query($sql)) {

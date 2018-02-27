@@ -5,7 +5,7 @@
 	$nombre = trim($_POST["nombre"]);
 	$ci = trim($_POST["ci"]);
 	$fechaRegistro = date('Y-m-d H:i:s');
-
+	#call insertarcliente
 	$sql = "INSERT INTO cliente(ci,nombre,fecha_registro) VALUES('{$ci}','{$nombre}','{$fechaRegistro}')";
 
 	if (!$con->query($sql)) {

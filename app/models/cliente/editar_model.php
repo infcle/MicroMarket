@@ -6,7 +6,7 @@
 	$id = trim($_REQUEST["id"]);
 	$nombre = trim($_POST["name"]);
 	$ci = trim($_POST["ci"]);
-
+	#call modificarcliente
 	$sql = "UPDATE cliente set nombre='{$nombre}', ci='{$ci}' where id_cliente={$id}";
 
 	if (!$con->query($sql)) {

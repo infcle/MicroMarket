@@ -24,3 +24,6 @@
 
 <!-- estilo del select choosen -->
 <link rel="stylesheet" href="<?php echo ROOT; ?>resources/assets/css/chosen.min.css">
+
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="<?php echo ROOT; ?>resources/assets/js/bootstrap-datepicker/css/datepicker-custom.css" />

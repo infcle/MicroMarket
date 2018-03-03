@@ -17,9 +17,11 @@
 	if (!($productos = $con->query($sql))) {
     	echo "Falló consulta: (" . $con->errno . ") " . $con->error;
 	}
+	$con->close();
+	$con=conectar();
 	if (!($secciones = $con->query("SELECT * FROM seccion where estado=1"))) {
     	echo "Falló SELECT: (" . $con->errno . ") " . $con->error;
 	}
-	$pie_class="si";
+	//$pie_class="si";
 	require_once ('../../../public/views/plantilla.php');
 ?>

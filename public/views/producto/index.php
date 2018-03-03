@@ -89,57 +89,45 @@
             }
         });
     }
-
-
-     function eliminar_datos(id){
+    function eliminar_datos(id){
         $("#id_eliminar").val(id);
     }
-
-
-
     $(document).ready(function() {
-        $('#tbProductos').dataTable({
-           oSearching: false,
-        });
+        $('#tbProductos').dataTable();
          
         $('#frmEditar').validate({
             debug:true,
-              rules:{
-          nombre:{
-            required:true,
-            minlength: 3,
-            maxlength:25
-          },
-          
-          precio:{
-            required:true,
-            range:[0.1,999.99]
-          },
-          tipoVenta: {
-            required: true
-          },
-          precio: {
-            required:true,
-            minlength:1,
-            maxlength:4,
-            range:[0.1,999.000]
-          },
-          
-          
-          seccion:{
-            required:true
-          }
-        },
-        messages:{
-          nombre:{
-            required:"Este es Campo Obligatorio."
-          },
-          
-          precio:{
-            required:"Este es Campo Obligatorio."
-          },
-         
-        },
+            rules:{
+                nombre:{
+                    required:true,
+                    minlength: 3,
+                    maxlength:25
+                },
+                precio:{
+                    required:true,
+                    range:[0.1,999.99]
+                },
+                tipoVenta: {
+                    required: true
+                },
+                precio: {
+                    required:true,
+                    minlength:1,
+                    maxlength:4,
+                    range:[0.1,999.000]
+                },
+                seccion:{
+                    required:true
+                }
+            },
+            messages:{
+                nombre:{
+                    required:"Este es Campo Obligatorio."
+                },
+                precio:{
+                    required:"Este es Campo Obligatorio."
+                },
+            },
             submitHandler: function (form) {
                 $.ajax({
                     url: '../../models/producto/editar_model.php',
@@ -167,10 +155,7 @@
                 });
             }
         });
-
-    });
-
-    $("#btnEliminar").click(function(event) {
+        $("#btnEliminar").click(function(event) {
             $.ajax({
                 url: '../../models/producto/eliminar_model.php',
                 type: 'POST',
@@ -194,6 +179,5 @@
                 }
             });
         });
-
-
+    });
 </script>

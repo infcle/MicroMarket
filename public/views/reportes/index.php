@@ -17,7 +17,7 @@
                             </div>
 	                    </div>
 	                    <div class="col-sm-offset-1 col-md-4">
-					    	<button type="submit" class="btn btn-success">Mostrar Reporte <span class="fa fa-print"></span></button>
+					    	<button type="button" class="btn btn-success" data-toggle="modal" onclick="verRep()" data-target="#modalImprimir">Mostrar Reporte <span class="fa fa-print"></span></button>
 					    </div>
 	                </div>
 	            </form>
@@ -25,6 +25,7 @@
         </section>
     </div>
 </div>
+<?php require_once 'modal_imprimir.php'; ?>
 <script>
 	$(document).ready(function() {
 		$('.cFecha').datepicker({
@@ -34,5 +35,7 @@
 			$('.cFecha').datepicker('hide');
 		});
 	});
-		
+	function verRep(){
+        $('#cuerpo').html('<embed src="<?php echo ROOT_CONTROLLER?>reporte/productosrep.php" width="100%" height="600"></embed>');
+    }	
 </script>

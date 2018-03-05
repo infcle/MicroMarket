@@ -83,7 +83,7 @@ $pdf->SetFillColor(255, 255, 127);
 cabezeraReporte($pdf);
 
 //$this->printRect($pdf,$this->marge_gauche, $tab_top, $this->page_largeur-$this->marge_gauche-$this->marge_droite, $tab_height, $hidetop, $hidebottom);
-$pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');
+$pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height+10, 'D');
 
 if (!empty($hidetop)){    
     $pdf->SetXY($posxini + 2, $tab_top+3);
@@ -95,7 +95,7 @@ if (!empty($hidetop)){
     $pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxci-1, $tab_top+3);
-    $pdf->MultiCell($posxben-$posxci-1,2, "Beneficiario",'','C');
+    $pdf->MultiCell($posxben-$posxci-1,2, "Beneficiaria",'','C');
     $pdf->line($posxben-1, $tab_top, $posxben-1, $tab_top + $tab_height+ 50);
 
     $pdf->SetXY($posxben-1, $tab_top+3);
@@ -105,8 +105,9 @@ if (!empty($hidetop)){
     $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
 }
 
-    //$sql = "SELECT * FROM seccion WHERE 1=1";
-    $sql = "call lista_productos()";
+    
+    $sql = "call reporte_dia()";
+    
     //echo $sql;
     $res=$con->query($sql);
     $conca = "";
@@ -115,8 +116,19 @@ if (!empty($hidetop)){
     $curY = $tab_top + 12;
     $nexY = 30;
     foreach($res as $fila){
-        $pdf->SetXY($posxini, $curY);
-        //$pdf->MultiCell($posxnro-$posxini-1, 1,$fila['nro_plu'] , 0, 'C',0);
+
+        $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height+10, 'D');
+        $pdf->SetXY($posxini+4, $curY);
+        $pdf->MultiCell($posxnro-$posxini-1, 1,$fila['nro_recibo'] , 0, 'L',0);
+        
+        $pdf->SetXY($posxnro, $curY);
+        $pdf->MultiCell($posxci-$posxnro-1, 1,$fila['ci'] , 0, 'L',0);
+        
+        $pdf->SetXY($posxci, $curY);
+        $pdf->MultiCell($posxben-$posxci-1, 1,$fila['nombre'] , 0, 'L',0);
+        
+        $pdf->SetXY($posxben, $curY);
+        $pdf->MultiCell($posxfin-8-$posxben-1, 1,$fila['preciototal'] , 0, 'R',0);
         
         $nexY = $pdf->GetY();
         $curY = $nexY + 1;
@@ -130,14 +142,28 @@ if (!empty($hidetop)){
             $pdf->AddPage();
             $curY = $tab_top + 12;
             $nexY = 30;
-            if (!empty($hidetop)){ 
-                $pdf->Rect(20, $tab_top, 175, $tab_top + $tab_height, 'D');   
-                /*$pdf->SetXY($posxini + 2, $tab_top+3);
-                $pdf->MultiCell($posxnro-$posxini-1,2, "Nro PLU",'','C');
-                $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);*/
-                                
+            if (!empty($hidetop)){    
+                $pdf->SetXY($posxini + 2, $tab_top+3);
+                $pdf->MultiCell($posxnro-$posxini-1,7, "Nro Recibo",'','C',0, 0, '', '', true);
+                $pdf->line($posxnro-1, $tab_top, $posxnro-1, $tab_top + $tab_height + 50);
+                
+                $pdf->SetXY($posxnro-1, $tab_top+3);
+                $pdf->MultiCell($posxci-$posxnro-1,2, "CI",'','C');
+                $pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxci-1, $tab_top+3);
+                $pdf->MultiCell($posxben-$posxci-1,2, "Beneficiaria",'','C');
+                $pdf->line($posxben-1, $tab_top, $posxben-1, $tab_top + $tab_height+ 50);
+            
+                $pdf->SetXY($posxben-1, $tab_top+3);
+                $pdf->MultiCell($posxfin-$posxben-1,2, "Venta Total",'','C');
+                 
+                //$pdf->line($posxci-1, $tab_top, $posxci-1, $tab_top + $tab_height+ 50);
+                $pdf->line(20, $tab_top+10, 216-21, $tab_top+10);
             }
             
+        }else {
+            cabezeraReporte($pdf);
         }
 
         
@@ -159,7 +185,7 @@ function cabezeraReporte($pdf){
     $pdf->MultiCell($posxfin-$posxini,7, "REPORTE de ENTREGA de SUBSIDIOS",'','C',0, 0, '', '', true);
 
     $pdf->SetXY(20,33);
-    $pdf->MultiCell($posxfin-$posxini,7, "De Fecha: ",'','C',0, 0, '', '', true);
+    $pdf->MultiCell($posxfin-$posxini,7, "De Fecha: ".date("d-m-Y"),'','C',0, 0, '', '', true);
 }
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.

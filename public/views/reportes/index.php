@@ -7,7 +7,7 @@
             <div class="panel-body">
             	<form class="form-horizontal">
 	                <div class="form-group">
-	                    <label class="control-label col-md-3">Seleccione Fecha</label>
+	                    <label class="control-label col-md-3">Seleccione Fecha :</label>
 	                    <div class="col-md-4 col-xs-11">
 	                        <div data-date-viewmode="date" data-date="<?php echo date('d/m/Y'); ?>"  class="input-append date cFecha">
                                 <input type="text" readonly="" value="" size="16" class="form-control">
@@ -36,6 +36,6 @@
 		});
 	});
 	function verRep(){
-        $('#cuerpo').html('<embed src="<?php echo ROOT_CONTROLLER?>reporte/productosrep.php" width="100%" height="600"></embed>');
+        $('#cuerpo').html('<embed src="<?php echo ROOT_CONTROLLER?>reporte/pdf_reporte_entrega.php" width="100%" height="600"></embed>');
     }	
 </script>

@@ -54,7 +54,8 @@ $productos = array(
 	desde el panel de control
 */
 
-$nombre_impresora = "impresoraRecibo"; 
+$nombre_impresora = "impresoraRecibo";
+//$nombre_impresora = "EPSON L220 Series"; 
 
 
 $connector = new WindowsPrintConnector($nombre_impresora);

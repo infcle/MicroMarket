@@ -1,8 +1,9 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.19 : Database - marketbd
+MySQL - 5.7.19 : Database - marketbd_prod
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -12,9 +13,9 @@ MySQL - 5.7.19 : Database - marketbd
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`marketbd` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`marketbd_prod` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `marketbd`;
+USE `marketbd_prod`;
 
 /*Table structure for table `cliente` */
 
@@ -157,10 +158,14 @@ insert  into `usuario_login`(`id_usuario`,`nombre`,`usuario`,`contrasenia`,`esta
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `detalle_venta`(in id int)
-BEGIN
-select p.nro_plu, p.nombre, p.precio, pe.peso_cantidad, pe.preciototal  
-		from producto p, producto_etiquetado pe, compra_r c 
-				where p.id_prod=pe.id_prod and pe.id_compra= c.id_compra and pe.id_compra=id;
+BEGIN
+
+select p.nro_plu, p.nombre, p.precio, pe.peso_cantidad, pe.preciototal  
+
+		from producto p, producto_etiquetado pe, compra_r c 
+
+				where p.id_prod=pe.id_prod and pe.id_compra= c.id_compra and pe.id_compra=id;
+
 END */$$
 DELIMITER ;
 
@@ -170,11 +175,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarCliente`(
-in id_c int
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarCliente`(
+
+in id_c int
+
 )
-BEGIN
-delete from cliente where id_cliente=id_c;
+BEGIN
+
+delete from cliente where id_cliente=id_c;
+
 END */$$
 DELIMITER ;
 
@@ -184,11 +193,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarUsuario`(
-in id_u int
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminarUsuario`(
+
+in id_u int
+
 )
-BEGIN
-delete from usuario_login where id_usuario=id_u;
+BEGIN
+
+delete from usuario_login where id_usuario=id_u;
+
 END */$$
 DELIMITER ;
 
@@ -199,15 +212,24 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `existe_usuario`(in usu varchar(100), out valor bool)
-BEGIN
-set valor =false;
-if exists(select usuario from usuario_login where usuario=usu)
-    
-    then
-        set valor= true;
-    else 
-        set valor = false;
-    end if;
+BEGIN
+
+set valor =false;
+
+if exists(select usuario from usuario_login where usuario=usu)
+
+    
+
+    then
+
+        set valor= true;
+
+    else 
+
+        set valor = false;
+
+    end if;
+
 END */$$
 DELIMITER ;
 
@@ -217,12 +239,17 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarcliente`(
-in ci varchar(20),
-in Nombre varchar(200)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarcliente`(
+
+in ci varchar(20),
+
+in Nombre varchar(200)
+
 )
-BEGIN
-insert into cliente(ci,nombre) values(ci,nombre);
+BEGIN
+
+insert into cliente(ci,nombre) values(ci,nombre);
+
 END */$$
 DELIMITER ;
 
@@ -252,8 +279,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarTiene`( in idp bigint, in ids bigint)
-BEGIN
-    insert into tiene values(ids,idp);	
+BEGIN
+
+    insert into tiene values(ids,idp);	
+
     END */$$
 DELIMITER ;
 
@@ -263,15 +292,23 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario`(
-in Nombre varchar(200),
-in fecha_registro datetime,
-in Usuario varchar(100),
-in contrasenia varchar(255),
-in tipo int(11)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarUsuario`(
+
+in Nombre varchar(200),
+
+in fecha_registro datetime,
+
+in Usuario varchar(100),
+
+in contrasenia varchar(255),
+
+in tipo int(11)
+
 )
-BEGIN
-insert into usuario_login(nombre, fecha_registro, usuario, contrasenia, tipo) values(Nombre,fecha_registro,Usuario,contrasenia,tipo);
+BEGIN
+
+insert into usuario_login(nombre, fecha_registro, usuario, contrasenia, tipo) values(Nombre,fecha_registro,Usuario,contrasenia,tipo);
+
 END */$$
 DELIMITER ;
 
@@ -281,10 +318,13 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_clientes`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_clientes`(
+
 in cat bigint)
-BEGIN
-select * from cliente;
+BEGIN
+
+select * from cliente;
+
 END */$$
 DELIMITER ;
 
@@ -295,8 +335,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_productos`()
-BEGIN
-select p.nro_plu, p.nombre as nombreuno ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre as nombredos  from producto p, seccion s where idseccion=id_seccion order by p.nro_plu; 
+BEGIN
+
+select p.nro_plu, p.nombre as nombreuno ,p.tipo as tipo,p.precio,p.cod_plu, s.nombre as nombredos  from producto p, seccion s where idseccion=id_seccion order by p.nro_plu; 
+
 END */$$
 DELIMITER ;
 
@@ -306,13 +348,19 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarCliente`(
-in id_c int,
-in ci varchar(20),
-in Nombre varchar(200)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarCliente`(
+
+in id_c int,
+
+in ci varchar(20),
+
+in Nombre varchar(200)
+
 )
-BEGIN
-update cliente set nombre=Nombre, ci=ci where id_cliente=id_c;
+BEGIN
+
+update cliente set nombre=Nombre, ci=ci where id_cliente=id_c;
+
 END */$$
 DELIMITER ;
 
@@ -322,17 +370,27 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarUsuario`(
-in id_u int,
-in Nombre varchar(200),
-in fecha_reg datetime,
-in Usuario varchar(100),
-in contrasenia varchar(255),
-in estado tinyint(1),
-in tipo int(11)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarUsuario`(
+
+in id_u int,
+
+in Nombre varchar(200),
+
+in fecha_reg datetime,
+
+in Usuario varchar(100),
+
+in contrasenia varchar(255),
+
+in estado tinyint(1),
+
+in tipo int(11)
+
 )
-BEGIN
-update usuario_login set nombre=Nombre, fecha_registro=fecha_reg,usuario=Usuario,contrasenia=contrasenia,estado=estado,tipo=tipo where id_usuario=id_u;
+BEGIN
+
+update usuario_login set nombre=Nombre, fecha_registro=fecha_reg,usuario=Usuario,contrasenia=contrasenia,estado=estado,tipo=tipo where id_usuario=id_u;
+
 END */$$
 DELIMITER ;
 
@@ -343,111 +401,216 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `Numeros_a_Letras`(IN lnEntero TEXT)
-BEGIN
-DECLARE lcRetorno VARCHAR(512);
-DECLARE lnTerna INT;
-DECLARE lcMiles VARCHAR(512);
-DECLARE lcCadena VARCHAR(512);
-DECLARE lnUnidades INT;
-DECLARE lnDecenas INT;
-DECLARE lnCentenas INT;
-IF lnEntero > 0 THEN
-SET lcRetorno = '';
-SET lnTerna = 1 ;
-WHILE lnEntero > 0 DO
--- Recorro columna por columna
-SET lcCadena = '';
-SET lnUnidades = RIGHT(lnEntero,1);
-SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
-SET lnDecenas = RIGHT(lnEntero,1);
-SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
-SET lnCentenas = RIGHT(lnEntero,1);
-SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
--- Analizo las unidades
-SET lcCadena =
-CASE /* UNIDADES */
-WHEN lnUnidades = 1 AND lnTerna = 1 THEN CONCAT('UNO ',lcCadena)
-WHEN lnUnidades = 1 AND lnTerna <> 1 THEN CONCAT('',lcCadena)
-WHEN lnUnidades = 2 THEN CONCAT('DOS ',lcCadena)
-WHEN lnUnidades = 3 THEN CONCAT('TRES ',lcCadena)
-WHEN lnUnidades = 4 THEN CONCAT('CUATRO ',lcCadena)
-WHEN lnUnidades = 5 THEN CONCAT('CINCO ',lcCadena)
-WHEN lnUnidades = 6 THEN CONCAT('SEIS ',lcCadena)
-WHEN lnUnidades = 7 THEN CONCAT('SIETE ',lcCadena)
-WHEN lnUnidades = 8 THEN CONCAT('OCHO ',lcCadena)
-WHEN lnUnidades = 9 THEN CONCAT('NUEVE ',lcCadena)
-ELSE lcCadena
-END ;/* UNIDADES */
--- Analizo las decenas
-SET lcCadena =
-CASE /* DECENAS */
-WHEN lnDecenas = 1 THEN
-CASE lnUnidades
-WHEN 0 THEN 'DIEZ '
-WHEN 1 THEN 'ONCE '
-WHEN 2 THEN 'DOCE '
-WHEN 3 THEN 'TRECE '
-WHEN 4 THEN 'CATORCE '
-WHEN 5 THEN 'QUINCE '
-ELSE CONCAT('DIECI',lcCadena)
-END
-WHEN lnDecenas = 2 AND lnUnidades = 0 THEN CONCAT('VEINTE ',lcCadena)
-WHEN lnDecenas = 2 AND lnUnidades <> 0 THEN CONCAT('VEINTI',lcCadena)
-WHEN lnDecenas = 3 AND lnUnidades = 0 THEN CONCAT('TREINTA ',lcCadena)
-WHEN lnDecenas = 3 AND lnUnidades <> 0 THEN CONCAT('TREINTA Y ',lcCadena)
-WHEN lnDecenas = 4 AND lnUnidades = 0 THEN CONCAT('CUARENTA ',lcCadena)
-WHEN lnDecenas = 4 AND lnUnidades <> 0 THEN CONCAT('CUARENTA Y ',lcCadena)
-WHEN lnDecenas = 5 AND lnUnidades = 0 THEN CONCAT('CINCUENTA ',lcCadena)
-WHEN lnDecenas = 5 AND lnUnidades <> 0 THEN CONCAT('CINCUENTA Y ',lcCadena)
-WHEN lnDecenas = 6 AND lnUnidades = 0 THEN CONCAT('SESENTA ',lcCadena)
-WHEN lnDecenas = 6 AND lnUnidades <> 0 THEN CONCAT('SESENTA Y ',lcCadena)
-WHEN lnDecenas = 7 AND lnUnidades = 0 THEN CONCAT('SETENTA ',lcCadena)
-WHEN lnDecenas = 7 AND lnUnidades <> 0 THEN CONCAT('SETENTA Y ',lcCadena)
-WHEN lnDecenas = 8 AND lnUnidades = 0 THEN CONCAT('OCHENTA ',lcCadena)
-WHEN lnDecenas = 8 AND lnUnidades <> 0 THEN CONCAT('OCHENTA Y ',lcCadena)
-WHEN lnDecenas = 9 AND lnUnidades = 0 THEN CONCAT('NOVENTA ',lcCadena)
-WHEN lnDecenas = 9 AND lnUnidades <> 0 THEN CONCAT('NOVENTA Y ',lcCadena)
-ELSE lcCadena
-END ;/* DECENAS */
--- Analizo las centenas
-SET lcCadena =
-CASE /* CENTENAS */
-WHEN lnCentenas = 1 AND lnUnidades = 0 AND lnDecenas = 0 THEN CONCAT('CIEN ',lcCadena)
-WHEN lnCentenas = 1 AND NOT(lnUnidades = 0 AND lnDecenas = 0) THEN CONCAT('CIENTO ',lcCadena)
-WHEN lnCentenas = 2 THEN CONCAT('DOSCIENTOS ',lcCadena)
-WHEN lnCentenas = 3 THEN CONCAT('TRESCIENTOS ',lcCadena)
-WHEN lnCentenas = 4 THEN CONCAT('CUATROCIENTOS ',lcCadena)
-WHEN lnCentenas = 5 THEN CONCAT('QUINIENTOS ',lcCadena)
-WHEN lnCentenas = 6 THEN CONCAT('SEISCIENTOS ',lcCadena)
-WHEN lnCentenas = 7 THEN CONCAT('SETECIENTOS ',lcCadena)
-WHEN lnCentenas = 8 THEN CONCAT('OCHOCIENTOS ',lcCadena)
-WHEN lnCentenas = 9 THEN CONCAT('NOVECIENTOS ',lcCadena)
-ELSE lcCadena
-END ;/* CENTENAS */
--- Analizo los millares
-SET lcCadena =
-CASE /* TERNA */
-WHEN lnTerna = 1 THEN lcCadena
-WHEN lnTerna = 2 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL ')
-WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' MILLON ')
-WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' MILLONES ')
-WHEN lnTerna = 4 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL MILLONES ')
-WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' BILLON ')
-WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' BILLONES ')
-WHEN lnTerna = 6 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL BILLONES ')
-WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' TRILLON ')
-WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' TRILLONES ')
-WHEN lnTerna = 8 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL TRILLONES ')
-ELSE ''
-END ;/* MILLARES */
--- Armo el retorno columna a columna
-SET lcRetorno = CONCAT(lcCadena,lcRetorno);
-SET lnTerna = lnTerna + 1;
-END WHILE ; /* WHILE */
-ELSE
-SET lcRetorno = 'CERO' ;
-END IF ;
-SELECT RTRIM(lcRetorno) ;
+BEGIN
+
+DECLARE lcRetorno VARCHAR(512);
+
+DECLARE lnTerna INT;
+
+DECLARE lcMiles VARCHAR(512);
+
+DECLARE lcCadena VARCHAR(512);
+
+DECLARE lnUnidades INT;
+
+DECLARE lnDecenas INT;
+
+DECLARE lnCentenas INT;
+
+IF lnEntero > 0 THEN
+
+SET lcRetorno = '';
+
+SET lnTerna = 1 ;
+
+WHILE lnEntero > 0 DO
+
+-- Recorro columna por columna
+
+SET lcCadena = '';
+
+SET lnUnidades = RIGHT(lnEntero,1);
+
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+
+SET lnDecenas = RIGHT(lnEntero,1);
+
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+
+SET lnCentenas = RIGHT(lnEntero,1);
+
+SET lnEntero = LEFT(lnEntero,LENGTH(lnEntero)-1) ;
+
+-- Analizo las unidades
+
+SET lcCadena =
+
+CASE /* UNIDADES */
+
+WHEN lnUnidades = 1 AND lnTerna = 1 THEN CONCAT('UNO ',lcCadena)
+
+WHEN lnUnidades = 1 AND lnTerna <> 1 THEN CONCAT('',lcCadena)
+
+WHEN lnUnidades = 2 THEN CONCAT('DOS ',lcCadena)
+
+WHEN lnUnidades = 3 THEN CONCAT('TRES ',lcCadena)
+
+WHEN lnUnidades = 4 THEN CONCAT('CUATRO ',lcCadena)
+
+WHEN lnUnidades = 5 THEN CONCAT('CINCO ',lcCadena)
+
+WHEN lnUnidades = 6 THEN CONCAT('SEIS ',lcCadena)
+
+WHEN lnUnidades = 7 THEN CONCAT('SIETE ',lcCadena)
+
+WHEN lnUnidades = 8 THEN CONCAT('OCHO ',lcCadena)
+
+WHEN lnUnidades = 9 THEN CONCAT('NUEVE ',lcCadena)
+
+ELSE lcCadena
+
+END ;/* UNIDADES */
+
+-- Analizo las decenas
+
+SET lcCadena =
+
+CASE /* DECENAS */
+
+WHEN lnDecenas = 1 THEN
+
+CASE lnUnidades
+
+WHEN 0 THEN 'DIEZ '
+
+WHEN 1 THEN 'ONCE '
+
+WHEN 2 THEN 'DOCE '
+
+WHEN 3 THEN 'TRECE '
+
+WHEN 4 THEN 'CATORCE '
+
+WHEN 5 THEN 'QUINCE '
+
+ELSE CONCAT('DIECI',lcCadena)
+
+END
+
+WHEN lnDecenas = 2 AND lnUnidades = 0 THEN CONCAT('VEINTE ',lcCadena)
+
+WHEN lnDecenas = 2 AND lnUnidades <> 0 THEN CONCAT('VEINTI',lcCadena)
+
+WHEN lnDecenas = 3 AND lnUnidades = 0 THEN CONCAT('TREINTA ',lcCadena)
+
+WHEN lnDecenas = 3 AND lnUnidades <> 0 THEN CONCAT('TREINTA Y ',lcCadena)
+
+WHEN lnDecenas = 4 AND lnUnidades = 0 THEN CONCAT('CUARENTA ',lcCadena)
+
+WHEN lnDecenas = 4 AND lnUnidades <> 0 THEN CONCAT('CUARENTA Y ',lcCadena)
+
+WHEN lnDecenas = 5 AND lnUnidades = 0 THEN CONCAT('CINCUENTA ',lcCadena)
+
+WHEN lnDecenas = 5 AND lnUnidades <> 0 THEN CONCAT('CINCUENTA Y ',lcCadena)
+
+WHEN lnDecenas = 6 AND lnUnidades = 0 THEN CONCAT('SESENTA ',lcCadena)
+
+WHEN lnDecenas = 6 AND lnUnidades <> 0 THEN CONCAT('SESENTA Y ',lcCadena)
+
+WHEN lnDecenas = 7 AND lnUnidades = 0 THEN CONCAT('SETENTA ',lcCadena)
+
+WHEN lnDecenas = 7 AND lnUnidades <> 0 THEN CONCAT('SETENTA Y ',lcCadena)
+
+WHEN lnDecenas = 8 AND lnUnidades = 0 THEN CONCAT('OCHENTA ',lcCadena)
+
+WHEN lnDecenas = 8 AND lnUnidades <> 0 THEN CONCAT('OCHENTA Y ',lcCadena)
+
+WHEN lnDecenas = 9 AND lnUnidades = 0 THEN CONCAT('NOVENTA ',lcCadena)
+
+WHEN lnDecenas = 9 AND lnUnidades <> 0 THEN CONCAT('NOVENTA Y ',lcCadena)
+
+ELSE lcCadena
+
+END ;/* DECENAS */
+
+-- Analizo las centenas
+
+SET lcCadena =
+
+CASE /* CENTENAS */
+
+WHEN lnCentenas = 1 AND lnUnidades = 0 AND lnDecenas = 0 THEN CONCAT('CIEN ',lcCadena)
+
+WHEN lnCentenas = 1 AND NOT(lnUnidades = 0 AND lnDecenas = 0) THEN CONCAT('CIENTO ',lcCadena)
+
+WHEN lnCentenas = 2 THEN CONCAT('DOSCIENTOS ',lcCadena)
+
+WHEN lnCentenas = 3 THEN CONCAT('TRESCIENTOS ',lcCadena)
+
+WHEN lnCentenas = 4 THEN CONCAT('CUATROCIENTOS ',lcCadena)
+
+WHEN lnCentenas = 5 THEN CONCAT('QUINIENTOS ',lcCadena)
+
+WHEN lnCentenas = 6 THEN CONCAT('SEISCIENTOS ',lcCadena)
+
+WHEN lnCentenas = 7 THEN CONCAT('SETECIENTOS ',lcCadena)
+
+WHEN lnCentenas = 8 THEN CONCAT('OCHOCIENTOS ',lcCadena)
+
+WHEN lnCentenas = 9 THEN CONCAT('NOVECIENTOS ',lcCadena)
+
+ELSE lcCadena
+
+END ;/* CENTENAS */
+
+-- Analizo los millares
+
+SET lcCadena =
+
+CASE /* TERNA */
+
+WHEN lnTerna = 1 THEN lcCadena
+
+WHEN lnTerna = 2 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL ')
+
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' MILLON ')
+
+WHEN lnTerna = 3 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' MILLONES ')
+
+WHEN lnTerna = 4 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL MILLONES ')
+
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' BILLON ')
+
+WHEN lnTerna = 5 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' BILLONES ')
+
+WHEN lnTerna = 6 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL BILLONES ')
+
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0 THEN CONCAT(lcCadena,' TRILLON ')
+
+WHEN lnTerna = 7 AND (lnUnidades + lnDecenas + lnCentenas <> 0) AND NOT (lnUnidades = 1 AND lnDecenas = 0 AND lnCentenas = 0) THEN CONCAT(lcCadena,' TRILLONES ')
+
+WHEN lnTerna = 8 AND (lnUnidades + lnDecenas + lnCentenas <> 0) THEN CONCAT(lcCadena,' MIL TRILLONES ')
+
+ELSE ''
+
+END ;/* MILLARES */
+
+-- Armo el retorno columna a columna
+
+SET lcRetorno = CONCAT(lcCadena,lcRetorno);
+
+SET lnTerna = lnTerna + 1;
+
+END WHILE ; /* WHILE */
+
+ELSE
+
+SET lcRetorno = 'CERO' ;
+
+END IF ;
+
+SELECT RTRIM(lcRetorno) ;
+
 END */$$
 DELIMITER ;
 
@@ -458,8 +621,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `obtener_id_producto`( in nro_plu_F int)
-BEGIN
-       select id_prod from producto where nro_plu=nro_plu_F;
+BEGIN
+
+       select id_prod from producto where nro_plu=nro_plu_F;
+
     END */$$
 DELIMITER ;
 
@@ -469,10 +634,13 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `producto_categoria`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `producto_categoria`(
+
 in cat bigint)
-BEGIN
-select * from producto where id_cat=cat;
+BEGIN
+
+select * from producto where id_cat=cat;
+
 END */$$
 DELIMITER ;
 
@@ -495,8 +663,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_estado1`()
-BEGIN
-select * from usuario_login where estado=1;
+BEGIN
+
+select * from usuario_login where estado=1;
+
 END */$$
 DELIMITER ;
 
